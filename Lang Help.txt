@@ -1,6 +1,10 @@
 - React
 
+	install vite in your terminal "npm install vite" first.
+	make sure node.js is installed.
+
 	https://www.youtube.com/watch?v=CgkZ7MvWUAA&t=9s
+
 
 - HTML & CSS
 	
