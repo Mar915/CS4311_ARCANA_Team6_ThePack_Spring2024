@@ -1,0 +1,9 @@
+- download node.js
+
+	https://www.youtube.com/watch?v=igJAD0J5Cts
+
+- download docker
+
+	https://www.youtube.com/watch?v=gAkwW2tuIqE
+
+	If we you get an WSL error its ok for right now im still figureing it out 
