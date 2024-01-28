@@ -1,8 +1,62 @@
-/* Bar at top of every menu */
-.bar{
+/* GUI Styling */
+.gui{
   
-  border: 1px solid hsl(0, 0%, 80%);
-  background-color: rgb(0, 80, 253);
-  
+  background-color: rgb(212, 212, 212);
+  display: block;
+  overflow: auto;
+}
 
+/* Navagation Bar Styling */
+.navigationBar{
+
+  height: 85px;
+  background-color: rgb(45, 94, 255);
+  
+}
+
+.viewMenuButton{
+  position: absolute;
+  right: 27.7%;
+  bottom: 92%;
+}
+
+.syncMenuButton{
+  position: absolute;
+  right: 17.3%;
+  bottom: 92%;
+}
+
+.manageMenuButton{
+  position: absolute;
+  right: 5%;
+  bottom: 92%;
+}
+
+.homeButton{
+  position: absolute;
+  right: 1%;
+  bottom: 92%;
+}
+
+.homeLogo{
+  width: 20px;
+  height: 20px;
+}
+
+
+/* Main Menu Styling */
+.manageProjects{
+  background-color: aliceblue;
+}
+
+.syncProjects{
+  background-color: aliceblue;
+}
+
+.viewLogs{
+  background-color: aliceblue;
+}
+
+.changeColor{
+  background-color: aliceblue;
 }
