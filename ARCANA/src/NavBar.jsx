@@ -1,13 +1,20 @@
+
+
 function NavBar(){
     return(
-        <header className="navigationBar">
-            ARCANA
-            
-            <button className="viewMenuButton">View Opened Project</button>
-            <button className="syncMenuButton">Sync Projects</button>
-            <button className="manageMenuButton">Manage Projects</button>
-            <button className="homeButton"><img className="homeLogo" src="/home.png" alt="housepng" /></button>
-        </header>
+        <div className="navBar">
+            <div className="nav-name">
+            <p>ARCANA</p>
+            </div>
+            <ul className="navMenu">
+
+                <li><a href="">View Opened Project</a></li>
+                <li><a href="">Sync Projects</a></li>
+                <li><a href="">Manage Projects</a></li>
+                <li><a href="">Home logo</a></li>
+
+            </ul>
+        </div>
     );
 }
 

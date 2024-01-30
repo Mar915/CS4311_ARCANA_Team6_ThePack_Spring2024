@@ -1,41 +1,29 @@
-/* GUI Styling */
-.gui{
-  
-  background-color: rgb(212, 212, 212);
-  display: block;
-  overflow: auto;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Navagation Bar Styling */
-.navigationBar{
+.navBar{
 
-  height: 85px;
-  background-color: rgb(45, 94, 255);
+  display: flex;
+  padding: 16px;
+  justify-content: space-around;
+  background-color: rgb(1, 67, 211);
+  color: azure;
+  /* a line to see where the div ends*/
+  box-shadow: 0 1px 3px -2px black;
   
 }
 
-.viewMenuButton{
-  position: absolute;
-  right: 27.7%;
-  bottom: 92%;
-}
-
-.syncMenuButton{
-  position: absolute;
-  right: 17.3%;
-  bottom: 92%;
-}
-
-.manageMenuButton{
-  position: absolute;
-  right: 5%;
-  bottom: 92%;
-}
-
-.homeButton{
-  position: absolute;
-  right: 1%;
-  bottom: 92%;
+.nav-name{
+  display: flex;
+  color: aliceblue;
+  position: relative;
+  left: -270px;
+  bottom: -65px;
+  font-size: x-large;
 }
 
 .homeLogo{
@@ -43,20 +31,56 @@
   height: 20px;
 }
 
+.navMenu{
+  text-align: left;
+  
+}
+
 
 /* Main Menu Styling */
+.mainMenu{
+  background-color: rgb(190, 190, 190);
+}
 .manageProjects{
   background-color: aliceblue;
+  padding: 25px;
+  margin: 25px;
+  
 }
 
 .syncProjects{
   background-color: aliceblue;
+  padding: 25px;
+  margin: 25px;
 }
 
 .viewLogs{
   background-color: aliceblue;
+  padding: 25px;
+  margin: 25px;
 }
 
-.changeColor{
+.changeWC{
   background-color: aliceblue;
+  padding: 25px;
+  margin: 25px;
+}
+
+
+/* Change Website Color Menu Styling */
+
+.changeColorMenu{
+  background-color: rgb(146, 146, 146);
+}
+
+.colorBox{
+  padding: 25px;
+  margin: 25px;
+  background-color: rgb(230, 230, 230);
+
+}
+
+.saveButton{
+  text-align: center;
+
 }

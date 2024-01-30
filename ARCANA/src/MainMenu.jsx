@@ -7,19 +7,19 @@ function MainMenu(){
             <h1>Main Menu</h1>
 
             <div className="manageProjects">
-                <p>Manage Projects</p>
+                <a href="">Manage Projects</a>
             </div>
 
             <div className="syncProjects">
-                <p>Sync Projects</p>
+                <a href="">Sync Projects</a>
             </div>
 
             <div className="viewLogs">
-                <p>View User Activity Logs</p>
+                <a href="">View User Activity Logs</a>
             </div>
 
-            <div className="changeColor">
-                <p>Change Website Color</p>
+            <div className="changeWC">
+                <a href="">Change Website Color</a>
             </div>
 
         </body>
