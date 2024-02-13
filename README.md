@@ -1,4 +1,22 @@
 # ARCANA
+## Set Up
+- MongoDB install
+  - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
+
+- React
+  - Install vite in your terminal "npm install vite" first.
+    * Make sure node.js is installed.
+      - https://www.youtube.com/watch?v=CgkZ7MvWUAA&t=9s
+
+- HTML & CSS
+  - https://www.youtube.com/watch?v=HGTJBPNC-Gw&t=2s
+
+- Download node.js
+  - https://www.youtube.com/watch?v=igJAD0J5Cts
+
+- Download docker
+  - https://www.youtube.com/watch?v=gAkwW2tuIqE
+	  - If we you get an WSL error it's ok for right now we are still working on it.
 
 ## Getting Started
 
