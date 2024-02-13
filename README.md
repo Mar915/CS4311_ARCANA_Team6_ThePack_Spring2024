@@ -1,60 +1,24 @@
-# ARCANA
-## Set Up
-- MongoDB install
-  - https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/
+# Getting Started with ARCANA application
 
-- React
-  - Install vite in your terminal "npm install vite" first.
-    * Make sure node.js is installed.
-      - https://www.youtube.com/watch?v=CgkZ7MvWUAA&t=9s
+## Available Scripts
 
-- HTML & CSS
-  - https://www.youtube.com/watch?v=HGTJBPNC-Gw&t=2s
+You may also see any lint errors in the console.
+### `npm test`
+Launches the test runner in the interactive watch mode.\
 
-- Download node.js
-  - https://www.youtube.com/watch?v=igJAD0J5Cts
+### `npm run build`
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- Download docker
-  - https://www.youtube.com/watch?v=gAkwW2tuIqE
-	  - If we you get an WSL error it's ok for right now we are still working on it.
+In the project directory, you can run:
+### `npm start`
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Getting Started
+Everytime it's saved the page will reload when you make changes.\
+Command + S for iOS -- Ctrl + S for Windows
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-### Prerequisites
-
-Before running the application, you will need the following:
-
-- Node.js
-- npm (comes with Node.js)
-
-### Installing
-
-Follow these steps to get your development environment running:
-
-1. Clone the repository to your local machine:
-
-```bash
-git clone https://github.com/Mar915/SW2-ARCANA.git
-```
-
-#### Run the application
-- Install the require dependencies
-
-```bash
-npm install
-```
-
-- Start the development server
-```bash
-npm start
-```
-- The application will run on you local host 'http://localhost:3000'
-
-##### Deployment
-- To create a production build use:
-```bash
-npm run build
-```
 
