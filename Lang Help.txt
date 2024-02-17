@@ -5,7 +5,20 @@
 
 	https://www.youtube.com/watch?v=CgkZ7MvWUAA&t=9s
 
+	.js and .jsx files can be used they just need to be imported into the top of the App.jsx file
+	i recommend to use .jsx file just so its uniformed
+
+	**components folder is needed for GUI**
+		- Components are like objects of the GUI ex: "navagation bar" = NavBar.jsx, "footer" = Footer.jsx
+		- you will need to import the .jsx files in the App.jsx code to use those components
+
+	React Icons:
+	https://react-icons.github.io/react-icons/
+	 
+
 
 - HTML & CSS
 	
 	https://www.youtube.com/watch?v=HGTJBPNC-Gw&t=2s
+	
+	HTML: padding helps shape the component

@@ -1,0 +1,26 @@
+DB dependencies documentation:
+
+Connect MongoDB to react tutorial:
+https://www.youtube.com/watch?v=SV0o0qOmKOQ
+
+MongoDB Compass:
+
+- DB credentials
+   user: team6
+   password: TeamSix123
+
+	mongodb+srv://team6:TeamSix123@cluster0.2dsmb77.mongodb.net/
+
+
+
+Express:
+
+
+
+
+
+
+Mongoose:
+   - https://mongoosejs.com/docs/guide.html
+   - https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+   - https://www.geeksforgeeks.org/mongoose-queries/
