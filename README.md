@@ -8,6 +8,16 @@
     * Make sure node.js is installed.
       - https://www.youtube.com/watch?v=CgkZ7MvWUAA&t=9s
 
+- Flask
+  - If you don't have a tool to handle your python environment, use
+      pip install flask
+    in your virtual environment
+
+- Pymongo
+  - If you don't have a tool to handle your python environment, use
+      pip install pymongo
+    in your virtual environment
+
 - HTML & CSS
   - https://www.youtube.com/watch?v=HGTJBPNC-Gw&t=2s
 
@@ -28,6 +38,9 @@ Before running the application, you will need the following:
 
 - Node.js
 - npm (comes with Node.js)
+- Flask
+- PyMongo
+- Environment to run Python
 
 ### Installing
 
@@ -51,6 +64,13 @@ npm install
 npm start
 ```
 - The application will run on you local host 'http://localhost:3000'
+
+#### Starting up the backend
+- Use this command in the environment where you have python
+
+  flask --app ARCANA run
+
+- http://127.0.0.1:5000 is the port that backend will run on 
 
 ##### Deployment
 - To create a production build use:
