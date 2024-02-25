@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import request
 from ProjectsManager import ProjectsManager
+import json
 
 app = Flask(__name__)
 
@@ -26,7 +27,20 @@ def createProject():      # Going to assume it will be a dictionary given, will 
     pm.createProject(form)
     
    
+@app.route("/deleteProject/<projectName>")
+def deleteProject(projectName = None):
+    pm = ProjectsManager()
+    pm.deleteProject(projectName)
 
+@app.route("/openProject/<projectName>")
+def openProject(projectName = None):
+    pm = ProjectsManager()
+    events = pm.openProject(projectName)
+
+    jevents = json.dumps(events)    # Really hoping this will make the list interpretable by front end
+                                    # If not, I will deal with it when we get there.
+
+    return jevents
 
 
 

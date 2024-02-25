@@ -46,3 +46,13 @@ class ProjectsManager:
         self.dbprl[name].insert_one({'name': name, 'initials': initials, 'location' : location, 'startDate' : startDate, 'endDate' : endDate})
 
         #No need to create the object here, as the next time ProjectsManager is initialized, it will make the objects
+
+    def deleteProject(self, projName):
+        # All we need is to call this function to get rid of the specified project in the database
+        # Should probably ask for confirmation since we can't bring this bad boy back
+        self.dbprl.drop_collection(projName)
+
+    def openProject(self, projName):
+        # Basic idea is to return a list of dictionaries 
+        return self.dbprl[projName].find({})
+        # Really hoping this returns only documents and not the sub collections as well
