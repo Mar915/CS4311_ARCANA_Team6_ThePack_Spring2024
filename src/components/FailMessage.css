@@ -1,0 +1,19 @@
+.fail-message {
+  background-color: #edd4d4;
+  color: #571515;
+  padding: 0.75rem 1.25rem;
+  margin: 1rem 0;
+  border: 1px solid #e6c3c3;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #571515;
+  font-weight: bold;
+  cursor: pointer;
+}
