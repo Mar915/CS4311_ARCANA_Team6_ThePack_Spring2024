@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import jsonify
 from ProjectsManager import ProjectsManager
 import json
 
@@ -22,7 +23,8 @@ def ingestLogs(projectName = None, directory = None):
 @app.route("/showProjects")
 def showProjects():
     pm = ProjectsManager()
-    return pm.dprl.find({})
+    projects = jsonify(pm.dprl.find({}))
+    return projects
 
 @app.route("/createProject", methods = ['GET', 'POST'])
 def createProject():      # Going to assume it will be a dictionary given, will update when necessary
@@ -42,7 +44,7 @@ def openProject(projectName = None):
     pm = ProjectsManager()
     events = pm.openProject(projectName)
 
-    jevents = json.dumps(events)    # Really hoping this will make the list interpretable by front end
+    jevents = jsonify(events)    # Really hoping this will make the list interpretable by front end
                                     # If not, I will deal with it when we get there.
 
     return jevents
