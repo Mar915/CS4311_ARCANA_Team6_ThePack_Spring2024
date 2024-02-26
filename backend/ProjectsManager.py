@@ -28,7 +28,7 @@ class ProjectsManager:
     # Kind of self-explanatory
     # We just need feed the reference to the specific project collection and a directory for this bad boy to work
     def ingestLogs(self, projName, directory):
-        ingestor = LogIngestor.LogIngestor(self.dbprl[projName])
+        ingestor = LogIngestor.LogIngestor(self.db['projectRepList'][projName])
         errors, eventRepList = ingestor.traverseFiles(directory)
         print(errors)
         print("Events created: ", len(eventRepList))

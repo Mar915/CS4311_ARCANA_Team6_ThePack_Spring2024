@@ -12,10 +12,20 @@ CORS(app)
 # ProjectsManager initializes itself with a reference to the database, so we just need to give it
 # the project name and directory of files to ingest logs
 
-@app.route("/ingestLogs/<projectName>/<directory>")
-def ingestLogs(projectName = None, directory = None):
+@app.route("/ingestLogs", methods = ['GET', 'POST'] )
+def ingestLogs():
+    if request.method == 'POST':
+        data = request.json
+        directory = data['logFile']
+    
+    resp = jsonify({'result' : 'success'})
     projectManager = ProjectsManager()
-    projectManager.ingestLogs(projectName, directory)
+
+    # Goind to hardcode the projectname variable here since we don't have a select function yet
+    # but I need the project name for functionality
+    projectManager.ingestLogs('DemoTest', directory)
+    return resp
+
 
 
 

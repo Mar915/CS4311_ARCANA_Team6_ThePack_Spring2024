@@ -20,7 +20,7 @@ const IngestLogsPage = ({ open, onClose }) => {
         }
 
         try {
-            //await axios.post('/ingestLogs/<projectName>/<directory>', data)
+            await axios.post('http://localhost:5000/ingestLogs', data)
             console.log(data)
             setShowSuccess(true);
         } 

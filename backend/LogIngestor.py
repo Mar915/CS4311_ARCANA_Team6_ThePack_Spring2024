@@ -27,7 +27,7 @@ class LogIngestor:
         events = []
         for event in log:
             #Can't parse posture
-            rep = EventRepresenter.EventRepresenter(event[6], event[4], event[2], event[3], event[5], "", event[7], event[1], event[0] )
+            rep = EventRepresenter(event[6], event[4], event[2], event[3], event[5], "", event[7], event[1], event[0] )
             events.append(rep)
 
 
@@ -60,7 +60,7 @@ class LogIngestor:
         errors = ""
         if not os.path.isdir(directory):
             errors = "Directory given does not exist or could not be found"
-            return errors
+            raise Exception("Directory given does not exist or could not be found", directory)
         dates = os.listdir(directory)
 
         for folder in dates:
@@ -71,6 +71,7 @@ class LogIngestor:
                 if color == "white":        #Only grabbing analyst logs
                     for initial in os.listdir(colorDir):
                         eventRepList = eventRepList + (self.parseFiles(colorDir+"/"+initial))
+
         return errors, eventRepList
 
             
