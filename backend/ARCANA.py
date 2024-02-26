@@ -1,10 +1,12 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
+from flask_cors import CORS
 from ProjectsManager import ProjectsManager
-import json
+
 
 app = Flask(__name__)
+CORS(app)
 
 
 # ProjectsManager initializes itself with a reference to the database, so we just need to give it
@@ -29,9 +31,11 @@ def showProjects():
 @app.route("/createProject", methods = ['GET', 'POST'])
 def createProject():      # Going to assume it will be a dictionary given, will update when necessary
     if request.method == 'POST':
-        form = request.form
+        data = request.json
     pm = ProjectsManager()
-    pm.createProject(form)
+    pm.createProject(data)
+    resp = jsonify({'some' : 'data'})
+    return resp
     
    
 @app.route("/deleteProject/<projectName>")

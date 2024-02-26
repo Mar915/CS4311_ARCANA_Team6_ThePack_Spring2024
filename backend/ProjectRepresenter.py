@@ -14,7 +14,7 @@ class ProjectRepresenter:
         self.toaManager = TOAManager()
         self.ingestedFiles = self.pullIngested(proj['ingestedFiles'])
 
-    def pullIngested(ingestedList):
+    def pullIngested(self, ingestedList):
         files = []
         ingested = ingestedList.find({})      # getting everything in the ingested collection
         for f in ingested:
