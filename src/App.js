@@ -5,6 +5,7 @@ import MainMenu from './components/MainMenu';
 import ChangeColorPage from './components/ChangeColorPage'; // Import the new component
 import './App.css';
 import ManageProjectPage from './components/ManageProjectPage';
+import TempProjectPage from './components/TempProjectPage';
 
 function App() {
   // State to track which menu or page should be displayed
@@ -20,7 +21,8 @@ function App() {
       <NavBar navigateTo={navigateTo} />
       {currentPage === 'mainMenu' && <MainMenu navigateTo={navigateTo} />}
       {currentPage === 'changeColor' && <ChangeColorPage />}
-      {currentPage == 'manageProjects' && <ManageProjectPage />}
+      {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
+      {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo}/>}
     </div>
   );
 }

@@ -35,10 +35,32 @@
   }
   
 .proj-list-container {
-    max-width: 500px;
-    height: 100px;
+    max-width: 600px;
+    height: 300px;
     margin: 2rem auto;
     padding: 1rem;
     background-color: #eee;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: auto;
+}
+
+.proj-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.proj-li  {
+    border-color: darkgray;
+    border-style: outset;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.proj-li:hover {
+    background-color: darkgray;
+}
+
+.proj-li.selected {
+    background-color: darkgray;
 }
