@@ -14,7 +14,7 @@ const DeleteProjectPage = ({ open, onClose, project }) => {
         try {
             event.preventDefault()
             // Attempting use axios.delete
-            await axios.delete(`http://localhost:5000/deleteProject/${project.projName}`)
+            await axios.post(`http://localhost:5000/deleteProject`, project)
             console.log(project)
             setShowSuccess(true);
         } 
