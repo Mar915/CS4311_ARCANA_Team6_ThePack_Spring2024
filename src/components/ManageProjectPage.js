@@ -21,6 +21,7 @@ function ManageProjectPage({ navigateTo }) {
                 if (response.ok) {
                     const data = await response.json();
                     setProjects(data)
+                    console.log(projects)
                 }
                 else {
                     console.log("FAIL")
@@ -29,6 +30,8 @@ function ManageProjectPage({ navigateTo }) {
             }
             catch (e) {
                 console.log("FAIL")
+                console.log(projects)        //verifying fetch actually failed
+               // console.error('Error:', e);  //added so I can see exactly what the issue is
                 setShowFail(true);
             }
         }

@@ -32,11 +32,21 @@ def ingestLogs():
 # Needs a form on the front end to be sent. This is why I am using POST method from flask
 # Other than that, this function just creates a collection in the db and inserts a document with info
     
-@app.route("/showProjects")
+@app.route("/showProjects", methods = ['GET', 'POST'])
 def showProjects():
-    pm = ProjectsManager()
-    projects = jsonify(pm.dprl.find({}))
-    return projects
+    if request.method == 'POST':
+        pm = ProjectsManager()
+        projects = jsonify(pm.db['ProjectRepList'].find({}))
+        return projects
+    elif request.method == 'GET':
+        pm = ProjectsManager()
+        projects = list(pm.db['projectRepList'].find({}))
+        for p in projects:
+            p['_id'] = 'NaN'
+            p['projName'] = p['name']
+        #projects = projects[0]
+        return jsonify(projects)
+        
 
 @app.route("/createProject", methods = ['GET', 'POST'])
 def createProject():      # Going to assume it will be a dictionary given, will update when necessary

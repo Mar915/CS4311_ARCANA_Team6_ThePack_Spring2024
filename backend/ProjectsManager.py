@@ -21,6 +21,7 @@ class ProjectsManager:
 
         # Going through the list given and making an object for each one so we can manipulate them later
         for p in dbprojects:
+            #print(p)
             name = p['name']
             temp = ProjectRepresenter(name, p['initials'], p['location'], p['startDate'], p['endDate'], projectCollection[name] )
             projects.append(temp)
