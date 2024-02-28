@@ -1,8 +1,8 @@
 import React from 'react';
 
-function TempProjectPage({navigateTo}) {
+function TempProjectPage({navigateTo, project}) {
     return(
-        <p>You opened a project!</p>
+        <p>You opened {project}!</p>
     );
 }
 

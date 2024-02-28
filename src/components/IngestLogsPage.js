@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const IngestLogsPage = ({ open, onClose }) => {
+const IngestLogsPage = ({ open, onClose, project }) => {
     const [logFile, setLogFile] = useState('')
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
@@ -16,7 +16,7 @@ const IngestLogsPage = ({ open, onClose }) => {
     const ingestLog = async (event) => {
         event.preventDefault()
         const data = {
-            logFile
+            logFile, project
         }
 
         try {

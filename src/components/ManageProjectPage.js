@@ -13,7 +13,7 @@ function ManageProjectPage({ navigateTo }) {
     const [showFail, setShowFail] = useState(false)
     const [projects, setProjects] = useState([])
     const [selectProject, setSelectProject] = useState(null)
-
+    
     useEffect(() => {
         const displayProject = async () => {
             try {
@@ -21,16 +21,16 @@ function ManageProjectPage({ navigateTo }) {
                 if (response.ok) {
                     const data = await response.json();
                     setProjects(data)
-                    console.log(projects)
+                    // console.log(data)
                 }
                 else {
-                    console.log("FAIL")
+                    // console.log("FAIL")
                     setShowFail(true);
                 }
             }
             catch (e) {
-                console.log("FAIL")
-                console.log(projects)        //verifying fetch actually failed
+                // console.log("FAIL")
+                // console.log(data)        //verifying fetch actually failed
                // console.error('Error:', e);  //added so I can see exactly what the issue is
                 setShowFail(true);
             }
@@ -63,18 +63,6 @@ function ManageProjectPage({ navigateTo }) {
                         <li key={project.projName} className={`proj-li ${selectProject === project ? 'selected' : ''}`}  onClick={() => selectLiProject(project)}>Project {project.projName}</li>
                     )) }
                     <li className={`proj-li ${selectProject === 'Project A' ? 'selected' : ''}`} key="Project A" onClick={() => selectLiProject("Project A"/*project*/)}>Project A</li>
-                    <li className={`proj-li ${selectProject === 'Project B' ? 'selected' : ''}`} onClick={() => selectLiProject("Project B"/*project*/)}>Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
-                    <li className="proj-li">Project B</li>
                 </ul>
                 {(showFail && (
                     <FailMessage
@@ -84,11 +72,11 @@ function ManageProjectPage({ navigateTo }) {
                   ))}
             </div>
             <div className="proj-option-buttons">
-                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Ingest Logs</button>
-                <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)}></IngestLogsPage>
+                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Injest Logs</button>
+                <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>
-                <button className="open-proj-button" onClick={() => navigateTo('tempProjectPage')}>Open Project</button>
+                <button className="open-proj-button" onClick={() => navigateTo('tempProjectPage', selectProject)}>Open Project</button>
             </div>
         </div>
     );

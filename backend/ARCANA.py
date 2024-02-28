@@ -17,13 +17,14 @@ def ingestLogs():
     if request.method == 'POST':
         data = request.json
         directory = data['logFile']
+        project = data['project']['projName']
     
     resp = jsonify({'result' : 'success'})
     projectManager = ProjectsManager()
 
     # Goind to hardcode the projectname variable here since we don't have a select function yet
     # but I need the project name for functionality
-    projectManager.ingestLogs('DemoTest', directory)
+    projectManager.ingestLogs(project, directory)
     return resp
 
 
@@ -58,10 +59,16 @@ def createProject():      # Going to assume it will be a dictionary given, will 
     return resp
     
    
-@app.route("/deleteProject/<projectName>")
-def deleteProject(projectName = None):
+@app.route("/deleteProject", methods = ['GET', 'POST'])
+def deleteProject():
+    if request.method == 'POST':
+        data = request.json
+
     pm = ProjectsManager()
-    pm.deleteProject(projectName)
+    pm.deleteProject(data['projName'])
+    resp = jsonify({'result' : 'success'})
+    return resp
+   
 
 @app.route("/openProject/<projectName>")
 def openProject(projectName = None):
