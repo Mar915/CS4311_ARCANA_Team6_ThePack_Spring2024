@@ -6,6 +6,8 @@ import FailMessage from './FailMessage';
 // [TO DO]: Change project to project.projName
 const DeleteProjectPage = ({ open, onClose, project }) => {
     const [showSuccess, setShowSuccess] = useState(false);
+    const [showFail, setShowFail] = useState(false);
+
     if (!open) {
         return null
     }
@@ -15,7 +17,7 @@ const DeleteProjectPage = ({ open, onClose, project }) => {
             event.preventDefault()
             // Attempting use axios.delete
             await axios.post(`http://localhost:5000/deleteProject`, project)
-            console.log(project)
+            console.log(project.projName)
             setShowSuccess(true);
         } 
         catch (error) {

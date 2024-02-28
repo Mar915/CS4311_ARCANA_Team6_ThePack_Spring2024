@@ -13,6 +13,7 @@ function ManageProjectPage({ navigateTo }) {
     const [showFail, setShowFail] = useState(false)
     const [projects, setProjects] = useState([])
     const [selectProject, setSelectProject] = useState(null)
+    
 
     useEffect(() => {
         const displayProject = async () => {

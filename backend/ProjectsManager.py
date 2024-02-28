@@ -51,8 +51,12 @@ class ProjectsManager:
 
     def deleteProject(self, projName):
         # All we need is to call this function to get rid of the specified project in the database
+        # It deletes the project document in the projectRepList, and its two collections 
         # Should probably ask for confirmation since we can't bring this bad boy back
-        self.db.drop_collection(projName)
+        self.db['projectRepList'].delete_one({'name' : projName})  # Deletes the document based on projName
+        target = self.db['projectRepList'][projName] #
+        target['ingestedFiles'].drop()
+        target['eventRepList'].drop()
 
     def openProject(self, projName):
         # Basic idea is to return a list of dictionaries 
