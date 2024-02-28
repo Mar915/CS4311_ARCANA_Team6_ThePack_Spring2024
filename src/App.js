@@ -10,10 +10,13 @@ import TempProjectPage from './components/TempProjectPage';
 function App() {
   // State to track which menu or page should be displayed
   const [currentPage, setCurrentPage] = useState('mainMenu');
+  // State to track project to pass
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // Function to change the current page
-  const navigateTo = (page) => {
+  const navigateTo = (page, project) => {
     setCurrentPage(page);
+    setSelectedProject(project)
   };
 
   return (
@@ -22,7 +25,8 @@ function App() {
       {currentPage === 'mainMenu' && <MainMenu navigateTo={navigateTo} />}
       {currentPage === 'changeColor' && <ChangeColorPage />}
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
-      {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo}/>}
+      {/* [TO DO]: Switch route to event page */}
+      {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
     </div>
   );
 }
