@@ -1,0 +1,24 @@
+/* NavBar.css */
+/*Top navigation bar*/
+.navbar {
+    background-color: #f0f0f0; /*#f0f0f0 This was the previous color, can be changed for desing purposes*/
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /*ARCANA title*/
+  .navbar-title {
+    font-size: 30px;
+    color: #333;
+  }
+  
+  /*Navigation bar buttons*/
+  .navbar-button {
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 20px;
+  }

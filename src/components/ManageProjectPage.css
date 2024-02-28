@@ -1,0 +1,66 @@
+.manage-project-page {
+    max-width: 600px;
+    margin: 10rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.proj-option-buttons {
+    display: inline-block;
+}
+
+.inject-proj-button,
+.delete-proj-button,
+.open-proj-button, .create-proj-button  {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    cursor: pointer;
+    
+    transition: background-color 0.3s;
+}
+
+.create-proj-button {
+    z-index: -1;
+}
+
+.inject-proj-button:hover,
+.delete-proj-button:hover,
+.open-proj-button:hover,
+.create-proj-button:hover {
+    background-color: #0056b3;
+  }
+  
+.proj-list-container {
+    max-width: 600px;
+    height: 300px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #eee;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: auto;
+}
+
+.proj-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.proj-li  {
+    border-color: darkgray;
+    border-style: outset;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.proj-li:hover {
+    background-color: darkgray;
+}
+
+.proj-li.selected {
+    background-color: darkgray;
+}

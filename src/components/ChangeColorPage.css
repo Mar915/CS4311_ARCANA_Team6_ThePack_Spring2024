@@ -1,0 +1,44 @@
+/* ChangeColorPage.css */
+.change-color-page {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.color-options {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.color-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.color-option input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+.save-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
