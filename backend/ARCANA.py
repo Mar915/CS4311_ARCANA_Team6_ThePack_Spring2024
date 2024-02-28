@@ -45,7 +45,6 @@ def showProjects():
         for p in projects:
             p['_id'] = 'NaN'
             p['projName'] = p['name']
-        #projects = projects[0]
         return jsonify(projects)
         
 
@@ -70,13 +69,15 @@ def deleteProject():
     return resp
    
 
-@app.route("/openProject/<projectName>")
-def openProject(projectName = None):
-    pm = ProjectsManager()
-    events = pm.openProject(projectName)
+@app.route("/openProject", methods = ['GET', 'POST'])
+def openProject():
+    if request.method == 'POST':
+        data = request.json
 
-    jevents = jsonify(events)    # Really hoping this will make the list interpretable by front end
-                                    # If not, I will deal with it when we get there.
+    pm = ProjectsManager()
+    events = pm.openProject(data['projName'])
+
+    jevents = jsonify(events)    
 
     return jevents
 

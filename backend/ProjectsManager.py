@@ -60,5 +60,11 @@ class ProjectsManager:
 
     def openProject(self, projName):
         # Basic idea is to return a list of dictionaries 
-        return self.db[projName].find({})
+        events = []
+        dbEvents = self.db['projectRepList'][projName]['eventRepList'].find()
+        for e in dbEvents:
+            e['_id'] = "NaN"
+            events.append(e)
+        
+        return events
         # Really hoping this returns only documents and not the sub collections as well
