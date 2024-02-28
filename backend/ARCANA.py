@@ -58,10 +58,13 @@ def createProject():      # Going to assume it will be a dictionary given, will 
     return resp
     
    
-@app.route("/deleteProject/<projectName>")
+@app.route("/deleteProject/", methods = ['GET', 'POST'])
 def deleteProject(projectName = None):
-    pm = ProjectsManager()
-    pm.deleteProject(projectName)
+    if request.method == 'POST':
+        pm = ProjectsManager()
+        resp = pm.deleteProject(projectName.projName)
+        return resp
+   
 
 @app.route("/openProject/<projectName>")
 def openProject(projectName = None):
