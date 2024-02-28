@@ -85,7 +85,7 @@ function ManageProjectPage({ navigateTo }) {
             </div>
             <div className="proj-option-buttons">
                 <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Injest Logs</button>
-                <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)}></IngestLogsPage>
+                <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>
                 <button className="open-proj-button" onClick={() => navigateTo('tempProjectPage')}>Open Project</button>
