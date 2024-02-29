@@ -81,6 +81,31 @@ def openProject():
 
     return jevents
 
+@app.route("/showEvents", methods = ['GET', 'POST'])
+def showEvents():
+    # This function should return a list of events
+    # I think openProject already does this so don't work on this method unless
+    # we get hard confirmation it is needed
+
+@app.route("/deleteEvent", methods = ['GET', 'POST'])
+def deleteEvent():
+    # This function is expecting to receive a json object
+    # that contains some unique identifier for events (stil TBD)
+    # It needs to find that event in the database and delete it
+
+@app.route("/updateEvent", methods = ['GET', 'POST'])
+def updateEvent():
+    # This function is expecting to receive a json object
+    # that contains the unique identifier AND has something like this
+    # { 'id' = 'something', 'posture' : '', team : 'blue'  }
+    # Anything left blank '' will not be changed, anything with info will be changed
+
+@app.route("/createEvent", methods = ['GET', 'POST'])
+def createEvent():
+    # This function is expecting to receive a json object
+    # that will have all the fields needed to create an event
+    # reminder that you access it like thihs data['location']
+
 
 
 # http://127.0.0.1:5000 is the port that backend will run on 
