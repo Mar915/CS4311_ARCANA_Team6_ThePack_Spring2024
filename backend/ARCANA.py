@@ -3,7 +3,7 @@ from flask import request
 from flask import jsonify
 from flask_cors import CORS
 from ProjectsManager import ProjectsManager
-
+from EventsManager import EventsManager
 
 app = Flask(__name__)
 CORS(app)
@@ -92,6 +92,14 @@ def deleteEvent():
     # This function is expecting to receive a json object
     # that contains some unique identifier for events (stil TBD)
     # It needs to find that event in the database and delete it
+    if request.method == 'POST':
+        data = request.json
+
+    # event to delete should be accessed by eventID (srs: pg107 under #3, pg115 under 'Event'in data dictionary)
+    em = EventsManager(data['id'])
+    em.deleteEvent()
+    resp = jsonify({'result' : 'success'})
+    return resp
 
 @app.route("/updateEvent", methods = ['GET', 'POST'])
 def updateEvent():

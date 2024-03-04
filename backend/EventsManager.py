@@ -15,4 +15,13 @@ class EventsManager:
             tempList.append(temp)
         return tempList
     
+    def deleteEvent(self, eventID):
+
+        # SRS data containers to update: events (updates event list), user activity logs (event deleted log),
+        # archived events (deleted events), undo activity information (event deletion information)
+
+        self.db[self.projName]['eventRepList'].delete_one({'id' : eventID})
+
+
+    
 

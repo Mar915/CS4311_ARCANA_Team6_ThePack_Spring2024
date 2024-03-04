@@ -1,6 +1,7 @@
 
 class EventRepresenter:
     def __init__(self, initials ="", team ="", sourceHost = "", targetHostList = "", location = "", posture = "", vectorID = "", description = "", timestamp = "", dataSource = ""):
+        #self.eventID = id
         self.initials = initials
         self.team = team
         self.sourceHost = sourceHost
