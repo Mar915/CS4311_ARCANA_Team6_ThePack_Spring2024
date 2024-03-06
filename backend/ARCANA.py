@@ -3,6 +3,7 @@ from flask import request
 from flask import jsonify
 from flask_cors import CORS
 from ProjectsManager import ProjectsManager
+from EventsManager import EventsManager
 
 
 app = Flask(__name__)
@@ -28,11 +29,33 @@ def ingestLogs():
     return resp
 
 
+@app.route("/updateevent", methods = ['GET', 'POST'])
+def updateEvent():
+
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    eM.updateEvent(data['prevEvent'], data['actualEvent'])
+
+
+@app.route("/createEvent", methods = ['GET', 'POST'])
+def createEvent():
+
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    eM.createEvent(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
 
 
 # Needs a form on the front end to be sent. This is why I am using POST method from flask
 # Other than that, this function just creates a collection in the db and inserts a document with info
-    
+
+
 @app.route("/showProjects", methods = ['GET', 'POST'])
 def showProjects():
     if request.method == 'POST':
@@ -80,6 +103,7 @@ def openProject():
     jevents = jsonify(events)    
 
     return jevents
+
 
 
 
