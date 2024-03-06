@@ -6,7 +6,7 @@ import ChangeColorPage from './components/ChangeColorPage'; // Import the new co
 import './App.css';
 import ManageProjectPage from './components/ManageProjectPage';
 import TempProjectPage from './components/TempProjectPage';
-
+import viewLogs from './components/viewLogs';
 function App() {
   // State to track which menu or page should be displayed
   const [currentPage, setCurrentPage] = useState('mainMenu');
@@ -25,7 +25,9 @@ function App() {
       {currentPage === 'mainMenu' && <MainMenu navigateTo={navigateTo} />}
       {currentPage === 'changeColor' && <ChangeColorPage />}
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
-      {/* [TO DO]: Switch route to event page */}
+      {currentPage === 'viewLogs' && <viewLogs navigateTo={navigateTo} />}
+
+     {/* [TO DO]: Switch route to event page */}
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
     </div>
   );
