@@ -44,7 +44,7 @@ function ChangeColorPage() {
             checked={colorScheme === 'monochromatic'}
             onChange={() => handleColorChange('monochromatic')}
           />
-          Monochromatic Color Scheme *Recommended for users with color blindness
+          Monochromatic Color Scheme (*Recommended for users with color blindness*)
         </label>
       </div>
       <button className="save-button" onClick={saveColorScheme}>Save</button>
