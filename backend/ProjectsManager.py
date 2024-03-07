@@ -1,14 +1,12 @@
-import LogIngestor
 from ProjectRepresenter import ProjectRepresenter
-import pymongo
+from LocalDatabase import Database
 
 class ProjectsManager:
 
     # We want ProjectsManager to be self-sufficient and the big boss of the entire operation
     # That is why we gave it the uri for the server, so it can take care of itself and be reliable
     def __init__(self):
-        self.uri = "mongodb+srv://stevecruz2014:sTYuxN9fUv5KF17m@team6arcana.wdmxzy3.mongodb.net/?retryWrites=true&w=majority"
-        self.db = pymongo.MongoClient(self.uri)['arcana']
+        self.db = Database().getRef()
         self.projRepList = self.pullProjects(self.db['projectRepList'])
         self.colorScheme = "default"
 
@@ -26,14 +24,7 @@ class ProjectsManager:
             temp = ProjectRepresenter(name, p['initials'], p['location'], p['startDate'], p['endDate'], projectCollection[name] )
             projects.append(temp)
 
-    # Kind of self-explanatory
-    # We just need feed the reference to the specific project collection and a directory for this bad boy to work
-    def ingestLogs(self, projName, directory):
-        ingestor = LogIngestor.LogIngestor(self.db['projectRepList'][projName])
-        errors, eventRepList = ingestor.traverseFiles(directory)
-        print(errors)
-        print("Events created: ", len(eventRepList))
-
+    
     # Only used to make a new project and make space for it in the db, no objects are made here
     def createProject(self, data):
 
@@ -42,10 +33,16 @@ class ProjectsManager:
         location = data['projLocation']
         startDate = data['projStartDate']
         endDate = data['projEndDate']
+    
+        # Checking if project with that name already exists
+        projects = self.db['projectRepList'].find()
+        for p in projects:
+            if name == p['name']:
+                dup = True
 
-
-        #inserting the document to the project collection
-        self.db['projectRepList'].insert_one({'name': name, 'initials': initials, 'location' : location, 'startDate' : startDate, 'endDate' : endDate})
+        #inserting the document to the project collection IF not a duplicate name
+        if not dup:
+            self.db['projectRepList'].insert_one({'name': name, 'initials': initials, 'location' : location, 'startDate' : startDate, 'endDate' : endDate})
 
         #No need to create the object here, as the next time ProjectsManager is initialized, it will make the objects
 

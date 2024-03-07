@@ -1,6 +1,7 @@
 
 class EventRepresenter:
-    def __init__(self, initials ="", team ="", sourceHost = "", targetHostList = "", location = "", posture = "", vectorID = "", description = "", timestamp = ""):
+    def __init__(self, initials ="", team ="", sourceHost = "", targetHostList = "", location = "", posture = "", vectorID = "", description = "", timestamp = "", dataSource = ""):
+        #self.eventID = id
         self.initials = initials
         self.team = team
         self.sourceHost = sourceHost
@@ -10,7 +11,17 @@ class EventRepresenter:
         self.vectorID = vectorID
         self.description = description
         self.timestamp = timestamp
-        self.malformed = False
+        self.isMalformed = self.checkMalformed()
+        self.dataSource = dataSource
+        self.icon = ""
+        self.actionTitle = ""
+        # We are expecting the ProjectRepresenter to make the TOA Manager assign default icons to
+        # every event when it is pulled on initialization
+
+    def checkMalformed(self):
+        attributes = [self.initials, self.team, self.sourceHost, self.targetHostList, self.location, self.vectorID]
+        attributes = attributes + [self.description, self.timestamp]
+        for a in attributes:
+            if a == "":
+                return True
     
-    def isMalformed(self):
-        self.isMalformed = True

@@ -5,7 +5,6 @@ from flask_cors import CORS
 from ProjectsManager import ProjectsManager
 from EventsManager import EventsManager
 
-
 app = Flask(__name__)
 CORS(app)
 
@@ -103,6 +102,39 @@ def openProject():
     jevents = jsonify(events)    
 
     return jevents
+
+@app.route("/showEvents", methods = ['GET', 'POST'])
+def showEvents():
+    # This function should return a list of events
+    # I think openProject already does this so don't work on this method unless
+    # we get hard confirmation it is needed
+
+@app.route("/deleteEvent", methods = ['GET', 'POST'])
+def deleteEvent():
+    # This function is expecting to receive a json object
+    # that contains some unique identifier for events (stil TBD)
+    # It needs to find that event in the database and delete it
+    if request.method == 'POST':
+        data = request.json
+
+    # event to delete should be accessed by eventID (srs: pg107 under #3, pg115 under 'Event'in data dictionary)
+    em = EventsManager(data['id'])
+    em.deleteEvent()
+    resp = jsonify({'result' : 'success'})
+    return resp
+
+@app.route("/updateEvent", methods = ['GET', 'POST'])
+def updateEvent():
+    # This function is expecting to receive a json object
+    # that contains the unique identifier AND has something like this
+    # { 'id' = 'something', 'posture' : '', team : 'blue'  }
+    # Anything left blank '' will not be changed, anything with info will be changed
+
+@app.route("/createEvent", methods = ['GET', 'POST'])
+def createEvent():
+    # This function is expecting to receive a json object
+    # that will have all the fields needed to create an event
+    # reminder that you access it like thihs data['location']
 
 
 

@@ -1,18 +1,28 @@
-import LogIngestor
 from EventRepresenter import EventRepresenter
-import pymongo
-
+from TOAManager import TOAMananger
 class EventsManager:
+    def __init__(self, db, projName):
+        self.db = db
+        self.projName = projName
+        self.eventList = self.pullEvents()
 
-    def __int__(self):
-        self.temp = 0
+    def pullEvents(self):
+        events = self.db[self.projName]['eventRepList'].find()
+        tempList = []
+        for e in events:
+            temp = EventRepresenter(e['initials'], e['team'], e['sourceHost'], e['targetHostList'], e['location'], e['posture'], e['vectorID'], e['description'], e['timestamp'], e['dataSource'])
+            # Here is where Im going to implement the TOAManager changes
+            tempList.append(temp)
+        return tempList
+    
+    def deleteEvent(self, eventID):
 
-    def EventsManager(self):
-        self.x = 0
+        # SRS data containers to update: events (updates event list), user activity logs (event deleted log),
+        # archived events (deleted events), undo activity information (event deletion information)
+
+        self.db[self.projName]['eventRepList'].delete_one({'id' : eventID})
 
 
-    def createEvent(self, data):
-        self.temp = 0
+    
 
-    def updateEvent(self, prevEvent, actualEvent):
-        self.temp = 0
+
