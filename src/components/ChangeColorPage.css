@@ -1,34 +1,63 @@
 /* ChangeColorPage.css */
+/*Block page*/
 .change-color-page {
-  max-width: 600px;
+  max-width: 668px;
   margin: 2rem auto;
   padding: 1rem;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+/*Tittle*/
 h1 {
   text-align: center;
   color: #333;
 }
 
+/*Options aligment*/
 .color-options {
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
 }
 
-.color-option {
+/*Options aligment container*/
+.color-option-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 1rem;
 }
 
+.color-option {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: right;
+  align-items: flex-start;
+}
+
 .color-option input[type="radio"] {
-  margin-right: 0.5rem;
+  margin-top: 0.2rem;
+  margin-right: 0.5rem; /* Added space between radio button and label text */
+}
+
+.color-preview {
+  height: 2rem; /* Height of the color preview */
+  width: 50px; /* Width of the color preview */
+  border: 1px solid #ddd; /* A light border around the color preview */
+  border-radius: 4px; /* Slightly rounded corners for the color preview */
+  margin-left: 1rem; /* Space between the label and the color preview */
+}
+
+.color-option input[type="radio"]:checked + .color-preview {
+}
+
+.selected-color-preview {
+  border: 2px solid #000509;
 }
 
 .save-button {
+  font-size: 25px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -42,3 +71,16 @@ h1 {
 .save-button:hover {
   background-color: #0056b3;
 }
+
+.monochromatic {
+  background-color: #e0e0e0; /* A light grey background */
+  color: #333; /* Dark grey text */
+}
+
+.monochromatic a, 
+.monochromatic button {
+  background-color: #ccc; /* Darker grey for interactive elements */
+  color: #000; /* Black text */
+}
+
+
