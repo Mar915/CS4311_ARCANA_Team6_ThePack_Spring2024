@@ -109,6 +109,17 @@ def showEvents():
     # I think openProject already does this so don't work on this method unless
     # we get hard confirmation it is needed
 
+    # No worries, going to do it anyway, just in case
+
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    temp = eM.pullEvents()
+
+    return temp
+
+
 @app.route("/deleteEvent", methods = ['GET', 'POST'])
 def deleteEvent():
     # This function is expecting to receive a json object
@@ -130,12 +141,31 @@ def updateEvent():
     # { 'id' = 'something', 'posture' : '', team : 'blue'  }
     # Anything left blank '' will not be changed, anything with info will be changed
 
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    eM.updateEvent(data)
+
+    response = jsonify({'some': 'data'})
+    return response
+
 @app.route("/createEvent", methods = ['GET', 'POST'])
 def createEvent():
     # This function is expecting to receive a json object
     # that will have all the fields needed to create an event
     # reminder that you access it like thihs data['location']
 
+    # Assuming it has called attributes
+
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    eM.createEvent(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
 
 
 
