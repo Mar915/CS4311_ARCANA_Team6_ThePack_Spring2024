@@ -34,8 +34,8 @@ function createEvent(){
         </div>
         
         <div class = "posture-info">
-        <label for="posture">Posture:</label>
-        <input type="text" id="posture" name="posture" placeholder="">
+            <label for="posture">Posture:</label>
+            <input type="text" id="posture" name="posture" placeholder="">
         </div>
         
         <div class = "location-info">
@@ -58,13 +58,9 @@ function createEvent(){
             <input type="text" id="target" name="target" placeholder="0.0.0.0, 0.0.0.1">
         </div>
 
-        <div class = "description-info">
-            <label for="description">Description<span class = "required">*</span>:</label>
-            <input type="text" id="description" name="description" placeholder="Description">
-        </div>
-
-        <div class="container">
-        <i class="fas fa-user-secret anonymous-icon"></i>
+        <div class="icon-info">
+            <label for="icon">Event Node Icon<span class = "required">*</span>:</label>
+            <i class="fas fa-solid fa-user anonymous-icon"></i>
         </div>
         
         <div>
