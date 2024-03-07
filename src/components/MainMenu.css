@@ -1,23 +1,31 @@
 /* MainMenu.css */
 .main-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #ffffff;
-    padding: 250px;
-    width: 450px; /* Adjust width as needed */
+    padding: auto;
+    height: 90vh;
+    width: 650px;
     margin: auto;
-  }
+}
   
-  /*Menu styling*/
-  .menu-option {
-    display: block;
-    width: 100%; 
-    padding: 10px;
-    margin: 10px 0;
+/* Menu styling */
+.menu-option {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    width: 80%;
+    padding: 35px;
+    margin: 20px 0;
     border: 2px solid #000000;
-    background-color: #f9f9f9; 
+    background-color: #f9f9f9;
     cursor: pointer;
-    text-align: middle;
-  }
+}
   
-  h1 {
+h1 {
     text-align: center;
-  }
+}
