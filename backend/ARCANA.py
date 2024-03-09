@@ -28,28 +28,6 @@ def ingestLogs():
     return resp
 
 
-@app.route("/updateevent", methods = ['GET', 'POST'])
-def updateEvent():
-
-    if request.method == 'POST':
-        data = request.json
-
-    eM = EventsManager()
-    eM.updateEvent(data['prevEvent'], data['actualEvent'])
-
-
-@app.route("/createEvent", methods = ['GET', 'POST'])
-def createEvent():
-
-    if request.method == 'POST':
-        data = request.json
-
-    eM = EventsManager()
-    eM.createEvent(data)
-
-    response = jsonify({'some' : 'data'})
-    return response
-
 
 # Needs a form on the front end to be sent. This is why I am using POST method from flask
 # Other than that, this function just creates a collection in the db and inserts a document with info
@@ -129,8 +107,8 @@ def deleteEvent():
         data = request.json
 
     # event to delete should be accessed by eventID (srs: pg107 under #3, pg115 under 'Event'in data dictionary)
-    em = EventsManager(data['id'])
-    em.deleteEvent()
+    em = EventsManager()
+    em.deleteEvent(data['id'])
     resp = jsonify({'result' : 'success'})
     return resp
 
