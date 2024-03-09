@@ -7,28 +7,28 @@ class EventsManager:
         self.eventList = self.pullEvents()
 
     def createEvent(self, data):
-        temp = EventRepresenter(data['initials'], data['team'], data['sourceHost'], data['targetHostList'], data['location'], data['posture'], data['vectorID'], data['description'], data['timestamp'], data['dataSource'])
-        self.db.append(temp)
+        self.db[self.projName]['eventRepList'].insert_one(data)
+        # Reference LogIngestor Upload Events
 
     def updateEvent(self, newData):
-
         # Assuming newData is an EventRepresenter obj
-        temp = self.pullEvents()
+        eventsDB = self.db[self.projName]['eventRepList']
+        query = {'id' : newData['id']}
+        changes = {}
+        for item in newData:
+            if item != 'id':
+                if newData[item] != '':
+                    changes[item] = newData[item] 
 
-        for ev in temp:
+        newValues = {'$set' : changes}
+        eventsDB.update_one(query, newValues)
 
-            if ev['id'] == newData['id']:
-
-                for i in range(len(ev.attrToList())):
-
-                    if ev[i] != '':
-                        ev[i] = newData[i]
 
     def pullEvents(self):
         events = self.db[self.projName]['eventRepList'].find()
         tempList = []
         for e in events:
-            temp = EventRepresenter(e['initials'], e['team'], e['sourceHost'], e['targetHostList'], e['location'], e['posture'], e['vectorID'], e['description'], e['timestamp'], e['dataSource'])
+            temp = EventRepresenter(e['id'], e['initials'], e['team'], e['sourceHost'], e['targetHostList'], e['location'], e['posture'], e['vectorID'], e['description'], e['timestamp'], e['dataSource'])
             # Here is where Im going to implement the TOAManager changes
             tempList.append(temp)
         return tempList

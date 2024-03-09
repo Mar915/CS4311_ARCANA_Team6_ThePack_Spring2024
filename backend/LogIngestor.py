@@ -27,7 +27,7 @@ class LogIngestor:
         events = []
         for event in log:
             #Can't parse posture
-            rep = EventRepresenter(event[6], event[4], event[2], event[3], event[5], "", event[7], event[1], event[0], dataSource )
+            rep = EventRepresenter((event[0] + event[1]),event[6], event[4], event[2], event[3], event[5], "", event[7], event[1], event[0], dataSource )
             events.append(rep)
 
 
@@ -36,7 +36,7 @@ class LogIngestor:
     def uploadEvents(self, log, dataSource):
         events = []
         for event in log:
-            rep = {'initials' : event[6], 'team' : event[4], 'sourceHost' : event[2], 'targetHostList' : event[3], 'location' : event[5], 'posture' : "", 'vectorID' : event[7], 'description' : event[1], 'timestamp' : event[0], 'dataSource' : dataSource}
+            rep = {'id': (event[0] + event[1]), 'initials' : event[6], 'team' : event[4], 'sourceHost' : event[2], 'targetHostList' : event[3], 'location' : event[5], 'posture' : "", 'vectorID' : event[7], 'description' : event[1], 'timestamp' : event[0], 'dataSource' : dataSource}
             events.append(rep)
 
         self.eventList.insert_many(events)
