@@ -28,28 +28,6 @@ def ingestLogs():
     return resp
 
 
-@app.route("/updateevent", methods = ['GET', 'POST'])
-def updateEvent():
-
-    if request.method == 'POST':
-        data = request.json
-
-    eM = EventsManager()
-    eM.updateEvent(data['prevEvent'], data['actualEvent'])
-
-
-@app.route("/createEvent", methods = ['GET', 'POST'])
-def createEvent():
-
-    if request.method == 'POST':
-        data = request.json
-
-    eM = EventsManager()
-    eM.createEvent(data)
-
-    response = jsonify({'some' : 'data'})
-    return response
-
 
 # Needs a form on the front end to be sent. This is why I am using POST method from flask
 # Other than that, this function just creates a collection in the db and inserts a document with info
@@ -109,6 +87,17 @@ def showEvents():
     # I think openProject already does this so don't work on this method unless
     # we get hard confirmation it is needed
 
+    # No worries, going to do it anyway, just in case
+
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    temp = eM.pullEvents()
+
+    return temp
+
+
 @app.route("/deleteEvent", methods = ['GET', 'POST'])
 def deleteEvent():
     # This function is expecting to receive a json object
@@ -118,8 +107,8 @@ def deleteEvent():
         data = request.json
 
     # event to delete should be accessed by eventID (srs: pg107 under #3, pg115 under 'Event'in data dictionary)
-    em = EventsManager(data['id'])
-    em.deleteEvent()
+    em = EventsManager()
+    em.deleteEvent(data['id'])
     resp = jsonify({'result' : 'success'})
     return resp
 
@@ -130,12 +119,31 @@ def updateEvent():
     # { 'id' = 'something', 'posture' : '', team : 'blue'  }
     # Anything left blank '' will not be changed, anything with info will be changed
 
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    eM.updateEvent(data)
+
+    response = jsonify({'some': 'data'})
+    return response
+
 @app.route("/createEvent", methods = ['GET', 'POST'])
 def createEvent():
     # This function is expecting to receive a json object
     # that will have all the fields needed to create an event
     # reminder that you access it like thihs data['location']
 
+    # Assuming it has called attributes
+
+    if request.method == 'POST':
+        data = request.json
+
+    eM = EventsManager()
+    eM.createEvent(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
 
 
 
