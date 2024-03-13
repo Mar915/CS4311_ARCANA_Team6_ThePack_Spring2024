@@ -1,0 +1,2 @@
+<button className="edit-events-button" onClick={() => setOpenEditModal((true))}>+ Edit Events</button>
+            <EditEventsPage open={openModalEdit} onClose={() => setOpenEditModal(false)}></EditEventsPage>

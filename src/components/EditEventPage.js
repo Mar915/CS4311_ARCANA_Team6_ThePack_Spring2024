@@ -115,13 +115,13 @@ const EditEventPage = ({ open, onClose, project }) => {
                     </label>
                     {/* [TO DO]: Add Icon Selector */}
                     <label>
-                        Auto edit Edges
+                        Auto Edit Edges
                         <br></br>
                         <input type="checkbox" name="event-auto" checked={eventAuto} onChange={() => {setEventAuto(!eventAuto)}}/>
                     </label>
                     <br></br>
                     <button className="cancel-event-button" onClick={onClose}>Cancel</button>
-                    <input type="submit" value="edit Event" className="edit-event-confirm-button"/>
+                    <input type="submit" value="Edit Event" className="edit-event-confirm-button"/>
                     {(showSuccess && (
                 <SuccessMessage
                   message={'Success: Event was editd'}

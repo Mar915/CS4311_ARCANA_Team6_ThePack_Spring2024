@@ -6,6 +6,7 @@ import DeleteProjectPage from './DeleteProjectPage';
 import FailMessage from './FailMessage';
 
 
+
 function ManageProjectPage({ navigateTo }) {
     const [openModalCreate, setOpenCreateModal] = useState(false)
     const [openModalIngest, setOpenIngestModal] = useState(false)
@@ -76,7 +77,7 @@ function ManageProjectPage({ navigateTo }) {
                 <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>
-                <button className="open-proj-button" onClick={() => navigateTo('tempProjectPage', selectProject)}>Open Project</button>
+                <button className="open-proj-button" onClick={() => navigateTo('manageEventPage')}>Open Project</button>
             </div>
         </div>
     );
