@@ -117,7 +117,7 @@ function ManageEventPage({ navigateTo }) {
                     </thead>
                     <tbody>
                     {events.map((event, index) => (
-                            <tr key={index} className={selectEvent === event ? 'selected' : ''} onClick={() => selectRowEvent(event)}>
+                            <tr key={index} className={`event-li ${selectEvent === event ? 'selected' : ''}`} onClick={() => selectRowEvent(event)}>
                                 <td>{event.malformed}</td>
                                 <td>{event.timestamp}</td>
                                 <td>{event.initials}</td>
