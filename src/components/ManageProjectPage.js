@@ -22,7 +22,7 @@ function ManageProjectPage({ navigateTo }) {
                 if (response.ok) {
                     const data = await response.json();
                     setProjects(data)
-                    // console.log(data)
+                    console.log(data)
                 }
                 else {
                     // console.log("FAIL")
@@ -73,7 +73,7 @@ function ManageProjectPage({ navigateTo }) {
                   ))}
             </div>
             <div className="proj-option-buttons">
-                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Injest Logs</button>
+                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Ingest Logs</button>
                 <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>

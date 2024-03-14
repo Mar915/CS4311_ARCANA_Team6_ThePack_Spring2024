@@ -35,6 +35,8 @@ class EventRepresenter:
         attributes = [self.initials, self.team, self.sourceHost, self.targetHostList, self.location, self.vectorID]
         attributes = attributes + [self.description, self.timestamp]
         for a in attributes:
-            if a == "":
+            if a == "nan" or a == 'NaN':
                 return True
+        
+        return False
     

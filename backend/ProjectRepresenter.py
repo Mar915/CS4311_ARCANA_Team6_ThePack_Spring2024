@@ -5,7 +5,7 @@ from LogIngestor import LogIngestor
 from LocalDatabase import Database
 
 class ProjectRepresenter:
-    def __init__(self, name, initials, location, startDate, endDate, proj):
+    def __init__(self, name, initials, location, startDate, endDate):
         self.name = name
         self.initials = initials
         self.location = location
@@ -13,8 +13,8 @@ class ProjectRepresenter:
         self.endDate = endDate
         self.eventGraphManager = EventGraphManager()
         self.toaManager = TOAManager()
-        self.ingestedFiles = self.pullIngested(proj['ingestedFiles'])
         self.db = Database().getRef()
+        self.ingestedFiles = self.pullIngested(self.db[name]['ingestedFiles'])
         self.eventsManager = EventsManager(self.db, self.name)
 
     def pullIngested(self, ingestedList):
