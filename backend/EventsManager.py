@@ -1,5 +1,5 @@
 from EventRepresenter import EventRepresenter
-from TOAManager import TOAMananger
+from TOAManager import TOAManager
 class EventsManager:
     def __init__(self, db, projName):
         self.db = db

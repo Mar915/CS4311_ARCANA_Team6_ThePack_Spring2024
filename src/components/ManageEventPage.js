@@ -58,7 +58,8 @@ function ManageEventPage({ navigateTo }) {
     useEffect(() => {
         const displayEvent = async () => {
             try {
-                const response = await fetch('http://localhost:5000/showEvents');
+                // TO DO: change this fetch to a post that gives the backend the project name
+                const response = await fetch('http://localhost:5000/openProject');
                 if (response.ok) {
                     const data = await response.json();
                     setEvents(data)
