@@ -31,7 +31,7 @@ function App() {
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
       {currentPage === 'syncProjects' && <SyncConnectionPage navigateTo={navigateTo} />}
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
-      {currentPage === 'manageEventPage' && <ManageEventPage navigateTo={navigateTo} />}
+      {currentPage === 'manageEventPage' && <ManageEventPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'syncMenuPage' && <SyncMenuPage navigateTo={navigateTo} />}
       {currentPage === 'editEventPage' && <EditEventPage navigateTo={navigateTo} />}
       {/* [TO DO]: Switch route to event page */}

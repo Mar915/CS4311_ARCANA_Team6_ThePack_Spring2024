@@ -6,7 +6,7 @@ import DeleteProjectPage from './DeleteProjectPage';
 import FailMessage from './FailMessage';
 import axios from 'axios';
 
-function ManageEventPage({ navigateTo }) {
+function ManageEventPage({ navigateTo, project }) {
     const [openModalCreate, setOpenCreateModal] = useState(false)
     const [openModalIngest, setOpenIngestModal] = useState(false)
     const [openModalDelete, setOpenDeleteModal] = useState(false)
@@ -86,6 +86,7 @@ function ManageEventPage({ navigateTo }) {
 
     const selectRowEvent = (event) => {
         console.log(event)
+        console.log(project)
         setSelectEvent(event)
     }
 

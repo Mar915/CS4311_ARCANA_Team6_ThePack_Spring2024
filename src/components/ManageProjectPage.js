@@ -77,7 +77,7 @@ function ManageProjectPage({ navigateTo }) {
                 <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>
-                <button className="open-proj-button" onClick={() => navigateTo('manageEventPage')}>Open Project</button>
+                <button className="open-proj-button" onClick={() => navigateTo('manageEventPage', selectProject)}>Open Project</button>
             </div>
         </div>
     );
