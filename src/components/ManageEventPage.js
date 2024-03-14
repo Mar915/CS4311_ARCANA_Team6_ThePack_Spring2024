@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ManageEventPage.css';
-import CreateProjectPage from './CreateProjectPage';
+import CreateEventPage from './CreateEventPage';
 import EditEvent from './EditEventPage';
 import DeleteProjectPage from './DeleteProjectPage';
 import FailMessage from './FailMessage';
@@ -97,7 +97,7 @@ function ManageEventPage({ navigateTo }) {
             <h1 className="event-header">Manage Events</h1>
             </div>
             <button className="create-event-button" onClick={() => setOpenCreateModal((true))}>+ Create Event</button>
-            <CreateProjectPage open={openModalCreate} onClose={() => setOpenCreateModal(false)}></CreateProjectPage>
+            <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)}></CreateEventPage>
             <div className="event-list-container">
             <table className="event-list">
                     <thead>

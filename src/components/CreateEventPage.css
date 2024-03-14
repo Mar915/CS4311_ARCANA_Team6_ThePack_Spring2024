@@ -1,0 +1,75 @@
+.create-event-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.create-event-modal {
+    max-width: 800px;
+    width: 60%;
+    height: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* display: flex; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.close-button-create-event {
+    position: fixed;
+    top: 8px;
+    right: 16px
+}
+
+.create-event-form {
+    height: 100%;
+    display: inline-block;
+}
+
+.asterisk {
+    color: red;
+    font-weight: bold;
+}
+
+.required {
+    color: lightgray;
+}
+
+.start-end-buttons {
+    display: inline-block;
+}
+
+.cancel-event-button, .create-event-confirm-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    margin-bottom: 0;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-event-button:hover, .create-event-confirm-button:hover {
+    background-color: #0056b3;
+  }
+
+  input[name="event-date"],
+  input[name="event-time"],
+  input[name="event-initials"],
+  select[name="event-team"],
+  input[name="event-posture"],
+  input[name="event-location"],
+  input[name="event-vector"],
+  input[name="event-source"],
+  input[name="event-host"],
+  input[name="event-description"] {
+    padding: 5px 10px;
+    margin: 1px 0;
+    box-sizing: border-box;
+    width: 100%;
+  }
