@@ -6,14 +6,14 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.proj-option-buttons {
+.event-option-buttons {
     display: inline-block;
 }
 
-.inject-proj-button,
-.delete-proj-button,
-.open-proj-button,
-.create-proj-button {
+.inject-event-button,
+.delete-event-button,
+.open-event-button,
+.create-event-button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -23,18 +23,18 @@
     transition: background-color 0.3s;
 }
 
-.create-proj-button {
+.create-event-button {
     z-index: -1;
 }
 
-.inject-proj-button:hover,
-.delete-proj-button:hover,
-.open-proj-button:hover,
-.create-proj-button:hover {
+.inject-event-button:hover,
+.delete-event-button:hover,
+.open-event-button:hover,
+.create-event-button:hover {
     background-color: #0056b3;
 }
 
-.proj-list-container {
+.event-list-container {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 1rem;
@@ -44,24 +44,24 @@
     overflow-y: auto;
 }
 
-.proj-list {
+.event-list {
     border-collapse: collapse;
     width: 100%;
 }
 
-.proj-list th, .proj-list td {
+.event-list th, .event-list td {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-.proj-list th {
+.event-list th {
     background-color: #f2f2f2;
 }
 
-.proj-li:hover {
+.event-li:hover {
     background-color: darkgray;
 }
 
-.proj-li.selected {
+.event-li.selected {
     background-color: darkgray;
 }

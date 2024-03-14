@@ -93,13 +93,13 @@ function ManageEventPage({ navigateTo }) {
 
     return (
         <div className="manage-Event-page"> 
-            <div className="proj-header-container">
-            <h1 className="proj-header">Manage Events</h1>
+            <div className="event-header-container">
+            <h1 className="event-header">Manage Events</h1>
             </div>
-            <button className="create-proj-button" onClick={() => setOpenCreateModal((true))}>+ Create Event</button>
+            <button className="create-event-button" onClick={() => setOpenCreateModal((true))}>+ Create Event</button>
             <CreateProjectPage open={openModalCreate} onClose={() => setOpenCreateModal(false)}></CreateProjectPage>
-            <div className="proj-list-container">
-            <table className="proj-list">
+            <div className="event-list-container">
+            <table className="event-list">
                     <thead>
                         <tr>
                             <th>Malformed</th>
@@ -140,10 +140,10 @@ function ManageEventPage({ navigateTo }) {
                     />
                 )}
             </div>
-            <div className="proj-option-buttons">
-                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
+            <div className="event-option-buttons">
+                <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
                 <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectEvent}></EditEvent>
-                <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
+                <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectEvent}></DeleteProjectPage>
             </div>
         </div>
