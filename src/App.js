@@ -5,7 +5,11 @@ import MainMenu from './components/MainMenu';
 import ChangeColorPage from './components/ChangeColorPage'; // Import the new component
 import './App.css';
 import ManageProjectPage from './components/ManageProjectPage';
+import ManageEventPage from './components/ManageEventPage';
 import TempProjectPage from './components/TempProjectPage';
+import SyncConnectionPage from './components/SyncConnectionPage';
+import SyncMenuPage from './components/SyncMenuPage';
+import EditEventPage from './components/EditEventPage';
 
 function App() {
   // State to track which menu or page should be displayed
@@ -25,8 +29,12 @@ function App() {
       {currentPage === 'mainMenu' && <MainMenu navigateTo={navigateTo} />}
       {currentPage === 'changeColor' && <ChangeColorPage />}
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
-      {/* [TO DO]: Switch route to event page */}
+      {currentPage === 'syncProjects' && <SyncConnectionPage navigateTo={navigateTo} />}
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
+      {currentPage === 'manageEventPage' && <ManageEventPage navigateTo={navigateTo} />}
+      {currentPage === 'syncMenuPage' && <SyncMenuPage navigateTo={navigateTo} />}
+      {currentPage === 'editEventPage' && <EditEventPage navigateTo={navigateTo} />}
+      {/* [TO DO]: Switch route to event page */}
     </div>
   );
 }
