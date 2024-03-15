@@ -9,7 +9,7 @@ class EventsManager:
     def createEvent(self, data):
         rep = {}
         rep['isMalformed'] = 'False'
-        storedEvents = list(self.db[self.projName]['eventRepList'].find())
+        storedEvents = list(self.db['projectRepList'][self.projName]['eventRepList'].find())
         rep['id'] = str(len(storedEvents) + 1)
         rep['initials'] = data['eventInitials']
         rep['team'] = data['eventTeam']
@@ -22,7 +22,7 @@ class EventsManager:
         rep['timestamp'] = str(data['eventDate']) + " " + str(data['eventTime'])
         rep['dataSource'] = 'User Created'
 
-        self.db[self.projName]['eventRepList'].insert_one(rep)
+        self.db['projectRepList'][self.projName]['eventRepList'].insert_one(rep)
         
 
 

@@ -66,7 +66,7 @@ function ManageEventPage({ navigateTo, project }) {
             <h1 className="event-header">Manage Events</h1>
             </div>
             <button className="create-event-button" onClick={() => setOpenCreateModal((true))}>+ Create Event</button>
-            <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)}></CreateEventPage>
+            <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)} project = {project}></CreateEventPage>
             <div className="event-list-container">
             <table className="event-list">
                     <thead>

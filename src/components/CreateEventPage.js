@@ -29,7 +29,7 @@ const CreateEventPage = ({ open, onClose, project }) => {
             eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
         }
 
-        console.log(data)
+        //console.log(data)
 
         try {
             // [TO DO]: Change to how event function is actually set up
