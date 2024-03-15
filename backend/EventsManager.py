@@ -7,9 +7,26 @@ class EventsManager:
         self.eventList = self.pullEvents()
 
     def createEvent(self, data):
-        self.db[self.projName]['eventRepList'].insert_one(data)
-        # Reference LogIngestor Upload Events
+        rep = {}
+        rep['isMalformed'] = 'False'
+        storedEvents = list(self.db[self.projName]['eventRepList'].find())
+        rep['id'] = str(len(storedEvents) + 1)
+        rep['initials'] = data['eventInitials']
+        rep['team'] = data['eventTeam']
+        rep['sourceHost'] = data['eventSource']
+        rep['targetHostList'] = data['parsedHost']
+        rep['location'] = data['eventLocation']
+        rep['posture'] = data['eventPosture']
+        rep['vectorID'] = data['eventVector']
+        rep['description'] = data['eventDescription']
+        rep['timestamp'] = str(data['eventDate']) + " " + str(data['eventTime'])
+        rep['dataSource'] = 'User Created'
 
+        self.db[self.projName]['eventRepList'].insert_one(rep)
+        
+
+
+    # How data is sent from front end
     #const data = {
     #        eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto
     #    }

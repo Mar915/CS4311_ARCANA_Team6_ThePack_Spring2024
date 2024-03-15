@@ -26,7 +26,7 @@ const CreateEventPage = ({ open, onClose, project }) => {
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
         }
 
         console.log(data)

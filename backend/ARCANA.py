@@ -5,6 +5,7 @@ from flask_cors import CORS
 from ProjectsManager import ProjectsManager
 from ProjectRepresenter import ProjectRepresenter
 from EventsManager import EventsManager
+from LocalDatabase import Database
 
 app = Flask(__name__)
 CORS(app)
@@ -139,11 +140,12 @@ def createEvent():
     # reminder that you access it like thihs data['location']
 
     # Assuming it has called attributes
-
+    db = Database()
     if request.method == 'POST':
         data = request.json
 
-    eM = EventsManager()
+    project = data['project']
+    eM = EventsManager(db.getRef(), project['projName'])
     eM.createEvent(data)
 
     response = jsonify({'some' : 'data'})
