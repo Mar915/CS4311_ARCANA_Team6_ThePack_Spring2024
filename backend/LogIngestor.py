@@ -24,11 +24,13 @@ class LogIngestor:
             self.ingested.insert_one({'file' : file})
 
     def createEvents(self, log, dataSource):   #Log should be in the form of a 2D array
+        startID = len(list(self.eventList.find())) + 1
         events = []
         for event in log:
             #Can't parse posture
-            rep = EventRepresenter((str(event[0]) + str(event[1])), str(event[6]), str(event[4]), str(event[2]), str(event[3]), str(event[5]), "", str(event[7]), str(event[1]), str(event[0]), dataSource )
+            rep = EventRepresenter(startID, str(event[6]), str(event[4]), str(event[2]), str(event[3]), str(event[5]), "", str(event[7]), str(event[1]), str(event[0]), dataSource )
             events.append(rep)
+            startID += 1
         self.uploadEvents(events)
 
         return events

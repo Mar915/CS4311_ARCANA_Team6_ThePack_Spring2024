@@ -10,6 +10,11 @@ class EventsManager:
         self.db[self.projName]['eventRepList'].insert_one(data)
         # Reference LogIngestor Upload Events
 
+    #const data = {
+    #        eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto
+    #    }
+    
+    
     def updateEvent(self, newData):
         # Assuming newData is an EventRepresenter obj
         eventsDB = self.db[self.projName]['eventRepList']

@@ -33,7 +33,7 @@ const CreateEventPage = ({ open, onClose, project }) => {
 
         try {
             // [TO DO]: Change to how event function is actually set up
-            await axios.post('http://localhost:5000/createEvent', data)
+            await axios.post('http://127.0.0.1:5000/createEvent', data)
             console.log(data)
             setShowSuccess(true);
         } 

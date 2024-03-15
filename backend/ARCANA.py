@@ -47,6 +47,8 @@ def showProjects():
             p['_id'] = 'NaN'
             p['projName'] = p['name']
         return jsonify(projects)
+    
+    return jsonify({'response' : 'success'})
         
 
 @app.route("/createProject", methods = ['GET', 'POST'])
