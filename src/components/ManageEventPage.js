@@ -150,7 +150,7 @@ function ManageEventPage({ project }) {
                 <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
                 <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent}></EditEvent>
                 <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
-                <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectEvent}></DeleteEventPage>
+                <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent}></DeleteEventPage>
             </div>
         </div>
     );

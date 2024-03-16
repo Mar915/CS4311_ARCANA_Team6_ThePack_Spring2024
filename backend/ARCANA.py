@@ -86,34 +86,21 @@ def openProject():
     print(jevents)
     return jevents
 
-@app.route("/showEvents", methods = ['GET', 'POST'])
-def showEvents():
-    # This function should return a list of events
-    # I think openProject already does this so don't work on this method unless
-    # we get hard confirmation it is needed
-
-    # No worries, going to do it anyway, just in case
-
-    if request.method == 'POST':
-        data = request.json
-
-    eM = EventsManager()
-    temp = eM.pullEvents()
-
-    return temp
-
 
 @app.route("/deleteEvent", methods = ['GET', 'POST'])
 def deleteEvent():
     # This function is expecting to receive a json object
     # that contains some unique identifier for events (stil TBD)
     # It needs to find that event in the database and delete it
+    db = Database()
     if request.method == 'POST':
         data = request.json
 
     # event to delete should be accessed by eventID (srs: pg107 under #3, pg115 under 'Event'in data dictionary)
-    em = EventsManager()
-    em.deleteEvent(data['id'])
+    project = data['project']
+    event = data['currEvent']
+    em = EventsManager(db.getRef(), project['projName'])
+    em.deleteEvent(event['id'])
     resp = jsonify({'result' : 'success'})
     return resp
 
