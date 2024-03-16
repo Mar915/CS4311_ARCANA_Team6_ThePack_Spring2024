@@ -36,11 +36,11 @@ class EventsManager:
         # Assuming newData is an EventRepresenter obj
         eventsDB = self.db['projectRepList'][self.projName]['eventRepList']
         targetEvent = newData['currEvent']
-        query = {'id' : newData['id']}
+        query = {'id' : targetEvent['id']}
         changes = {}
         for item in newData:
-            if item != 'id':
-                if newData[item] != '':
+            if item != 'id' and item != 'currEvent' and item != 'project':
+                if newData[item] != "" or ['']:
                     changes[item] = newData[item] 
 
         newValues = {'$set' : changes}
