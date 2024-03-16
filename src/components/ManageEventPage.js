@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ManageEventPage.css';
 import CreateEventPage from './CreateEventPage';
 import EditEvent from './EditEventPage';
-import DeleteEventPage from './DeleteProjectPage';
+import DeleteEventPage from './DeleteEventPage';
 import FailMessage from './FailMessage';
 import axios from 'axios';
 
