@@ -59,7 +59,13 @@ function ManageEventPage({ navigateTo, project }) {
         const displayEvent = async () => {
             try {
                 // TO DO: change this fetch to a post that gives the backend the project name
-                const response = await fetch('http://localhost:5000/openProject');
+                const response = await fetch('http://127.0.0.1:5000/openProject', {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(project),
+                  });
                 if (response.ok) {
                     const data = await response.json();
                     setEvents(data)
@@ -98,7 +104,7 @@ function ManageEventPage({ navigateTo, project }) {
             <h1 className="event-header">Manage Events</h1>
             </div>
             <button className="create-event-button" onClick={() => setOpenCreateModal((true))}>+ Create Event</button>
-            <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)}></CreateEventPage>
+            <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)} project = {project}></CreateEventPage>
             <div className="event-list-container">
             <table className="event-list">
                     <thead>
@@ -119,17 +125,17 @@ function ManageEventPage({ navigateTo, project }) {
                     <tbody>
                     {events.map((event, index) => (
                             <tr key={index} className={`event-li ${selectEvent === event ? 'selected' : ''}`} onClick={() => selectRowEvent(event)}>
-                                <td>{event.malformed}</td>
+                                <td>{event.isMalformed}</td>
                                 <td>{event.timestamp}</td>
                                 <td>{event.initials}</td>
                                 <td>{event.team}</td>
                                 <td>{event.posture}</td>
                                 <td>{event.description}</td>
                                 <td>{event.location}</td>
-                                <td>{event.source_host}</td>
-                                <td>{event.target_host}</td>
-                                <td>{event.vector_id}</td>
-                                <td>{event.data_source}</td>
+                                <td>{event.sourceHost}</td>
+                                <td>{event.targetHostList}</td>
+                                <td>{event.vectorID}</td>
+                                <td>{event.dataSource}</td>
                             </tr>
                         ))}
                     </tbody>
