@@ -18,11 +18,10 @@ function ManageProjectPage({ navigateTo }) {
     useEffect(() => {
         const displayProject = async () => {
             try {
-                const response = await fetch('http://localhost:5000/showProjects');
+                const response = await fetch('http://127.0.0.1:5000/showProjects');
                 if (response.ok) {
                     const data = await response.json();
                     setProjects(data)
-                    // console.log(data)
                 }
                 else {
                     // console.log("FAIL")
@@ -73,7 +72,7 @@ function ManageProjectPage({ navigateTo }) {
                   ))}
             </div>
             <div className="proj-option-buttons">
-                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Injest Logs</button>
+                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Ingest Logs</button>
                 <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>

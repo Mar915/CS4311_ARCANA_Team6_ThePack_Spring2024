@@ -26,15 +26,16 @@ const CreateEventPage = ({ open, onClose, project }) => {
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
         }
 
-        console.log(data)
+        //console.log(data)
 
         try {
             // [TO DO]: Change to how event function is actually set up
-            await axios.post('http://localhost:5000/createEvent', data)
             console.log(data)
+            await axios.post('http://127.0.0.1:5000/createEvent', data)
+            //console.log(data)
             setShowSuccess(true);
         } 
         catch (error) {

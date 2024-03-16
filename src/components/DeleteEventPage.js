@@ -34,7 +34,7 @@ const DeleteEventPage = ({ open, onClose, project }) => {
     return (
         <div className="delete-event-overlay">
             <div className="delete-event-modal">
-                <p>Are you sure you want to delete the event lol? {project.eventName}?</p>
+                <p>Are you sure you want to delete the event? {project.eventName}?</p>
                 <p className="close-button-delete-event" onClick={onClose}>X</p>
                 {(showSuccess && (
                 <SuccessMessage
