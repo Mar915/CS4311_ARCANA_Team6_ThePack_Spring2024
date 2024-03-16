@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './ManageEventPage.css';
 import CreateEventPage from './CreateEventPage';
 import EditEvent from './EditEventPage';
-import DeleteProjectPage from './DeleteProjectPage';
+import DeleteEventPage from './DeleteProjectPage';
 import FailMessage from './FailMessage';
 import axios from 'axios';
 
-function ManageEventPage({ navigateTo, project }) {
+function ManageEventPage({ project }) {
     const [openModalCreate, setOpenCreateModal] = useState(false)
     const [openModalIngest, setOpenIngestModal] = useState(false)
     const [openModalDelete, setOpenDeleteModal] = useState(false)
     const [showFail, setShowFail] = useState(false)
-    //const [events, setEvents] = useState([])
     const [events, setEvents] = useState([
         {
             malformed: 'Yes',
@@ -93,7 +92,7 @@ function ManageEventPage({ navigateTo, project }) {
 
 
     return (
-        <div className="manage-Event-page"> 
+        <div className="manage-event-page"> 
             <div className="event-header-container">
             <h1 className="event-header">Manage Events</h1>
             </div>
@@ -145,7 +144,7 @@ function ManageEventPage({ navigateTo, project }) {
                 <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
                 <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectEvent}></EditEvent>
                 <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
-                <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectEvent}></DeleteProjectPage>
+                <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectEvent}></DeleteEventPage>
             </div>
         </div>
     );
