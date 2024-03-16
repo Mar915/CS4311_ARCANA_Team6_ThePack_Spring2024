@@ -33,7 +33,6 @@ function App() {
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'manageEventPage' && <ManageEventPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'syncMenuPage' && <SyncMenuPage navigateTo={navigateTo} />}
-      {currentPage === 'editEventPage' && <EditEventPage navigateTo={navigateTo} />}
       {/* [TO DO]: Switch route to event page */}
     </div>
   );

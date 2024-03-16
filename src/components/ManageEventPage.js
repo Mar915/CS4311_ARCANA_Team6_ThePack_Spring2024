@@ -149,9 +149,9 @@ function ManageEventPage({ navigateTo, project }) {
             </div>
             <div className="event-option-buttons">
                 <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
-                <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} event={selectEvent}></EditEvent>
+                <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent}></EditEvent>
                 <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
-                <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} event={selectEvent}></DeleteProjectPage>
+                <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent}></DeleteProjectPage>
             </div>
         </div>
     );
