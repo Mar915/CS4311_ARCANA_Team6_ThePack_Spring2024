@@ -26,7 +26,7 @@ const CreateProjectPage = ({ open, onClose }) => {
         // [TO DO]: ADD VALIDATION (no same name, etc.) 
 
         try {
-            await axios.post('http://localhost:5000/createProject', data)
+            await axios.post('http://127.0.0.1:5000/createProject', data)
             console.log(data)
             setShowSuccess(true);
         } 

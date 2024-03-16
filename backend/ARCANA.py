@@ -3,7 +3,9 @@ from flask import request
 from flask import jsonify
 from flask_cors import CORS
 from ProjectsManager import ProjectsManager
+from ProjectRepresenter import ProjectRepresenter
 from EventsManager import EventsManager
+from LocalDatabase import Database
 
 app = Flask(__name__)
 CORS(app)
@@ -17,14 +19,14 @@ def ingestLogs():
     if request.method == 'POST':
         data = request.json
         directory = data['logFile']
-        project = data['project']['projName']
+        project = data['project']
     
     resp = jsonify({'result' : 'success'})
-    projectManager = ProjectsManager()
+    projectRepresenter = ProjectRepresenter( project['name'], project['initials'], project['location'], project['startDate'], project['endDate'])
 
     # Goind to hardcode the projectname variable here since we don't have a select function yet
     # but I need the project name for functionality
-    projectManager.ingestLogs(project, directory)
+    projectRepresenter.ingestLogs(directory)
     return resp
 
 
@@ -46,6 +48,8 @@ def showProjects():
             p['_id'] = 'NaN'
             p['projName'] = p['name']
         return jsonify(projects)
+    
+    return jsonify({'response' : 'success'})
         
 
 @app.route("/createProject", methods = ['GET', 'POST'])
@@ -79,23 +83,8 @@ def openProject():
 
     jevents = jsonify(events)    
 
+    print(jevents)
     return jevents
-
-@app.route("/showEvents", methods = ['GET', 'POST'])
-def showEvents():
-    # This function should return a list of events
-    # I think openProject already does this so don't work on this method unless
-    # we get hard confirmation it is needed
-
-    # No worries, going to do it anyway, just in case
-
-    if request.method == 'POST':
-        data = request.json
-
-    eM = EventsManager()
-    temp = eM.pullEvents()
-
-    return temp
 
 
 @app.route("/deleteEvent", methods = ['GET', 'POST'])
@@ -103,12 +92,15 @@ def deleteEvent():
     # This function is expecting to receive a json object
     # that contains some unique identifier for events (stil TBD)
     # It needs to find that event in the database and delete it
+    db = Database()
     if request.method == 'POST':
         data = request.json
 
     # event to delete should be accessed by eventID (srs: pg107 under #3, pg115 under 'Event'in data dictionary)
-    em = EventsManager()
-    em.deleteEvent(data['id'])
+    project = data['project']
+    event = data['currEvent']
+    em = EventsManager(db.getRef(), project['projName'])
+    em.deleteEvent(event['id'])
     resp = jsonify({'result' : 'success'})
     return resp
 
@@ -118,11 +110,12 @@ def updateEvent():
     # that contains the unique identifier AND has something like this
     # { 'id' = 'something', 'posture' : '', team : 'blue'  }
     # Anything left blank '' will not be changed, anything with info will be changed
-
+    db = Database()
     if request.method == 'POST':
         data = request.json
 
-    eM = EventsManager()
+    project = data['project']
+    eM = EventsManager(db.getRef(), project['projName'])
     eM.updateEvent(data)
 
     response = jsonify({'some': 'data'})
@@ -135,11 +128,12 @@ def createEvent():
     # reminder that you access it like thihs data['location']
 
     # Assuming it has called attributes
-
+    db = Database()
     if request.method == 'POST':
         data = request.json
 
-    eM = EventsManager()
+    project = data['project']
+    eM = EventsManager(db.getRef(), project['projName'])
     eM.createEvent(data)
 
     response = jsonify({'some' : 'data'})

@@ -21,13 +21,13 @@ class ProjectsManager:
         for p in dbprojects:
             #print(p)
             name = p['name']
-            temp = ProjectRepresenter(name, p['initials'], p['location'], p['startDate'], p['endDate'], projectCollection[name] )
+            temp = ProjectRepresenter(name, p['initials'], p['location'], p['startDate'], p['endDate'])
             projects.append(temp)
 
     
     # Only used to make a new project and make space for it in the db, no objects are made here
     def createProject(self, data):
-
+        dup = False
         name = data['projName']
         initials = data['projInitials']
         location = data['projLocation']
