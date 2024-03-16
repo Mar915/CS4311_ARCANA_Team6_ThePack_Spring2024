@@ -66,7 +66,7 @@ class EventsManager:
 
 
     def pullEvents(self):
-        events = self.db[self.projName]['eventRepList'].find()
+        events = self.db['projectRepList'][self.projName]['eventRepList'].find()
         tempList = []
         for e in events:
             temp = EventRepresenter(e['id'], e['initials'], e['team'], e['sourceHost'], e['targetHostList'], e['location'], e['posture'], e['vectorID'], e['description'], e['timestamp'], e['dataSource'])
@@ -78,8 +78,8 @@ class EventsManager:
 
         # SRS data containers to update: events (updates event list), user activity logs (event deleted log),
         # archived events (deleted events), undo activity information (event deletion information)
-
-        self.db[self.projName]['eventRepList'].delete_one({'id' : eventID})
+        # print('Target Event ID: ', eventID)
+        self.db['projectRepList'][self.projName]['eventRepList'].delete_one({'id' : eventID})
 
 
     
