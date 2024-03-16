@@ -38,10 +38,24 @@ class EventsManager:
         targetEvent = newData['currEvent']
         query = {'id' : targetEvent['id']}
         changes = {}
-        for item in newData:
-            if item != 'id' and item != 'currEvent' and item != 'project':
-                if newData[item] != "" or ['']:
-                    changes[item] = newData[item] 
+        if newData['eventInitials'] != '':
+            changes['initals'] = newData['eventInitials']
+        if newData['eventTeam'] != targetEvent['team']:
+            changes['team'] = newData['eventTeam']
+        if newData['eventSource'] != '':
+            changes['sourceHost'] = newData['eventSource']
+        if newData['parsedHost'] != ['']:
+            changes['targetHostList'] = newData['parsedHost']
+        if newData['eventLocation'] != '':
+            changes['location'] = newData['eventLocation']
+        if newData['eventPosture'] != '':
+            changes['posture'] = newData['eventPosture']
+        if newData['eventDescription'] != '':
+            changes['description'] = newData['eventDescription']
+        if newData['eventVector'] != '':
+            changes['vectorID'] = newData['eventVector']
+        if newData['eventDate'] + newData['eventTime'] != '':
+            changes['timestamp'] = newData['eventDate'] + newData['eventTime']
 
         newValues = {'$set' : changes}
         eventsDB.update_one(query, newValues)
