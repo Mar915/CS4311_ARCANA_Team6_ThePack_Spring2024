@@ -123,11 +123,12 @@ def updateEvent():
     # that contains the unique identifier AND has something like this
     # { 'id' = 'something', 'posture' : '', team : 'blue'  }
     # Anything left blank '' will not be changed, anything with info will be changed
-
+    db = Database()
     if request.method == 'POST':
         data = request.json
 
-    eM = EventsManager()
+    project = data['project']
+    eM = EventsManager(db.getRef(), project['projName'])
     eM.updateEvent(data)
 
     response = jsonify({'some': 'data'})

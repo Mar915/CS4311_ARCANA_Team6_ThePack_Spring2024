@@ -34,7 +34,8 @@ class EventsManager:
     
     def updateEvent(self, newData):
         # Assuming newData is an EventRepresenter obj
-        eventsDB = self.db[self.projName]['eventRepList']
+        eventsDB = self.db['projectRepList'][self.projName]['eventRepList']
+        targetEvent = newData['currEvent']
         query = {'id' : newData['id']}
         changes = {}
         for item in newData:
@@ -44,6 +45,10 @@ class EventsManager:
 
         newValues = {'$set' : changes}
         eventsDB.update_one(query, newValues)
+
+    #const data = {
+    #        eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
+    #    }
 
 
     def pullEvents(self):

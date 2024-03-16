@@ -35,7 +35,7 @@ const EditEventPage = ({ open, onClose, project, currEvent }) => {
 
         try {
             // [TO DO]: Change to how event function is actually set up
-            await axios.post('http://localhost:5000/editEvent', data)
+            await axios.post('http://127.0.0.1:5000/updateEvent', data)
             console.log(data)
             setShowSuccess(true);
         } 
