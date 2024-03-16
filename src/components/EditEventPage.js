@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditEventPage = ({ open, onClose, project }) => {
+const EditEventPage = ({ open, onClose, project, currEvent }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
@@ -22,17 +22,20 @@ const EditEventPage = ({ open, onClose, project }) => {
     const editEvent = async (event) => {
         event.preventDefault()
 
+        console.log("Project: ", project)
+        console.log("Event: ", currEvent)
+
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
         }
 
         console.log(data)
 
         try {
             // [TO DO]: Change to how event function is actually set up
-            await axios.post('http://127.0.0.1:5000/editEvent', data)
+            await axios.post('http://localhost:5000/editEvent', data)
             console.log(data)
             setShowSuccess(true);
         } 
@@ -69,15 +72,15 @@ const EditEventPage = ({ open, onClose, project }) => {
                         <input type="time" name="event-time" onChange={() => {setEventTime(document.querySelector('input[name="event-time"]').value)}} placeholder='hh:mm:ss'/>
                     </label>
                     <label>
-                        Initials<span className="asterisk">* </span><span className="required">(required)</span>
+                        Initials
                         <br></br>
-                        <input type="text" name="event-initials" required onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
+                        <input type="text" name="event-initials" onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
                     </label>
                     <br></br>
                     <label>
-                        Team<span className="asterisk">* </span><span className="required">(required)</span>
+                        Team
                         <br></br>
-                        <select name="event-team" required value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
+                        <select name="event-team" value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
@@ -109,7 +112,7 @@ const EditEventPage = ({ open, onClose, project }) => {
                         <input type="text" name="event-host" onKeyUp={() => {setEventHost(document.querySelector('input[name="event-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
                     </label>
                     <label>
-                        Description<span className="asterisk">* </span><span className="required">(required)</span>
+                        Description
                         <br></br>
                         <input type="text" name="event-description" onKeyUp={() => {setEventDescription(document.querySelector('input[name="event-description"]').value)}}/>
                     </label>
