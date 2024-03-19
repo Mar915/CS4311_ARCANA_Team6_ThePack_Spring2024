@@ -6,50 +6,50 @@ import DeleteEventPage from './DeleteEventPage';
 import FailMessage from './FailMessage';
 import axios from 'axios';
 
-function ManageEventPage({ project }) {
+function ManageEventPage({navigateTo, project }) {
     const [openModalCreate, setOpenCreateModal] = useState(false)
     const [openModalIngest, setOpenIngestModal] = useState(false)
     const [openModalDelete, setOpenDeleteModal] = useState(false)
     const [showFail, setShowFail] = useState(false)
     const [events, setEvents] = useState([
         {
-            malformed: 'Yes',
+            isMalformed: 'Yes',
             timestamp: '2024-03-04 14:30:00',
             initials: 'ML',
             team: 'Red',
             posture: 'Alert',
             description: 'Malware detected',
             location: 'Office',
-            source_host: '192.168.1.100',
-            target_host: '192.168.2.200',
-            vector_id: '12345',
-            data_source: 'Firewall'
+            sourceHost: '192.168.1.100',
+            targetHostList: '192.168.2.200',
+            vectorID: '12345',
+            dataSource: 'Firewall'
         },
         {
-            malformed: 'No',
+            isMalformed: 'No',
             timestamp: '2024-03-04 12:15:00',
             initials: 'VO',
             team: 'Blue',
             posture: 'Warning',
             description: 'Suspicious activity detected',
             location: 'Data Center',
-            source_host: '192.168.3.150',
-            target_host: '192.168.4.220',
-            vector_id: '67890',
-            data_source: 'IDS'
+            sourceHost: '192.168.3.150',
+            targetHostList: '192.168.4.220',
+            vectorID: '67890',
+            dataSource: 'IDS'
         },
         {
-            malformed: 'Yes',
+            isMalformed: 'Yes',
             timestamp: '2024-03-04 10:00:00',
             initials: 'DP',
             team: 'White',
             posture: 'Info',
             description: 'System update completed',
             location: 'Remote',
-            source_host: '192.168.5.80',
-            target_host: '192.168.6.40',
-            vector_id: '54321',
-            data_source: 'Server Logs'
+            sourceHost: '192.168.5.80',
+            targetHostList: '192.168.6.40',
+            vectorID: '54321',
+            dataSource: 'Server Logs'
         }
     ]);
     const [selectEvent, setSelectEvent] = useState(null)
@@ -151,6 +151,7 @@ function ManageEventPage({ project }) {
                 <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent}></EditEvent>
                 <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
                 <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent}></DeleteEventPage>
+                <button className="graph-event-button" onClick={() => navigateTo('manageGraphPage', project, events)}>Event Graph</button>
             </div>
         </div>
     );

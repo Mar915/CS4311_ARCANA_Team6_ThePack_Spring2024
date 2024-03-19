@@ -13,7 +13,8 @@
 .inject-event-button,
 .delete-event-button,
 .open-event-button,
-.create-event-button {
+.create-event-button,
+.graph-event-button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -30,7 +31,8 @@
 .inject-event-button:hover,
 .delete-event-button:hover,
 .open-event-button:hover,
-.create-event-button:hover {
+.create-event-button:hover,
+.graph-event-button:hover {
     background-color: #0056b3;
 }
 
