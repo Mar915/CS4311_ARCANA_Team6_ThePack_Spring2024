@@ -31,21 +31,14 @@ export default function ManageGraphPage({ project, eventList }) {
                 id: event.vectorID,
                 position: { x: 0, y: 0 },
                 data: { label: 
-                `${event.team} Team Activity
-                \nTeam: ${event.team}
-                \nTime: ${event.timestamp}
-                \nPosture: ${event.posture}
-                \nLocation: ${event.location}
-                \nDate Source: ${event.dataSource}
-                \nVector ID: ${event.vectorID}
-                \nDescription: ${event.description}` }
+                `${event.team} Team Activity\nTime: ${event.timestamp}\nLocation: ${event.location}`, eventData: event }
             }));
             setList([...initialNodes, ...newList]);
         };
         populateNode();
     }, [eventList]);
 
-
+    
 
     return (
         <div>
@@ -58,9 +51,6 @@ export default function ManageGraphPage({ project, eventList }) {
             {list.length > 0 &&
                 <ViewGraphPage initialNodes={list} initialEdges={initialEdges} />
             }
-            <button className="save-graph-button">Save Graph</button>
-            <button className="export-graph-button">Export Graph</button>
-            <button className="import-graph-button">Import Graph</button>
         </div>
     )
 
