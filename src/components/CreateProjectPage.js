@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const CreateProjectPage = ({ open, onClose }) => {
+const CreateProjectPage = ({ open, onClose, setProjects }) => {
     const [projName, setProjName] = useState('');
     const [projLocation, setProjLocation] = useState('');
     const [projStartDate, setProjStDate] = useState('');
@@ -26,6 +26,9 @@ const CreateProjectPage = ({ open, onClose }) => {
         // [TO DO]: ADD VALIDATION (no same name, etc.) 
 
         try {
+            setProjects(prev => (
+                [...prev, data]
+            ))
             await axios.post('http://127.0.0.1:5000/createProject', data)
             console.log(data)
             setShowSuccess(true);

@@ -46,7 +46,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges }) {
     return (
         <div>
             <button className="view-node-button" onClick={() => setOpenViewModal((true))}>View Node</button>
-            <ViewNodePage open={openModalView} onClose={() => setOpenViewModal(false)} node={selectedNode}/>
+            { selectedNode && <ViewNodePage open={openModalView} onClose={() => setOpenViewModal(false)} node={selectedNode}/>}
             <button className="edit-node-button">Edit Node</button>
             <button className="add-node-button">Add Node</button>
         <div className="graph-container">
