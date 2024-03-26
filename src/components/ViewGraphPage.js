@@ -1,5 +1,5 @@
 import ReactFlow, { Controls, useNodesState, useEdgesState, addEdge, Background } from "reactflow"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useState, useEffect } from "react"
 import 'reactflow/dist/style.css'
 import "./ManageGraphPage.css"
 import axios from 'axios';
@@ -11,7 +11,7 @@ import ExportGraphPage from "./ExportGraphPage"
 import ImportGraphPage from "./ImportGraphPage"
 import FilterGraphPage from "./FilterGraphPage"
 
-export default function ViewGraphPage({ initialNodes, initialEdges, setList }) {
+export default function ViewGraphPage({ initialNodes, initialEdges, eventList, setEventList, setList, project }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [selectedNode, setSelectedNode] = useState(null);
@@ -22,15 +22,6 @@ export default function ViewGraphPage({ initialNodes, initialEdges, setList }) {
     const [openModalImport, setOpenImportModal] = useState(false) 
     const [openModalExport, setOpenExportModal] = useState(false)
     const [openModalFilter, setOpenFilterModal] = useState(false)
-
-    // console.log("Initial Nodes:")
-    // console.log(initialNodes)
-    // console.log("Nodes:")
-    // console.log(nodes)
-    // console.log("Edges:")
-    // console.log(edges)
-    // console.log("Initial Edges:")
-    // console.log(initialEdges)
 
     // On save, save graph edges and nodes
     // Need position and edges to rebuild graph later
@@ -44,6 +35,10 @@ export default function ViewGraphPage({ initialNodes, initialEdges, setList }) {
         }
     }
 
+    useEffect(() => {
+
+    }, [eventList, nodes])
+
     const handleSelect = (event, node) => {
         console.log(node)
         setSelectedNode(node); // Update the selected node when it is clicked
@@ -53,17 +48,16 @@ export default function ViewGraphPage({ initialNodes, initialEdges, setList }) {
         (params) => setEdges((eds) => addEdge(params, eds)),
         [setEdges],
     );
-
     return (
         <div>
             <button className="view-node-button" onClick={() => setOpenViewModal((true))}>View Node</button>
-            {selectedNode && <ViewNodePage open={openModalView} onClose={() => setOpenViewModal(false)} node={selectedNode} />}
+            {selectedNode && openModalView && <ViewNodePage open={openModalView} onClose={() => setOpenViewModal(false)} node={selectedNode} />}
             <button className="edit-node-button" onClick={() => setOpenEditModal((true))}>Edit Node</button>
-            {selectedNode && <EditNodePage open={openModalEdit} onClose={() => setOpenEditModal(false)} node={selectedNode} nodes={initialNodes} />}
+            {selectedNode && openModalEdit && <EditNodePage open={openModalEdit} onClose={() => setOpenEditModal(false)} node={selectedNode} nodes={initialNodes} />}
             <button className="create-node-button" onClick={() => setOpenCreateModal((true))}>Create Node</button>
-            {selectedNode && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} node={selectedNode} nodes={initialNodes} />}
+            {selectedNode && openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} node={selectedNode} nodes={initialNodes} />}
             <button className="delete-node-button" onClick={() => setOpenDeleteModal((true))}>Delete Node</button>
-            {selectedNode && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} nodes={initialNodes} setList={setList} />}
+            {selectedNode && openModalDelete && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} eventList={eventList} setEventList={setEventList} setList={setList} setSelectedNode={setSelectedNode} setNodes={setNodes} project={project}/>}
             <div className="graph-container">
                 <ReactFlow
                     nodes={nodes}
@@ -79,11 +73,11 @@ export default function ViewGraphPage({ initialNodes, initialEdges, setList }) {
             </div>
             <button className="save-graph-button">Save Graph</button>
             <button className="export-graph-button" onClick={() => setOpenExportModal((true))}>Export Graph</button>
-            <ExportGraphPage open={openModalExport} onClose={() => setOpenExportModal(false)} nodes={nodes} edges={edges}/>
+            {openModalExport && <ExportGraphPage open={openModalExport} onClose={() => setOpenExportModal(false)} nodes={nodes} edges={edges}/>}
             <button className="import-graph-button" onClick={() => setOpenImportModal((true))}>Import Graph</button>
-            <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} nodes={nodes} edges={edges}/>
+            {openModalImport && <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} nodes={nodes} edges={edges}/>}
             <button className="filter-graph-button" onClick={() => setOpenFilterModal((true))}>Filter Graph</button>
-            <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} nodes={nodes} edges={edges}/>
+            {openModalFilter && <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} nodes={nodes} edges={edges}/>}
         </div>
     );
 }

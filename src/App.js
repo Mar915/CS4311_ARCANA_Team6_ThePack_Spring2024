@@ -18,13 +18,13 @@ function App() {
   // State to track project to pass
   const [selectedProject, setSelectedProject] = useState(null);
   // State to track eventList to pass
-  const [eventList, setSelectedEventList] = useState([])
+  const [eventList, setEventList] = useState([])
 
   // Function to change the current page
   const navigateTo = (page, project, eventList) => {
     setCurrentPage(page);
     setSelectedProject(project)
-    setSelectedEventList(eventList)
+    setEventList(eventList)
   };
 
   return (
@@ -37,7 +37,7 @@ function App() {
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'manageEventPage' && <ManageEventPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'syncMenuPage' && <SyncMenuPage navigateTo={navigateTo} />}
-      {currentPage === "manageGraphPage" && <ManageGraphPage navigateTo={navigateTo} project={selectedProject} eventList={eventList}/>}
+      {currentPage === "manageGraphPage" && <ManageGraphPage navigateTo={navigateTo} project={selectedProject} eventList={eventList} setEventList={setEventList}/>}
 
       {/* [TO DO]: Switch route to event page */}
     </div>

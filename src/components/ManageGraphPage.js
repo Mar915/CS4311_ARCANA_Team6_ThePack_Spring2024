@@ -4,17 +4,14 @@ import 'reactflow/dist/style.css';
 import ViewGraphPage from "./ViewGraphPage";
 import './ManageGraphPage.css';
 
-
 const initialNodes = [
     { id: '1', position: { x: 0, y: 0 }, data: { label: '1' }},
     { id: '2', position: { x: 0, y: 100 }, data: { label: '2' }},
 ]
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }]
 
-export default function ManageGraphPage({ project, eventList }) {
+export default function ManageGraphPage({ project, eventList, setEventList }) {
     const [list, setList] = useState([])
-    console.log(list)
-    console.log("ManageGraphPage")
     
     useEffect(() => {
         const populateNode = () => {
@@ -29,23 +26,10 @@ export default function ManageGraphPage({ project, eventList }) {
         populateNode();
     }, [eventList]);
 
-
-    useEffect(() => {
-
-    }, [list])
-
-    
-
     return (
         <div>
-            {/* <p>s</p>
-             <div>
-                {list.map((item, index) => (
-                    <p key={index}>{JSON.stringify(item)}</p>
-                ))}
-            </div> */}
             {list.length > 0 &&
-                <ViewGraphPage initialNodes={list} initialEdges={initialEdges} setList={setList}/>
+                <ViewGraphPage initialNodes={list} initialEdges={initialEdges} eventList={eventList} setEventList={setEventList} setList={setList} project={project}/>
             }
         </div>
     )
