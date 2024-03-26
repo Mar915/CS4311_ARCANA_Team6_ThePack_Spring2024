@@ -1,4 +1,5 @@
 import "./ManageGraphPage.css"
+import axios from 'axios';
 
 const ViewNodePage = ({ open, onClose, node }) => {
 

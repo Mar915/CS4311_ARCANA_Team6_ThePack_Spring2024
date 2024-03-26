@@ -13,18 +13,9 @@ const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }]
 
 export default function ManageGraphPage({ project, eventList }) {
     const [list, setList] = useState([])
-    // <td>{event.isMalformed}</td>
-    // <td>{event.timestamp}</td>
-    // <td>{event.initials}</td>
-    // <td>{event.team}</td>
-    // <td>{event.posture}</td>
-    // <td>{event.description}</td>
-    // <td>{event.location}</td>
-    // <td>{event.sourceHost}</td>
-    // <td>{event.targetHostList}</td>
-    // <td>{event.vectorID}</td>
-    // <td>{event.dataSource}</td>
-    // team, time, posture, location, data source, vector id, description
+    console.log(list)
+    console.log("ManageGraphPage")
+    
     useEffect(() => {
         const populateNode = () => {
             const newList = eventList.map((event) => ({
@@ -38,6 +29,11 @@ export default function ManageGraphPage({ project, eventList }) {
         populateNode();
     }, [eventList]);
 
+
+    useEffect(() => {
+
+    }, [list])
+
     
 
     return (
@@ -49,7 +45,7 @@ export default function ManageGraphPage({ project, eventList }) {
                 ))}
             </div> */}
             {list.length > 0 &&
-                <ViewGraphPage initialNodes={list} initialEdges={initialEdges} />
+                <ViewGraphPage initialNodes={list} initialEdges={initialEdges} setList={setList}/>
             }
         </div>
     )

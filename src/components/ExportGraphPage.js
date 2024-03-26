@@ -1,14 +1,14 @@
 import "./ManageGraphPage.css"
 import axios from 'axios';
 
-const EditNodePage = ({ open, onClose, node, nodes }) => {
+const ExportGraphPage = ({ open, onClose, nodes, edges }) => {
 
     if (!open) {
         return null
     }
 
     // [TO-DO]
-    const editNode = async () => {
+    const exportGraph = async () => {
         try {
             const response = await axios.post()
         }
@@ -18,14 +18,14 @@ const EditNodePage = ({ open, onClose, node, nodes }) => {
     }
 
     return (
-        <div className="edit-node-overlay">
-            <div className="edit-node-modal">
+        <div className="export-graph-overlay">
+            <div className="export-graph-modal">
                 <form>
-                    <p className="close-button-edit-node" onClick={onClose}>X</p>
+                    <p className="close-button-export-graph" onClick={onClose}>X</p>
                 </form>
             </div>
         </div>
     )
 }
 
-export default EditNodePage
+export default ExportGraphPage

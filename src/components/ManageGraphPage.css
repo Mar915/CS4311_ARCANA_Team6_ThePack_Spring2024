@@ -3,7 +3,9 @@
 .import-graph-button,
 .view-node-button,
 .edit-node-button,
-.add-node-button  {
+.create-node-button,
+.delete-node-button,
+.filter-graph-button  {
     background-color: #007bff;
     color: white;
     border: none;
@@ -18,7 +20,9 @@
 .import-graph-button:hover,
 .view-node-button:hover,
 .edit-node-button:hover,
-.add-node-button:hover {
+.create-node-button:hover,
+.delete-node-button:hover,
+.filter-graph-button:hover {
     background-color: #0056b3;
   }
 
@@ -32,7 +36,7 @@
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.view-node-overlay {
+.view-node-overlay, .create-node-overlay, .edit-node-overlay, .delete-node-overlay, .export-graph-overlay, .import-graph-overlay, .filter-graph-overlay {
     position: fixed;
     width: 60%;
     height: 50%;
@@ -40,7 +44,7 @@
     z-index: 10;
 }
 
-.view-node-modal {
+.view-node-modal, .create-node-modal, .edit-node-modal, .delete-node-modal, .export-graph-modal, .import-graph-modal, .filter-graph-modal  {
     max-width: 600px;
     width: 60%;
     height: 50%;
@@ -53,7 +57,7 @@
     z-index: 11;
 }
 
-.close-button-view-node {
+.close-button-view-node, .close-button-create-node, .close-button-edit-node, .close-button-delete-node, .close-button-export-node, .close-button-import-node, .close-button-filter-node {
     position: absolute; 
     top: 0;
     right: 16px;
