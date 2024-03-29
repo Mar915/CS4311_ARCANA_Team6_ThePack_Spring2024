@@ -27,26 +27,33 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="user-activity-logs">
-        <div className="log-header">
-          <h2>User Activity Logs</h2>
-          <button onClick={handleRefresh}>Refresh</button>
+    <div className="ActivityLogs">
+      <header className="UAL-header">
+        {/* header content */}
+      </header>
+      <main className="UAL-main">
+        <div className="user-activity-logs">
+          <div className="log-header">
+            <h2>User Activity Logs</h2>
+            <button onClick={handleRefresh}>Refresh</button>
+          </div>
+          <div className="log-content">
+            {logs.length > 0 ? (
+              logs.map((log, index) => <div key={index}>{log}</div>)
+            ) : (
+              <div className="empty-logs">No logs to display</div>
+            )}
+          </div>
         </div>
-        <div className="log-content">
-          {logs.map((log, index) => (
-            <div key={index}>{log}</div>
-          ))}
-        </div>
-      </div>
-      {error && (
-        <div className="error-message">
-          <p>Error: Unable to load user activity logs. Please refresh to try again.</p>
-          <button className="close-button" onClick={handleCloseError}>X</button>
-        </div>
-      )}
+        {error && (
+          <div className="error-message">
+            <p>Error: Unable to load user activity logs. Please refresh to try again.</p>
+            <button className="close-button" onClick={handleCloseError}>X</button>
+          </div>
+        )}
+      </main>
     </div>
   );
 }
 
-export default App;
+export default UserActivityLogs;
