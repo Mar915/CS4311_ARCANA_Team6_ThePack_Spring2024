@@ -32,6 +32,17 @@ function createEvent(){
             </select>
         </div>
         </div>
+
+        <div class="dropdownicon">
+            <label for="icon">TOA Icon<span class="required">*</span>:</label>
+            <button class="dropbtn">Select Icon</button>
+            <div class="dropdown-content" id="iconDropdown">
+                <a href="#"><img src="icon.png" alt="Icon 1"></a>
+                <a href="#"><img src="icon.png" alt="Icon 2"></a>
+                <a href="#"><img src="icon.png" alt="Icon 3"></a>
+                <!--We can add icons here and can be modified later on-->
+            </div>
+        </div>
         
         <div class = "posture-info">
             <label for="posture">Posture:</label>

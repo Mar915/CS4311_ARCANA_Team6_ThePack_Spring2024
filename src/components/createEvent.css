@@ -49,6 +49,16 @@ label {
     border-radius: 4px;
     outline: none;
 }
+.dropdownicon-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content img {
+    max-width: 32px; 
+    height: auto;
+}
 
 
 .create-button{
