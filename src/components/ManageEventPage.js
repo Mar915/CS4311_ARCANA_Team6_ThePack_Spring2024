@@ -23,7 +23,8 @@ function ManageEventPage({ project }) {
             source_host: '192.168.1.100',
             target_host: '192.168.2.200',
             vector_id: '12345',
-            data_source: 'Firewall'
+            data_source: 'Firewall',
+            icon: 'default_red.png'
         },
         {
             malformed: 'No',
@@ -36,7 +37,8 @@ function ManageEventPage({ project }) {
             source_host: '192.168.3.150',
             target_host: '192.168.4.220',
             vector_id: '67890',
-            data_source: 'IDS'
+            data_source: 'IDS',
+            icon: 'default_blue.png'
         },
         {
             malformed: 'Yes',
@@ -49,7 +51,8 @@ function ManageEventPage({ project }) {
             source_host: '192.168.5.80',
             target_host: '192.168.6.40',
             vector_id: '54321',
-            data_source: 'Server Logs'
+            data_source: 'Server Logs',
+            icon: 'default_white.png'
         }
     ]);
     const [selectEvent, setSelectEvent] = useState(null)
@@ -119,6 +122,7 @@ function ManageEventPage({ project }) {
                             <th>Target Host</th>
                             <th>Vector ID</th>
                             <th>Data Source</th>
+                            <th>TOA Icon</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,6 +139,7 @@ function ManageEventPage({ project }) {
                                 <td>{event.targetHostList}</td>
                                 <td>{event.vectorID}</td>
                                 <td>{event.dataSource}</td>
+                                <td>{event.icon}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -150,7 +155,7 @@ function ManageEventPage({ project }) {
                 <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
                 <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent}></EditEvent>
                 <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
-                <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectEvent}></DeleteEventPage>
+                <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent}></DeleteEventPage>
             </div>
         </div>
     );
