@@ -87,18 +87,19 @@ const EditEventPage = ({ open, onClose, project }) => {
                             <option className="event-blue" value="Blue">Blue</option>
                         </select>
                     </label>
-                    <label>
-                        Team Oriented Actions<span className="asterisk">* </span><span className="required">(required)</span>
+                    <div class="dropdownicon">
+                        <label for="icon">TOA Icons<span className="asterisk">* </span><span className="required">(required)</span></label>
                         <br></br>
-                        <select name="event-toa" value={eventTOA} onChange={(toa) => {setEventTOA(toa.target.value)}}>
-                            <option className="event-1" value="White">TOA1</option>
-                            <option className="event-2" value="Red">TOA2</option>
-                            <option className="event-3" value="Blue">TOA3</option>
-                        </select>
-                    </label>
+                        <button class="dropbtn">Select Icon</button>
+                        <div class="dropdown-content" id="iconDropdown">
+                            <option className="event-2" value="Red"><a href="#"><img src="./Icons/RedTeam_Activity.png" alt="RedTeam_Activity"></img></a></option>
+                            <a href="#"><img src="./Icons/BlueTeam_Activity.png" alt="BlueTeam_Activity"></img></a>
+                            <a href="#"><img src="./Icons/RedTeam_Activity.png" alt="RedTeam_Activity"></img></a>
+                        </div>
+                    </div>
                     <label>
                         Posture
-                        <br></br>
+                        
                         <input type="text" name="event-posture" onKeyUp={() => {setEventPosture(document.querySelector('input[name="event-posture"]').value)}}/>
                     </label>
                     <label>
