@@ -1,16 +1,19 @@
+
 import React, { useState } from 'react';
 import './EditEventPage.css';
 import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditEventPage = ({ open, onClose, project, currEvent }) => {
+
+const EditEventPage = ({ open, onClose, project }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [eventInitials, setEventInitials] = useState('');
     const [eventTeam, setEventTeam] = useState('');
+    const [eventTOA, setEventTOA] = useState('');
     const [eventPosture, setEventPosture] = useState('');
     const [eventLocation, setEventLocation] = useState('');
     const [eventVector, setEventVector] = useState('');
@@ -22,21 +25,19 @@ const EditEventPage = ({ open, onClose, project, currEvent }) => {
     const editEvent = async (event) => {
         event.preventDefault()
 
-        console.log("Project: ", project)
-        console.log("Event: ", currEvent)
-
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
         }
 
-        console.log(data)
+        //console.log(data)
 
         try {
             // [TO DO]: Change to how event function is actually set up
-            await axios.post('http://127.0.0.1:5000/updateEvent', data)
             console.log(data)
+            await axios.post('http://127.0.0.1:5000/editEvent', data)
+            //console.log(data)
             setShowSuccess(true);
         } 
         catch (error) {
@@ -72,18 +73,27 @@ const EditEventPage = ({ open, onClose, project, currEvent }) => {
                         <input type="time" name="event-time" onChange={() => {setEventTime(document.querySelector('input[name="event-time"]').value)}} placeholder='hh:mm:ss'/>
                     </label>
                     <label>
-                        Initials
+                        Initials<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <input type="text" name="event-initials" onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
+                        <input type="text" name="event-initials" required onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
                     </label>
                     <br></br>
                     <label>
-                        Team
+                        Team<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="event-team" value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
+                        <select name="event-team" required value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
+                        </select>
+                    </label>
+                    <label>
+                        Team Oriented Actions<span className="asterisk">* </span><span className="required">(required)</span>
+                        <br></br>
+                        <select name="event-toa" value={eventTOA} onChange={(toa) => {setEventTOA(toa.target.value)}}>
+                            <option className="event-1" value="White">TOA1</option>
+                            <option className="event-2" value="Red">TOA2</option>
+                            <option className="event-3" value="Blue">TOA3</option>
                         </select>
                     </label>
                     <label>
@@ -112,7 +122,7 @@ const EditEventPage = ({ open, onClose, project, currEvent }) => {
                         <input type="text" name="event-host" onKeyUp={() => {setEventHost(document.querySelector('input[name="event-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
                     </label>
                     <label>
-                        Description
+                        Description<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
                         <input type="text" name="event-description" onKeyUp={() => {setEventDescription(document.querySelector('input[name="event-description"]').value)}}/>
                     </label>
@@ -127,7 +137,7 @@ const EditEventPage = ({ open, onClose, project, currEvent }) => {
                     <input type="submit" value="Edit Event" className="edit-event-confirm-button"/>
                     {(showSuccess && (
                 <SuccessMessage
-                  message={'Success: Event was editd'}
+                  message={'Success: Event was edited'}
                   onClose={closeMessage}
                 />)) || (showFail && (
                     <FailMessage

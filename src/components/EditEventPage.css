@@ -74,6 +74,7 @@
   input[name="event-time"],
   input[name="event-initials"],
   select[name="event-team"],
+  select[name="event-toa"],
   input[name="event-posture"],
   input[name="event-location"],
   input[name="event-vector"],
