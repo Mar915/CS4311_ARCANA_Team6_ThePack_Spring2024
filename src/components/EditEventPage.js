@@ -92,7 +92,6 @@ const EditEventPage = ({ open, onClose, project }) => {
                         <br></br>
                         <button class="dropbtn">Select Icon</button>
                         <div class="dropdown-content" id="iconDropdown">
-                            <option className="event-2" value="Red"><a href="#"><img src="./Icons/RedTeam_Activity.png" alt="RedTeam_Activity"></img></a></option>
                             <a href="#"><img src="./Icons/BlueTeam_Activity.png" alt="BlueTeam_Activity"></img></a>
                             <a href="#"><img src="./Icons/RedTeam_Activity.png" alt="RedTeam_Activity"></img></a>
                         </div>
