@@ -1,0 +1,41 @@
+.App {
+    font-family: Arial, sans-serif;
+  }
+  
+  .user-activity-logs {
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+  
+  .log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .log-content {
+    height: 150px;
+    overflow-y: auto;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .error-message {
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+    margin: 15px 0;
+    padding: 10px 20px;
+  }
+  
+  .error-message p {
+    margin: 0;
+    display: inline;
+  }
+  
+  .close-button {
+    float: right;
+    cursor: pointer;
+  }
+  
