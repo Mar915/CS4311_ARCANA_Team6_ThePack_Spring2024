@@ -23,20 +23,22 @@ class LogIngestor:
         for file in self.ingestedFiles:
             self.ingested.insert_one({'file' : file})
 
-    def createEvents(self, log):   #Log should be in the form of a 2D array
+    def createEvents(self, log, dataSource):   #Log should be in the form of a 2D array
+        startID = len(list(self.eventList.find())) + 1
         events = []
         for event in log:
             #Can't parse posture
-            rep = EventRepresenter(event[6], event[4], event[2], event[3], event[5], "", event[7], event[1], event[0] )
+            rep = EventRepresenter(startID, str(event[6]), str(event[4]), str(event[2]), str(event[3]), str(event[5]), "", str(event[7]), str(event[1]), str(event[0]), dataSource )
             events.append(rep)
-
+            startID += 1
+        self.uploadEvents(events)
 
         return events
     
     def uploadEvents(self, log):
         events = []
-        for event in log:
-            rep = {'initials' : event[6], 'team' : event[4], 'sourceHost' : event[2], 'targetHostList' : event[3], 'location' : event[5], 'posture' : "", 'vectorID' : event[7], 'description' : event[1], 'timestamp' : event[0]}
+        for e in log:
+            rep = {'isMalformed' : str(e.isMalformed), 'id': e.eventID, 'initials' : e.initials, 'team' : e.team, 'sourceHost' : e.sourceHost, 'targetHostList' : e.targetHostList, 'location' : e.location, 'posture' : e.posture, 'vectorID' : e.vectorID, 'description' : e.description, 'timestamp' : e.timestamp, 'dataSource' : e.dataSource}
             events.append(rep)
 
         self.eventList.insert_many(events)
@@ -50,8 +52,7 @@ class LogIngestor:
             if log not in self.ingestedFiles:
                 self.ingestedFiles.append(log)
                 report = pd.read_csv(filepath+"/"+log).values
-                self.uploadEvents(report)
-                parsed = parsed + self.createEvents(report)
+                parsed = parsed + self.createEvents(report, (filepath+"/"+log))
         self.uploadIngested()
         return parsed
     

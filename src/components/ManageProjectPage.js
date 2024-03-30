@@ -6,6 +6,7 @@ import DeleteProjectPage from './DeleteProjectPage';
 import FailMessage from './FailMessage';
 
 
+
 function ManageProjectPage({ navigateTo }) {
     const [openModalCreate, setOpenCreateModal] = useState(false)
     const [openModalIngest, setOpenIngestModal] = useState(false)
@@ -17,11 +18,10 @@ function ManageProjectPage({ navigateTo }) {
     useEffect(() => {
         const displayProject = async () => {
             try {
-                const response = await fetch('http://localhost:5000/showProjects');
+                const response = await fetch('http://127.0.0.1:5000/showProjects');
                 if (response.ok) {
                     const data = await response.json();
                     setProjects(data)
-                    // console.log(data)
                 }
                 else {
                     // console.log("FAIL")
@@ -72,11 +72,11 @@ function ManageProjectPage({ navigateTo }) {
                   ))}
             </div>
             <div className="proj-option-buttons">
-                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Injest Logs</button>
+                <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Ingest Logs</button>
                 <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
                 <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>
-                <button className="open-proj-button" onClick={() => navigateTo('tempProjectPage', selectProject)}>Open Project</button>
+                <button className="open-proj-button" onClick={() => navigateTo('manageEventPage', selectProject)}>Open Project</button>
             </div>
         </div>
     );

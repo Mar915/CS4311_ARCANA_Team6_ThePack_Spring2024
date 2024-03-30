@@ -1,0 +1,67 @@
+.manage-project-page {
+    max-width: 1500px;
+    margin: 10rem auto;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-option-buttons {
+    display: inline-block;
+}
+
+.inject-event-button,
+.delete-event-button,
+.open-event-button,
+.create-event-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-event-button {
+    z-index: -1;
+}
+
+.inject-event-button:hover,
+.delete-event-button:hover,
+.open-event-button:hover,
+.create-event-button:hover {
+    background-color: #0056b3;
+}
+
+.event-list-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #eee;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow-y: auto;
+}
+
+.event-list {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.event-list th, .event-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.event-list th {
+    background-color: #f2f2f2;
+}
+
+.event-li:hover {
+    background-color: darkgray;
+}
+
+.event-li.selected {
+    background-color: darkgray;
+}

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './CreateEventPage.css';
+import './EditEventPage.css';
 import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-
-const CreateEventPage = ({ open, onClose, project }) => {
+const EditEventPage = ({ open, onClose, project, currEvent }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
@@ -20,22 +19,24 @@ const CreateEventPage = ({ open, onClose, project }) => {
     const [eventDescription, setEventDescription] = useState('');
     const [eventAuto, setEventAuto] = useState('')
 
-    const createEvent = async (event) => {
+    const editEvent = async (event) => {
         event.preventDefault()
+
+        console.log("Project: ", project)
+        console.log("Event: ", currEvent)
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
         }
 
-        //console.log(data)
+        console.log(data)
 
         try {
             // [TO DO]: Change to how event function is actually set up
+            await axios.post('http://127.0.0.1:5000/updateEvent', data)
             console.log(data)
-            await axios.post('http://127.0.0.1:5000/createEvent', data)
-            //console.log(data)
             setShowSuccess(true);
         } 
         catch (error) {
@@ -54,11 +55,11 @@ const CreateEventPage = ({ open, onClose, project }) => {
     } 
 
     return (
-        <div className="create-event-overlay">
-            <div className="create-event-modal">
-                <h1>Create Event</h1>
-                <p className="close-button-create-event" onClick={onClose}>X</p>
-                <form className="create-event-form" onSubmit={(event) => {createEvent(event)}}>
+        <div className="edit-event-overlay">
+            <div className="edit-event-modal">
+                <h1>Edit Event</h1>
+                <p className="close-button-edit-event" onClick={onClose}>X</p>
+                <form className="edit-event-form" onSubmit={(event) => {editEvent(event)}}>
                     <label>
                         Date
                         <br></br>
@@ -71,15 +72,15 @@ const CreateEventPage = ({ open, onClose, project }) => {
                         <input type="time" name="event-time" onChange={() => {setEventTime(document.querySelector('input[name="event-time"]').value)}} placeholder='hh:mm:ss'/>
                     </label>
                     <label>
-                        Initials<span className="asterisk">* </span><span className="required">(required)</span>
+                        Initials
                         <br></br>
-                        <input type="text" name="event-initials" required onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
+                        <input type="text" name="event-initials" onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
                     </label>
                     <br></br>
                     <label>
-                        Team<span className="asterisk">* </span><span className="required">(required)</span>
+                        Team
                         <br></br>
-                        <select name="event-team" required value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
+                        <select name="event-team" value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
@@ -111,26 +112,26 @@ const CreateEventPage = ({ open, onClose, project }) => {
                         <input type="text" name="event-host" onKeyUp={() => {setEventHost(document.querySelector('input[name="event-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
                     </label>
                     <label>
-                        Description<span className="asterisk">* </span><span className="required">(required)</span>
+                        Description
                         <br></br>
                         <input type="text" name="event-description" onKeyUp={() => {setEventDescription(document.querySelector('input[name="event-description"]').value)}}/>
                     </label>
                     {/* [TO DO]: Add Icon Selector */}
                     <label>
-                        Auto Create Edges
+                        Auto Edit Edges
                         <br></br>
                         <input type="checkbox" name="event-auto" checked={eventAuto} onChange={() => {setEventAuto(!eventAuto)}}/>
                     </label>
                     <br></br>
                     <button className="cancel-event-button" onClick={onClose}>Cancel</button>
-                    <input type="submit" value="Create Event" className="create-event-confirm-button"/>
+                    <input type="submit" value="Edit Event" className="edit-event-confirm-button"/>
                     {(showSuccess && (
                 <SuccessMessage
-                  message={'Success: Event was created'}
+                  message={'Success: Event was editd'}
                   onClose={closeMessage}
                 />)) || (showFail && (
                     <FailMessage
-                      message={'Error: Unable to create Event'}
+                      message={'Error: Unable to edit Event'}
                       onClose={closeMessage}
                     />
                   ))}
@@ -144,4 +145,4 @@ const CreateEventPage = ({ open, onClose, project }) => {
 }
 
 
-export default CreateEventPage;
+export default EditEventPage;
