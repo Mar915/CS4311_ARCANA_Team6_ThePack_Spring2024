@@ -81,7 +81,7 @@ const EditNodePage = ({ open, onClose, node, nodes }) => {
         }
     };
 
-    if (!open) {
+    if (!open ||!node) {
         return null
     }
     
@@ -99,13 +99,13 @@ const EditNodePage = ({ open, onClose, node, nodes }) => {
                 <label>
                         Date
                         <br></br>
-                        <input type="date" name="node-date" defaultValue={node.timestamp.split(" ")[0]} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
+                        <input type="date" name="node-date" defaultValue={node.timestamp ? node.timestamp.split(" ")[0] : ""} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
                     </label>
                     <br></br>
                     <label>
                         Time
                         <br></br>
-                        <input type="time" name="node-time" defaultValue={node.timestamp.split(" ")[1]} onChange={() => {setNodeTime(document.querySelector('input[name="node-time"]').value)}} placeholder='hh:mm:ss'/>
+                        <input type="time" name="node-time" defaultValue={node.timestamp ? node.timestamp.split(" ")[1] : ""} onChange={() => {setNodeTime(document.querySelector('input[name="node-time"]').value)}} placeholder='hh:mm:ss'/>
                     </label>
                     <label>
                         Initials
