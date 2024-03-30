@@ -24,6 +24,10 @@
     right: 16px
 }
 
+.close-button-delete-event {
+    cursor: pointer;
+}
+
 .asterisk {
     color: red;
     font-weight: bold;
