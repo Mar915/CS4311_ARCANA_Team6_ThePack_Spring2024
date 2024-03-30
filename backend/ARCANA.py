@@ -154,6 +154,20 @@ def updatePosition():
     response = jsonify({'some' : 'data'})
     return response
 
+@app.route("/updateConnected", methods = ['GET', 'POST'])
+def updateConnected():
+
+    db = Database()
+    if request.method == 'POST':
+        data = request.json
+
+    project = data['project']
+    eGM = EventGraphManager(db.getRef, project['projName'])
+    eGM.updateAdjList(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
+
 
 
 # http://127.0.0.1:5000 is the port that backend will run on 

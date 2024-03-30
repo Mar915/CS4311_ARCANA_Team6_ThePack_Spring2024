@@ -11,11 +11,11 @@ class ProjectRepresenter:
         self.location = location
         self.startDate = startDate
         self.endDate = endDate
-        self.eventGraphManager = EventGraphManager()
         self.toaManager = TOAManager()
         self.db = Database().getRef()
         self.ingestedFiles = self.pullIngested(self.db[name]['ingestedFiles'])
         self.eventsManager = EventsManager(self.db, self.name)
+        self.eventGraphManager = EventGraphManager(self.db, self.name)
 
     def pullIngested(self, ingestedList):
         files = []

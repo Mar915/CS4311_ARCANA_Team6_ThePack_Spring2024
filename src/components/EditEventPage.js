@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditEventPage = ({ open, onClose, project }) => {
+const EditEventPage = ({ open, onClose, project, currEvent}) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
@@ -56,25 +56,24 @@ const EditEventPage = ({ open, onClose, project }) => {
         try {
             // [TO DO]: Change to how event function is actually set up
             await axios.post('http://127.0.0.1:5000/updateEvent', data)
-            setEvents(prev => (
-                // Iterate through event list
-                prev.map((p) => {
-                    // Only edit event that matches currEvent
-                    if (p.vectorID === currEvent.vectorID) {
-                        // Traverse eventData and track non-null values and updated them in copy of currEvent 
-                        const updatedEvent = Object.keys(eventData).reduce((acc, i) => {
-                            if (eventData[i] !== null && eventData[i] !== undefined && eventData[i] !== "") {
-                                acc[i] = eventData[i]
-                            }
-                            return acc
-                        }, {...currEvent}) 
-                        return updatedEvent
-                    }
-                    return {...p}
-                })
-            ))
+/*                setEvents(prev => (
+                    // Iterate through event list
+                    prev.map((p) => {
+                        // Only edit event that matches currEvent
+                        if (p.vectorID === currEvent.vectorID) {
+                            // Traverse eventData and track non-null values and updated them in copy of currEvent 
+                            const updatedEvent = Object.keys(eventData).reduce((acc, i) => {
+                                if (eventData[i] !== null && eventData[i] !== undefined && eventData[i] !== "") {
+                                    acc[i] = eventData[i]
+                                }
+                                return acc
+                            }, {...currEvent}) 
+                            return updatedEvent
+                        }
+                        return {...p}
+                    })
+                )) */
             console.log(data)
-            await axios.post('http://127.0.0.1:5000/editEvent', data)
             //console.log(data)
             setShowSuccess(true);
         } 
