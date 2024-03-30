@@ -1,3 +1,4 @@
+from TOAManager import TOAManager
 
 class EventRepresenter:
     def __init__(self,id = "",  initials ="", team ="", sourceHost = "", targetHostList = "", location = "", posture = "", vectorID = "", description = "", timestamp = "", dataSource = "", adjList = ""):
@@ -13,8 +14,8 @@ class EventRepresenter:
         self.timestamp = timestamp
         self.isMalformed = self.checkMalformed()
         self.dataSource = dataSource
-        self.icon = ""
-        self.actionTitle = ""
+
+        self.icon, self.actionTitle = TOAManager().setTOA(self.team)
         if self.isMalformed:
             # if the event is Malrformed then the starting position on graph is (0,0)
             self.xCord = 0
@@ -40,7 +41,6 @@ class EventRepresenter:
             temp.append(attr)
 
         return temp
-
 
     def checkMalformed(self):
         attributes = [self.initials, self.team, self.sourceHost, self.targetHostList, self.location, self.vectorID]

@@ -19,10 +19,11 @@ function ManageEventPage({navigateTo, project }) {
             posture: 'Alert',
             description: 'Malware detected',
             location: 'Office',
-            sourceHost: '192.168.1.100',
-            targetHostList: '192.168.2.200',
-            vectorID: '12345',
-            dataSource: 'Firewall'
+            source_host: '192.168.1.100',
+            target_host: '192.168.2.200',
+            vector_id: '12345',
+            data_source: 'Firewall',
+            icon: 'default_red.png'
         },
         {
             isMalformed: 'No',
@@ -32,10 +33,11 @@ function ManageEventPage({navigateTo, project }) {
             posture: 'Warning',
             description: 'Suspicious activity detected',
             location: 'Data Center',
-            sourceHost: '192.168.3.150',
-            targetHostList: '192.168.4.220',
-            vectorID: '67890',
-            dataSource: 'IDS'
+            source_host: '192.168.3.150',
+            target_host: '192.168.4.220',
+            vector_id: '67890',
+            data_source: 'IDS',
+            icon: 'default_blue.png'
         },
         {
             isMalformed: 'Yes',
@@ -45,10 +47,11 @@ function ManageEventPage({navigateTo, project }) {
             posture: 'Info',
             description: 'System update completed',
             location: 'Remote',
-            sourceHost: '192.168.5.80',
-            targetHostList: '192.168.6.40',
-            vectorID: '54321',
-            dataSource: 'Server Logs'
+            source_host: '192.168.5.80',
+            target_host: '192.168.6.40',
+            vector_id: '54321',
+            data_source: 'Server Logs',
+            icon: 'default_white.png'
         }
     ]);
     const [selectEvent, setSelectEvent] = useState(null)
@@ -120,6 +123,7 @@ function ManageEventPage({navigateTo, project }) {
                             <th>Target Host</th>
                             <th>Vector ID</th>
                             <th>Data Source</th>
+                            <th>TOA Icon</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -136,6 +140,7 @@ function ManageEventPage({navigateTo, project }) {
                                 <td>{event.targetHostList}</td>
                                 <td>{event.vectorID}</td>
                                 <td>{event.dataSource}</td>
+                                <td>{event.icon}</td>
                             </tr>
                         ))}
                     </tbody>
