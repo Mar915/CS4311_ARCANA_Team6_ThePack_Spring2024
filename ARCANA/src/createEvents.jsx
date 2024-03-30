@@ -41,9 +41,6 @@ function createEvent(){
                 <a href="#"><img src="icon.png" alt="Icon 2"></a>
                 <a href="#"><img src="icon.png" alt="Icon 3"></a>
   
-                <!--We can add icons here and can be modified later on-->
-
-                <!--We can add icons here and can be modified later on or added byt the client-->
 
             </div>
         </div>
