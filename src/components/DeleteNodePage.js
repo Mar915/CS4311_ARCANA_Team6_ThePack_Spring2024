@@ -1,4 +1,4 @@
-import "./ManageGraphPage.css"
+import "./DeleteNodePage.css"
 import React, { useState } from 'react';
 import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
@@ -43,6 +43,7 @@ const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList,
     return (
         <div className="delete-node-overlay">
             <div className="delete-node-modal">
+            <div className="delete-node-text">
                 <p>Are you sure you want to delete node {node.id}?</p>
                 <p>Deleting this event will delete the associate event</p>
                 <p className="close-button-delete-node" onClick={onClose}>X</p>
@@ -56,6 +57,7 @@ const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList,
                             onClose={closeMessage} 
                         />
                     ))}
+                    </div>
                 <button className="cancel-delete-node-button" onClick={onClose}>Cancel</button>
                 <button className="confirm-delete-node-button" onClick={(event) => { deleteNode(event) }}>Delete</button>
             </div>
