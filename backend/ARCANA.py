@@ -6,6 +6,7 @@ from ProjectsManager import ProjectsManager
 from ProjectRepresenter import ProjectRepresenter
 from EventsManager import EventsManager
 from LocalDatabase import Database
+from EventGraphManager import EventGraphManager
 
 app = Flask(__name__)
 CORS(app)
@@ -135,6 +136,20 @@ def createEvent():
     project = data['project']
     eM = EventsManager(db.getRef(), project['projName'])
     eM.createEvent(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
+
+@app.route("/updatePosition", methods = ['GET', 'POST'])
+def updatePosition():
+    
+    db = Database()
+    if request.method == 'POST':
+        data = request.json
+
+    project = data['project']
+    eGM = EventGraphManager(db.getRef(), project['projName'])
+    eGM.updatePosition(data)
 
     response = jsonify({'some' : 'data'})
     return response
