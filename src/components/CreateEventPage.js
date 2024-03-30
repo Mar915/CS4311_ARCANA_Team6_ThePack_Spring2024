@@ -105,6 +105,16 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
                         </select>
                     </label>
                     <label>
+                        TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
+                        <br></br>
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                            <option className="node-white" value="White">WhiteDefault.png</option>
+                            <option className="node-red" value="Red">RedDefault.png</option>
+                            <option className="node-blue" value="Blue">BlueDefault.png</option>
+                        </select>
+                    </label>
+                    <br></br>
+                    <label>
                         Posture
                         <br></br>
                         <input type="text" name="event-posture" onKeyUp={() => { setEventPosture(document.querySelector('input[name="event-posture"]').value) }} />
