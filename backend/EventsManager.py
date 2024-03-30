@@ -20,7 +20,10 @@ class EventsManager:
         rep['vectorID'] = data['eventVector']
         rep['description'] = data['eventDescription']
         rep['timestamp'] = str(data['eventDate']) + " " + str(data['eventTime'])
+        rep['icon'] = data['icon']
+        rep['actionTitle'] = data['actionTitle']
         rep['dataSource'] = 'User Created'
+        
 
         self.db['projectRepList'][self.projName]['eventRepList'].insert_one(rep)
         
@@ -56,6 +59,10 @@ class EventsManager:
             changes['vectorID'] = newData['eventVector']
         if newData['eventDate'] + newData['eventTime'] != '':
             changes['timestamp'] = newData['eventDate'] + newData['eventTime']
+        if newData['icon'] != '':
+            changes['icon'] = newData['icon']
+        if newData['actionTitle'] != '':
+            changes['actionTitle'] = newData['actionTitle']
 
         newValues = {'$set' : changes}
         eventsDB.update_one(query, newValues)

@@ -1,3 +1,4 @@
+from TOAManager import TOAManager
 
 class EventRepresenter:
     def __init__(self,id = "",  initials ="", team ="", sourceHost = "", targetHostList = "", location = "", posture = "", vectorID = "", description = "", timestamp = "", dataSource = ""):
@@ -13,10 +14,8 @@ class EventRepresenter:
         self.timestamp = timestamp
         self.isMalformed = self.checkMalformed()
         self.dataSource = dataSource
-        self.icon = ""
-        self.actionTitle = ""
-        # We are expecting the ProjectRepresenter to make the TOA Manager assign default icons to
-        # every event when it is pulled on initialization
+        self.icon, self.actionTitle = TOAManager().setTOA(self.team)
+        
 
 
     # Returns a list of the attributes
@@ -29,7 +28,6 @@ class EventRepresenter:
             temp.append(attr)
 
         return temp
-
 
     def checkMalformed(self):
         attributes = [self.initials, self.team, self.sourceHost, self.targetHostList, self.location, self.vectorID]
