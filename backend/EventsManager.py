@@ -25,6 +25,11 @@ class EventsManager:
         rep['dataSource'] = 'User Created'
         
 
+        # Just added while updating EventRepresenter, will change names when issue with local DB is fixed - Omar
+        rep['xCord'] = data['xCord']
+        rep['yCord'] = data['yCord']
+        rep['adjList'] = data['adjList']
+
         self.db['projectRepList'][self.projName]['eventRepList'].insert_one(rep)
         
 
@@ -59,11 +64,17 @@ class EventsManager:
             changes['vectorID'] = newData['eventVector']
         if newData['eventDate'] + newData['eventTime'] != '':
             changes['timestamp'] = newData['eventDate'] + newData['eventTime']
+        if newData['xCord'] != '':
+            changes['xCord'] = newData['xCord']
+        if newData['yCord'] != '':
+            changes['yCord'] = newData['yCord']
+        if newData['adjList'] != '':
+            changes['adjList'] = newData['adjList']
         if newData['icon'] != '':
             changes['icon'] = newData['icon']
         if newData['actionTitle'] != '':
             changes['actionTitle'] = newData['actionTitle']
-
+            
         newValues = {'$set' : changes}
         eventsDB.update_one(query, newValues)
 

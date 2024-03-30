@@ -4,16 +4,15 @@ import CreateEventPage from './CreateEventPage';
 import EditEvent from './EditEventPage';
 import DeleteEventPage from './DeleteEventPage';
 import FailMessage from './FailMessage';
-import axios from 'axios';
 
-function ManageEventPage({ project }) {
+function ManageEventPage({navigateTo, project }) {
     const [openModalCreate, setOpenCreateModal] = useState(false)
     const [openModalIngest, setOpenIngestModal] = useState(false)
     const [openModalDelete, setOpenDeleteModal] = useState(false)
     const [showFail, setShowFail] = useState(false)
     const [events, setEvents] = useState([
         {
-            malformed: 'Yes',
+            isMalformed: 'Yes',
             timestamp: '2024-03-04 14:30:00',
             initials: 'ML',
             team: 'Red',
@@ -27,7 +26,7 @@ function ManageEventPage({ project }) {
             icon: 'default_red.png'
         },
         {
-            malformed: 'No',
+            isMalformed: 'No',
             timestamp: '2024-03-04 12:15:00',
             initials: 'VO',
             team: 'Blue',
@@ -41,7 +40,7 @@ function ManageEventPage({ project }) {
             icon: 'default_blue.png'
         },
         {
-            malformed: 'Yes',
+            isMalformed: 'Yes',
             timestamp: '2024-03-04 10:00:00',
             initials: 'DP',
             team: 'White',
@@ -98,7 +97,9 @@ function ManageEventPage({ project }) {
         setSelectEvent(event)
     }
 
-
+    useEffect(() => {
+        
+    }, [events])
 
     return (
         <div className="manage-event-page"> 
@@ -106,7 +107,7 @@ function ManageEventPage({ project }) {
             <h1 className="event-header">Manage Events</h1>
             </div>
             <button className="create-event-button" onClick={() => setOpenCreateModal((true))}>+ Create Event</button>
-            <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)} project = {project}></CreateEventPage>
+            <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)} project = {project} setEvents={setEvents}></CreateEventPage>
             <div className="event-list-container">
             <table className="event-list">
                     <thead>
@@ -128,7 +129,7 @@ function ManageEventPage({ project }) {
                     <tbody>
                     {events.map((event, index) => (
                             <tr key={index} className={`event-li ${selectEvent === event ? 'selected' : ''}`} onClick={() => selectRowEvent(event)}>
-                                <td>{event.isMalformed}</td>
+                                <td>{event.isMalformed === true ? "Yes" : event.isMalformed === false ? "No" : event.isMalformed}</td>
                                 <td>{event.timestamp}</td>
                                 <td>{event.initials}</td>
                                 <td>{event.team}</td>
@@ -153,9 +154,10 @@ function ManageEventPage({ project }) {
             </div>
             <div className="event-option-buttons">
                 <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
-                <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent}></EditEvent>
+                {selectEvent !== null && <EditEvent open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent}  setEvents={setEvents}></EditEvent>}
                 <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
-                <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent}></DeleteEventPage>
+                {selectEvent !== null && <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent} setEvents={setEvents}></DeleteEventPage>}
+                <button className="graph-event-button" onClick={() => navigateTo('manageGraphPage', project, events)}>Event Graph</button>
             </div>
         </div>
     );

@@ -38,6 +38,10 @@ function ManageProjectPage({ navigateTo }) {
         displayProject();
     }, [])
 
+    useEffect(() => {
+        
+    }, [projects])
+
     const closeMessage = () => {
         setShowFail(false)
     } 
@@ -55,7 +59,7 @@ function ManageProjectPage({ navigateTo }) {
             <h1 className="proj-header">Manage Projects</h1>
             </div>
             <button className="create-proj-button" onClick={() => setOpenCreateModal((true))}>+ Create Project</button>
-            <CreateProjectPage open={openModalCreate} onClose={() => setOpenCreateModal(false)}></CreateProjectPage>
+            <CreateProjectPage open={openModalCreate} onClose={() => setOpenCreateModal(false)} setProjects={setProjects}></CreateProjectPage>
             <div className="proj-list-container">
                 <ul className="proj-list">
                     {/* This SHOULD populate proj-list */}
@@ -73,10 +77,10 @@ function ManageProjectPage({ navigateTo }) {
             </div>
             <div className="proj-option-buttons">
                 <button className="inject-proj-button" onClick={() => setOpenIngestModal((true))}>Ingest Logs</button>
-                <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>
+                { selectProject && <IngestLogsPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={selectProject}></IngestLogsPage>}
                 <button className="delete-proj-button" onClick={() => setOpenDeleteModal((true))}>Delete Project</button>
-                <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject}></DeleteProjectPage>
-                <button className="open-proj-button" onClick={() => navigateTo('manageEventPage', selectProject)}>Open Project</button>
+                { selectProject && <DeleteProjectPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={selectProject} setProjects={setProjects}></DeleteProjectPage>}
+                <button className="open-proj-button" onClick={() => { if(selectProject) {navigateTo('manageEventPage', selectProject)}}}>Open Project</button>
             </div>
         </div>
     );

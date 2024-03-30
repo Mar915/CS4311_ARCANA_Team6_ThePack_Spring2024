@@ -24,6 +24,10 @@
     right: 16px
 }
 
+.close-button-ingest-log {
+    cursor: pointer;
+}
+
 .ingest-log-form {
     height: 100%;
     display: inline-block;

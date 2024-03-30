@@ -1,19 +1,19 @@
-.create-proj-overlay {
+.create-node-overlay {
     position: fixed;
-    top: 40%; /* Same top position as the modal */
-    left: 50%; /* Same left position as the modal */
+    top: 40%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%; /* Matching the modal width */
-    height: auto; /* Matching the modal height */
-    max-width: 600px; /* Matching the modal max-width */
-    background-color: rgba(255, 255, 255, 0.4); /* Example semi-transparent background */
-    z-index: 14;
+    width: 70%;
+    max-width: 600px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 14; 
 }
 
-.create-proj-modal {
+.create-node-modal {
     margin-top: 50px;
     max-width: 600px;
-    width: 60%;
+    width: 70%;
     height: auto;
     position: fixed;
     top: 40%;
@@ -21,24 +21,19 @@
     transform: translate(-50%, -50%);
     /* display: flex; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
+    background-color: #fff !important;
     z-index: 15;
 }
 
-.close-button-create-proj {
+.close-button-create-node {
     position: fixed;
     top: 8px;
     right: 16px
 }
 
-.close-button-create-proj:hover {
-    cursor: pointer;
-}
-
-.create-proj-form {
+.create-node-form {
     height: 100%;
     display: inline-block;
-    margin-bottom: 50px;
 }
 
 .asterisk {
@@ -54,22 +49,33 @@
     display: inline-block;
 }
 
-.cancel-proj-button, .create-proj-confirm-button {
+.cancel-node-button, .create-node-confirm-button {
     background-color: #007bff;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
     margin: 10px;
+    margin-bottom: 0;
     margin-top: 30px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.cancel-proj-button:hover, .create-proj-confirm-button:hover {
+.cancel-node-button:hover, .create-node-confirm-button:hover {
     background-color: #0056b3;
   }
 
-input[name="proj-name"], input[name="proj-location"], input[name="proj-start-date"], input[name="proj-end-date"], input[name="proj-initials"] {
+  input[name="node-date"],
+  input[name="node-time"],
+  input[name="node-initials"],
+  select[name="node-team"],
+  input[name="node-posture"],
+  input[name="node-location"],
+  input[name="node-vector"],
+  input[name="node-source"],
+  input[name="node-host"],
+  select[name="node-icon"],
+  input[name="node-description"] {
     padding: 5px 10px;
     margin: 1px 0;
     box-sizing: border-box;

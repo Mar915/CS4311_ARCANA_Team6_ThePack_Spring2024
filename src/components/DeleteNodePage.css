@@ -1,30 +1,41 @@
-.delete-event-overlay {
+.delete-node-overlay {
     position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 600px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 14; 
 }
 
-.delete-event-modal {
-    max-width: 400px;
-    width: 60%;
-    height: 20%;
+.delete-node-modal {
+    margin-top: 50px;
+    max-width: 600px;
+    width: 70%;
+    height: auto;
     position: fixed;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     /* display: flex; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
+    background-color: #fff !important;
+    z-index: 15;
 }
 
-.close-button-delete-event {
+.delete-node-text {
+    margin-top: 50px;
+}
+
+.close-button-delete-node {
     position: fixed;
     top: 0px;
     right: 16px
 }
 
-.close-button-delete-event {
+.close-button-delete-node {
     cursor: pointer;
 }
 
@@ -41,7 +52,7 @@
     display: inline-block;
 }
 
-.cancel-delete-event-button, .confirm-delete-event-button {
+.cancel-delete-node-button, .confirm-delete-node-button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -52,6 +63,6 @@
     transition: background-color 0.3s;
 }
 
-.cancel-delete-event-button:hover, .confirm-delete-event-button:hover {
+.cancel-delete-node-button:hover, .confirm-delete-node-button:hover {
     background-color: #0056b3;
   }

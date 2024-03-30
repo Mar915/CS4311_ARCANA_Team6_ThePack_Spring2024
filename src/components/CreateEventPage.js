@@ -5,7 +5,7 @@ import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
 
-const CreateEventPage = ({ open, onClose, project }) => {
+const CreateEventPage = ({ open, onClose, project, setEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
@@ -18,7 +18,7 @@ const CreateEventPage = ({ open, onClose, project }) => {
     const [eventSource, setEventSource] = useState('');
     const [eventHost, setEventHost] = useState('');
     const [eventDescription, setEventDescription] = useState('');
-    const [eventAuto, setEventAuto] = useState('')
+    const [eventAuto, setEventAuto] = useState(false)
 
     const createEvent = async (event) => {
         event.preventDefault()
@@ -29,15 +29,34 @@ const CreateEventPage = ({ open, onClose, project }) => {
             eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
         }
 
+
+        const eventData = {
+            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: "NAN"
+        }
+
         //console.log(data)
 
         try {
             // [TO DO]: Change to how event function is actually set up
             console.log(data)
             await axios.post('http://127.0.0.1:5000/createEvent', data)
+            setEvents(prev => (
+                [...prev, eventData]
+            ))
             //console.log(data)
+            setEventDate("");
+            setEventTime("");
+            setEventInitials("");
+            setEventTeam("");
+            setEventPosture("");
+            setEventLocation("");
+            setEventVector("");
+            setEventSource("");
+            setEventHost("");
+            setEventDescription("");
+            setEventAuto(false);
             setShowSuccess(true);
-        } 
+        }
         catch (error) {
             console.log("FAIL")
             setShowFail(true);
@@ -51,35 +70,35 @@ const CreateEventPage = ({ open, onClose, project }) => {
     const closeMessage = () => {
         setShowFail(false)
         setShowSuccess(false)
-    } 
+    }
 
     return (
         <div className="create-event-overlay">
             <div className="create-event-modal">
                 <h1>Create Event</h1>
                 <p className="close-button-create-event" onClick={onClose}>X</p>
-                <form className="create-event-form" onSubmit={(event) => {createEvent(event)}}>
+                <form className="create-event-form" onSubmit={(event) => { createEvent(event) }}>
                     <label>
                         Date
                         <br></br>
-                        <input type="date" name="event-date" onChange={() => {setEventDate(document.querySelector('input[name="event-date"]').value)}} />
+                        <input type="date" name="event-date" onChange={() => { setEventDate(document.querySelector('input[name="event-date"]').value) }} />
                     </label>
                     <br></br>
                     <label>
                         Time
                         <br></br>
-                        <input type="time" name="event-time" onChange={() => {setEventTime(document.querySelector('input[name="event-time"]').value)}} placeholder='hh:mm:ss'/>
+                        <input type="time" name="event-time" onChange={() => { setEventTime(document.querySelector('input[name="event-time"]').value) }} placeholder='hh:mm:ss' />
                     </label>
                     <label>
                         Initials<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <input type="text" name="event-initials" required onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
+                        <input type="text" name="event-initials" required onKeyUp={() => { setEventInitials(document.querySelector('input[name="event-initials"]').value) }} placeholder="III" />
                     </label>
                     <br></br>
                     <label>
                         Team<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="event-team" required value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
+                        <select name="event-team" required value={eventTeam} onChange={(team) => { setEventTeam(team.target.value) }}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
@@ -88,54 +107,54 @@ const CreateEventPage = ({ open, onClose, project }) => {
                     <label>
                         Posture
                         <br></br>
-                        <input type="text" name="event-posture" onKeyUp={() => {setEventPosture(document.querySelector('input[name="event-posture"]').value)}}/>
+                        <input type="text" name="event-posture" onKeyUp={() => { setEventPosture(document.querySelector('input[name="event-posture"]').value) }} />
                     </label>
                     <label>
                         Location
                         <br></br>
-                        <input type="text" name="event-location" onKeyUp={() => {setEventLocation(document.querySelector('input[name="event-location"]').value)}}/>
+                        <input type="text" name="event-location" onKeyUp={() => { setEventLocation(document.querySelector('input[name="event-location"]').value) }} />
                     </label>
                     <label>
                         Vector ID
                         <br></br>
-                        <input type="text" name="event-vector" onKeyUp={() => {setEventVector(document.querySelector('input[name="event-vector"]').value)}}/>
+                        <input type="text" name="event-vector" onKeyUp={() => { setEventVector(document.querySelector('input[name="event-vector"]').value) }} />
                     </label>
                     <label>
                         Source Host
                         <br></br>
-                        <input type="text" name="event-source" onKeyUp={() => {setEventSource(document.querySelector('input[name="event-source"]').value)}}  placeholder="0.0.0.0"/>
+                        <input type="text" name="event-source" onKeyUp={() => { setEventSource(document.querySelector('input[name="event-source"]').value) }} placeholder="0.0.0.0" />
                     </label>
                     <label>
                         Target Host[s]
                         <br></br>
-                        <input type="text" name="event-host" onKeyUp={() => {setEventHost(document.querySelector('input[name="event-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
+                        <input type="text" name="event-host" onKeyUp={() => { setEventHost(document.querySelector('input[name="event-host"]').value) }} placeholder="0.0.0.0, 0.0.0.1" />
                     </label>
                     <label>
                         Description<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <input type="text" name="event-description" onKeyUp={() => {setEventDescription(document.querySelector('input[name="event-description"]').value)}}/>
+                        <input type="text" name="event-description" onKeyUp={() => { setEventDescription(document.querySelector('input[name="event-description"]').value) }} />
                     </label>
                     {/* [TO DO]: Add Icon Selector */}
                     <label>
                         Auto Create Edges
                         <br></br>
-                        <input type="checkbox" name="event-auto" checked={eventAuto} onChange={() => {setEventAuto(!eventAuto)}}/>
+                        <input type="checkbox" name="event-auto" checked={eventAuto} onChange={() => { setEventAuto(!eventAuto) }} />
                     </label>
                     <br></br>
                     <button className="cancel-event-button" onClick={onClose}>Cancel</button>
-                    <input type="submit" value="Create Event" className="create-event-confirm-button"/>
+                    <input type="submit" value="Create Event" className="create-event-confirm-button" />
                     {(showSuccess && (
-                <SuccessMessage
-                  message={'Success: Event was created'}
-                  onClose={closeMessage}
-                />)) || (showFail && (
-                    <FailMessage
-                      message={'Error: Unable to create Event'}
-                      onClose={closeMessage}
-                    />
-                  ))}
+                        <SuccessMessage
+                            message={'Success: Event was created'}
+                            onClose={closeMessage}
+                        />)) || (showFail && (
+                            <FailMessage
+                                message={'Error: Unable to create Event'}
+                                onClose={closeMessage}
+                            />
+                        ))}
                 </form>
-                
+
             </div>
         </div>
 
