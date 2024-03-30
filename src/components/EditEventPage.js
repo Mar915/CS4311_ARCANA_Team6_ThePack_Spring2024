@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import './EditEventPage.css';
 import axios from 'axios';
