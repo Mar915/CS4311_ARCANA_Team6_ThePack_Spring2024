@@ -11,7 +11,6 @@ const EditEventPage = ({ open, onClose, project, currEvent}) => {
     const [eventTime, setEventTime] = useState('');
     const [eventInitials, setEventInitials] = useState('');
     const [eventTeam, setEventTeam] = useState('');
-    const [eventTOA, setEventTOA] = useState('');
     const [eventPosture, setEventPosture] = useState('');
     const [eventLocation, setEventLocation] = useState('');
     const [eventVector, setEventVector] = useState('');
@@ -19,18 +18,20 @@ const EditEventPage = ({ open, onClose, project, currEvent}) => {
     const [eventHost, setEventHost] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventAuto, setEventAuto] = useState('')
-
+    const [nodeIcon, setNodeTeam] = useState('')
 
     const editEvent = async (event) => {
         event.preventDefault()
         // console.log("Project: ", project)
-        // console.log("Event: ", currEvent)
+        console.log("Event: ", currEvent)
 
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
+        const icon = `default_${nodeIcon.toLowerCase()}.png`
+
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, icon, eventDescription, eventAuto, project
         }
 
         // Data source can't be edited so we need to pass it to edited event
@@ -47,7 +48,7 @@ const EditEventPage = ({ open, onClose, project, currEvent}) => {
             ts = eventDate + " " + currEvent.timestamp.split(" ")[1]
         }
         const eventData = {
-            timestamp: ts, initials: eventInitials, team: eventTeam, posture: eventPosture, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: ds
+            timestamp: ts, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: ds
         }
         // console.log(data)
         // console.log(eventData)
@@ -124,15 +125,19 @@ const EditEventPage = ({ open, onClose, project, currEvent}) => {
                             <option className="event-blue" value="Blue">Blue</option>
                         </select>
                     </label>
-                    <div class="dropdownicon">
-                        <label for="icon">TOA Icons<span className="asterisk">* </span><span className="required">(required)</span></label>
+                    <label>
+                        TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <button class="dropbtn">Select Icon</button>
-                        <div class="dropdown-content" id="iconDropdown">
-                            <a href="#"><img src="./Icons/BlueTeam_Activity.png" alt="BlueTeam_Activity"></img></a>
-                            <a href="#"><img src="./Icons/RedTeam_Activity.png" alt="RedTeam_Activity"></img></a>
-                        </div>
-                    </div>
+                        <select name="node-icon" required defaultValue={currEvent.icon.split("_")[1].split(".")[0].charAt(0).toUpperCase() + currEvent.icon.split("_")[1].split(".")[0].slice(1)} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
+                        </select>
+                    </label>
                     <label>
                         Posture
                         <br></br>

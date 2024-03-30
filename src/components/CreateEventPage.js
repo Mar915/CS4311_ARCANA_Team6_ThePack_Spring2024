@@ -11,7 +11,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [eventInitials, setEventInitials] = useState('');
-    const [eventTeam, setEventTeam] = useState('');
+    const [eventTeam, setEventTeam] = useState('White');
     const [eventPosture, setEventPosture] = useState('');
     const [eventLocation, setEventLocation] = useState('');
     const [eventVector, setEventVector] = useState('');
@@ -19,19 +19,24 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
     const [eventHost, setEventHost] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventAuto, setEventAuto] = useState(false)
+    const [nodeIcon, setNodeTeam] = useState('White')
 
     const createEvent = async (event) => {
         event.preventDefault()
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
+        const icon = `default_${nodeIcon.toLowerCase()}.png`
+
+        console.log(icon)
+
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, icon, project
         }
 
 
         const eventData = {
-            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: "NAN"
+            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: "NAN"
         }
 
         //console.log(data)
@@ -98,7 +103,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
                     <label>
                         Team<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="event-team" required value={eventTeam} onChange={(team) => { setEventTeam(team.target.value) }}>
+                        <select name="event-team" required value={eventTeam} defaultValue={"White"} onChange={(team) => { setEventTeam(team.target.value) }}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
@@ -108,9 +113,13 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
                         <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
-                            <option className="node-white" value="White">WhiteDefault.png</option>
-                            <option className="node-red" value="Red">RedDefault.png</option>
-                            <option className="node-blue" value="Blue">BlueDefault.png</option>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
                         </select>
                     </label>
                     <br></br>
@@ -142,7 +151,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
                     <label>
                         Description<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <input type="text" name="event-description" onKeyUp={() => { setEventDescription(document.querySelector('input[name="event-description"]').value) }} />
+                        <input type="text" name="event-description" required onKeyUp={() => { setEventDescription(document.querySelector('input[name="event-description"]').value) }} />
                     </label>
                     {/* [TO DO]: Add Icon Selector */}
                     <label>
