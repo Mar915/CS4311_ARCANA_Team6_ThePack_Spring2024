@@ -6,15 +6,16 @@ import './ManageGraphPage.css';
 
 const initialNodes = []
 
-export default function ManageGraphPage({ project, eventList, setEventList, fetchEvents, setFetchEvents, temp=true }) {
+export default function ManageGraphPage({ project, eventList, setEventList }) {
     const [list, setList] = useState([])
     const [initialEdges, setInitialEdges] = useState(null)
+    const [fetchEvents, setFetchEvents] = useState(true)
 
     useEffect(() => {
-        if (fetchEvents || temp) {
+        if (fetchEvents) {
             const populateNode = () => {
                 const newList = eventList.map((event) => ({
-                    id: event.vector_id,
+                    id: event.id,
                     position: { x: event.xCord !== undefined ? event.xCord : 0, y: event.xCord !== undefined ? event.xCord : 0 },
                     data: {
                         label:
@@ -43,7 +44,6 @@ export default function ManageGraphPage({ project, eventList, setEventList, fetc
             }
             populateEdge()
             setFetchEvents(false)
-            temp = false
         }
     }, [fetchEvents]);
 
