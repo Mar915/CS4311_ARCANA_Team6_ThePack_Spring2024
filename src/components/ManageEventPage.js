@@ -20,11 +20,11 @@ function ManageEventPage({ navigateTo, project }) {
             posture: 'Alert',
             description: 'Malware detected',
             location: 'Office',
-            source_host: '192.168.1.100',
-            target_host: '192.168.2.200',
-            vector_id: '12345',
-            data_source: 'Firewall',
-            icon: 'default_red.png'
+            sourceHost: '192.168.1.100',
+            targetHostList: '192.168.2.200',
+            vectorID: '12345',
+            dataSource: 'Firewall',
+            icon: 'default_red'
         },
         {
             isMalformed: 'No',
@@ -34,11 +34,11 @@ function ManageEventPage({ navigateTo, project }) {
             posture: 'Warning',
             description: 'Suspicious activity detected',
             location: 'Data Center',
-            source_host: '192.168.3.150',
-            target_host: '192.168.4.220',
-            vector_id: '67890',
-            data_source: 'IDS',
-            icon: 'default_blue.png'
+            sourceHost: '192.168.3.150',
+            targetHostList: '192.168.4.220',
+            vectorID: '67890',
+            dataSource: 'IDS',
+            icon: 'default_blue'
         },
         {
             isMalformed: 'Yes',
@@ -48,11 +48,11 @@ function ManageEventPage({ navigateTo, project }) {
             posture: 'Info',
             description: 'System update completed',
             location: 'Remote',
-            source_host: '192.168.5.80',
-            target_host: '192.168.6.40',
-            vector_id: '54321',
-            data_source: 'Server Logs',
-            icon: 'default_white.png'
+            sourceHost: '192.168.5.80',
+            targetHostList: '192.168.6.40',
+            vectorID: '54321',
+            dataSource: 'Server Logs',
+            icon: 'default_white'
         }
     ]);
     const [selectEvent, setSelectEvent] = useState(null)

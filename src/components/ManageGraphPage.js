@@ -16,7 +16,7 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
             const populateNode = () => {
                 const newList = eventList.map((event) => ({
                     id: event.id,
-                    position: { x: event.xCord !== undefined ? event.xCord : 0, y: event.xCord !== undefined ? event.xCord : 0 },
+                    position: { x: event.xCord !== undefined ? event.xCord : 0, y: event.yCord !== undefined ? event.yCord : 0 },
                     data: {
                         label:
                             `${event.team} Team Activity\nTime: ${event.timestamp}\nLocation: ${event.location}`, eventData: event
@@ -46,6 +46,10 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
             setFetchEvents(false)
         }
     }, [fetchEvents]);
+
+    useEffect(() => {
+
+    }, [list])
 
     return (
         <div>
