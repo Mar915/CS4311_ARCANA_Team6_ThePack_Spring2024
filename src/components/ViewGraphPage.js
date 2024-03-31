@@ -11,7 +11,7 @@ import ExportGraphPage from "./ExportGraphPage"
 import ImportGraphPage from "./ImportGraphPage"
 import FilterGraphPage from "./FilterGraphPage"
 
-export default function ViewGraphPage({ initialNodes, initialEdges, eventList, setEventList, setList, project }) {
+export default function ViewGraphPage({ initialNodes, initialEdges, eventList, setEventList, setList, project, setFetchEvents }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [selectedNode, setSelectedNode] = useState(null);
@@ -53,11 +53,11 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             <button className="view-node-button" onClick={() => setOpenViewModal((true))}>View Node</button>
             {selectedNode && openModalView && <ViewNodePage open={openModalView} onClose={() => setOpenViewModal(false)} node={selectedNode} />}
             <button className="edit-node-button" onClick={() => setOpenEditModal((true))}>Edit Node</button>
-            {selectedNode && openModalEdit && <EditNodePage open={openModalEdit} onClose={() => setOpenEditModal(false)} node={selectedNode} nodes={initialNodes} />}
+            {selectedNode && openModalEdit && <EditNodePage open={openModalEdit} onClose={() => setOpenEditModal(false)} node={selectedNode} nodes={initialNodes} setFetchEvents={setFetchEvents} />}
             <button className="create-node-button" onClick={() => setOpenCreateModal((true))}>Create Node</button>
-            {selectedNode && openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} node={selectedNode} nodes={initialNodes} />}
+            {selectedNode && openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} node={selectedNode} nodes={initialNodes} setFetchEvents={setFetchEvents}/>}
             <button className="delete-node-button" onClick={() => setOpenDeleteModal((true))}>Delete Node</button>
-            {selectedNode && openModalDelete && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} eventList={eventList} setEventList={setEventList} setList={setList} setSelectedNode={setSelectedNode} setNodes={setNodes} project={project}/>}
+            {selectedNode && openModalDelete && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} eventList={eventList} setEventList={setEventList} setList={setList} setSelectedNode={setSelectedNode} setNodes={setNodes} project={project} setFetchEvents={setFetchEvents}/>}
             <div className="graph-container">
                 <ReactFlow
                     nodes={nodes}

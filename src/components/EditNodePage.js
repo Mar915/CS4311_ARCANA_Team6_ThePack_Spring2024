@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditNodePage = ({ open, onClose, node, nodes }) => {
+const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [nodeDate, setNodeDate] = useState("");
@@ -74,6 +74,7 @@ const EditNodePage = ({ open, onClose, node, nodes }) => {
              ))
              console.log(data)
              setShowSuccess(true);
+             setFetchEvents(true)
         }
         catch (error) {
             console.log("FAIL")

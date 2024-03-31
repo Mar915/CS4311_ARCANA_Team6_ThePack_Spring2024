@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditEventPage = ({ open, onClose, project, currEvent}) => {
+const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
@@ -61,7 +61,7 @@ const EditEventPage = ({ open, onClose, project, currEvent}) => {
                     // Iterate through event list
                     prev.map((p) => {
                         // Only edit event that matches currEvent
-                        if (p.vectorID === currEvent.vectorID) {
+                        if (p.id === currEvent.id) {
                             // Traverse eventData and track non-null values and updated them in copy of currEvent 
                             const updatedEvent = Object.keys(eventData).reduce((acc, i) => {
                                 if (eventData[i] !== null && eventData[i] !== undefined && eventData[i] !== "") {
@@ -74,6 +74,7 @@ const EditEventPage = ({ open, onClose, project, currEvent}) => {
                         return {...p}
                     })
                 )) */
+            setFetchEvents(true)
             console.log(data)
             //console.log(data)
             setShowSuccess(true);

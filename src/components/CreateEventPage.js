@@ -5,7 +5,7 @@ import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
 
-const CreateEventPage = ({ open, onClose, project, setEvents }) => {
+const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
@@ -61,6 +61,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
             setEventDescription("");
             setEventAuto(false);
             setShowSuccess(true);
+            setFetchEvents(true)
         }
         catch (error) {
             console.log("FAIL")
