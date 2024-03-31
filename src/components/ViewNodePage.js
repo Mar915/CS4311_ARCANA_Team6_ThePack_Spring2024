@@ -11,6 +11,7 @@ const ViewNodePage = ({ open, onClose, node }) => {
         <div className="view-node-overlay">
             <div className="view-node-modal">
                 <div className="node-text">
+                <p><img src={`/Icons/default_${node.data.eventData.icon.toLowerCase()}.png`} height={83} width={87} /></p>
                 <p>Team: {node.data.eventData.team}</p>
                 <p>Timestamp: {node.data.eventData.timestamp}</p>
                 <p>Posture: {node.data.eventData.posture}</p>

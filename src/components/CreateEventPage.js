@@ -31,12 +31,12 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
         console.log(icon)
 
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, icon, project
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, nodeIcon, project
         }
 
 
         const eventData = {
-            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: "NAN"
+            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: nodeIcon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: "NAN"
         }
 
         //console.log(data)
@@ -45,9 +45,9 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
             // [TO DO]: Change to how event function is actually set up
             console.log(data)
             await axios.post('http://127.0.0.1:5000/createEvent', data)
-            setEvents(prev => (
-                [...prev, eventData]
-            ))
+            // setEvents(prev => (
+            //     [...prev, eventData]
+            // ))
             //console.log(data)
             setEventDate("");
             setEventTime("");

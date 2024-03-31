@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList, setSelectedNode, setNodes, project }) => {
+const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList, setSelectedNode, setNodes, project, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
 
@@ -16,11 +16,11 @@ const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList,
     const deleteNode = async (event) => {
         try {
             event.preventDefault()
-            const currEvent = eventList.find(e => e.vectorID === node.id)
+            const currEvent = eventList.find(e => e.id === node.id)
             const data = { project, currEvent }
-             // await axios.post(`http://127.0.0.1:5000/deleteEvent`, data)
+             await axios.post(`http://127.0.0.1:5000/deleteEvent`, data)
             setEventList(prev => (
-                prev.filter(p => p.vectorID !== node.id)
+                prev.filter(p => p.id !== node.id)
             ))
             setList(prev => (
                 prev.filter(p => p.id !== node.id)
@@ -29,6 +29,7 @@ const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList,
                 prev.filter(p => p.id !== node.id)
             ))
             setShowSuccess(true);
+            setFetchEvents(true)
         }
         catch (error) {
             setShowFail(true);

@@ -55,7 +55,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             <button className="edit-node-button" onClick={() => setOpenEditModal((true))}>Edit Node</button>
             {selectedNode && openModalEdit && <EditNodePage open={openModalEdit} onClose={() => setOpenEditModal(false)} node={selectedNode} nodes={initialNodes} setFetchEvents={setFetchEvents} />}
             <button className="create-node-button" onClick={() => setOpenCreateModal((true))}>Create Node</button>
-            {selectedNode && openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} node={selectedNode} nodes={initialNodes} setFetchEvents={setFetchEvents}/>}
+            {selectedNode && openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} project={project} setFetchEvents={setFetchEvents}/>}
             <button className="delete-node-button" onClick={() => setOpenDeleteModal((true))}>Delete Node</button>
             {selectedNode && openModalDelete && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} eventList={eventList} setEventList={setEventList} setList={setList} setSelectedNode={setSelectedNode} setNodes={setNodes} project={project} setFetchEvents={setFetchEvents}/>}
             <div className="graph-container">
@@ -77,7 +77,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             <button className="import-graph-button" onClick={() => setOpenImportModal((true))}>Import Graph</button>
             {openModalImport && <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} nodes={nodes} edges={edges}/>}
             <button className="filter-graph-button" onClick={() => setOpenFilterModal((true))}>Filter Graph</button>
-            {openModalFilter && <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} nodes={nodes} edges={edges}/>}
+            {openModalFilter && <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} nodes={nodes} edges={edges} setFetchEvents={setFetchEvents}/>}
         </div>
     );
 }

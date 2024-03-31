@@ -31,7 +31,7 @@ const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => 
         const icon = `default_${nodeIcon.toLowerCase()}.png`
 
         const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, icon, eventDescription, eventAuto, project
+            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, nodeIcon, eventDescription, eventAuto, project
         }
 
         // Data source can't be edited so we need to pass it to edited event
@@ -48,7 +48,7 @@ const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => 
             ts = eventDate + " " + currEvent.timestamp.split(" ")[1]
         }
         const eventData = {
-            timestamp: ts, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: ds
+            timestamp: ts, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: nodeIcon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: ds
         }
         // console.log(data)
         // console.log(eventData)
@@ -129,7 +129,7 @@ const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => 
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="node-icon" required defaultValue={currEvent.icon.split("_")[1].split(".")[0].charAt(0).toUpperCase() + currEvent.icon.split("_")[1].split(".")[0].slice(1)} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                        <select name="node-icon" required defaultValue={currEvent.icon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
                             <option className="node-white" value="White">White</option>
                             <option className="node-red" value="Red">Red</option>
                             <option className="node-blue" value="Blue">Blue</option>

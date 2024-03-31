@@ -20,16 +20,18 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
     const [nodeIcon, setNodeIcon] = useState("");
     const [nodeAuto, setNodeAuto] = useState("")
 
-    const editNode = async (currNode) => {
+    const editNode = async (event) => {
 
-        currNode.preventDefault()
+        event.preventDefault()
 
         // console.log("Node: ", node)
 
         const parsedHost = nodeHost.split(",").map((host) => host.trim())
 
+        const icon = `default_${nodeIcon.toLowerCase()}.png`
+
         const data = {
-            nodeDate, nodeTime, nodeInitials, nodeTeam, nodePosture, nodeLocation, nodeVector,
+            nodeDate, nodeTime, nodeInitials, nodeTeam, nodePosture, nodeIcon, nodeLocation, nodeVector,
             nodeSource, parsedHost, nodeDescription,nodeIcon, nodeAuto, node
         }
 
@@ -54,24 +56,24 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
         }
         try {
             // [TO DO]: Change to how node function is actually set up
-            const response = await axios.post()
-             nodes(prev => (
-                 // Iterate through node list
-                 prev.map((p) => {
-                     // Only edit node that matches node
-                     if (p.vectorID === node.vectorID) {
-                         // Traverse nodeData and track non-null values and updated them in copy of node 
-                         const updatedNode = Object.keys(nodeData).reduce((acc, i) => {
-                             if (nodeData[i] !== null && nodeData[i] !== undefined && nodeData[i] !== "") {
-                                 acc[i] = nodeData[i]
-                             }
-                             return acc
-                         }, {...node}) 
-                         return updatedNode
-                     }
-                     return {...p}
-                 })
-             ))
+            await axios.post('http://127.0.0.1:5000/updateEvent', data)
+            //  nodes(prev => (
+            //      // Iterate through node list
+            //      prev.map((p) => {
+            //          // Only edit node that matches node
+            //          if (p.id === node.id) {
+            //              // Traverse nodeData and track non-null values and updated them in copy of node 
+            //              const updatedNode = Object.keys(nodeData).reduce((acc, i) => {
+            //                  if (nodeData[i] !== null && nodeData[i] !== undefined && nodeData[i] !== "") {
+            //                      acc[i] = nodeData[i]
+            //                  }
+            //                  return acc
+            //              }, {...node}) 
+            //              return updatedNode
+            //          }
+            //          return {...p}
+            //      })
+            //  ))
              console.log(data)
              setShowSuccess(true);
              setFetchEvents(true)
@@ -82,7 +84,7 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
         }
     };
 
-    if (!open ||!node) {
+    if (!open || !node) {
         return null
     }
     
@@ -100,24 +102,24 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
                 <label>
                         Date
                         <br></br>
-                        <input type="date" name="node-date" defaultValue={node.timestamp ? node.timestamp.split(" ")[0] : ""} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
+                        <input type="date" name="node-date" defaultValue={node.data.eventData.timestamp ? node.data.timestamp.split(" ")[0] : ""} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
                     </label>
                     <br></br>
                     <label>
                         Time
                         <br></br>
-                        <input type="time" name="node-time" defaultValue={node.timestamp ? node.timestamp.split(" ")[1] : ""} onChange={() => {setNodeTime(document.querySelector('input[name="node-time"]').value)}} placeholder='hh:mm:ss'/>
+                        <input type="time" name="node-time" defaultValue={node.data.eventData.timestamp ? node.data.eventData.timestamp.split(" ")[1] : ""} onChange={() => {setNodeTime(document.querySelector('input[name="node-time"]').value)}} placeholder='hh:mm:ss'/>
                     </label>
                     <label>
                         Initials
                         <br></br>
-                        <input type="text" name="node-initials" defaultValue={node.initials} onKeyUp={() => {setNodeInitials(document.querySelector('input[name="node-initials"]').value)}} placeholder="III"/>
+                        <input type="text" name="node-initials" defaultValue={node.data.eventData.initials} onKeyUp={() => {setNodeInitials(document.querySelector('input[name="node-initials"]').value)}} placeholder="III"/>
                     </label>
                     <br></br>
                     <label>
                         Team
                         <br></br>
-                        <select name="node-team" defaultValue={node.team} onChange={(team) => {setNodeTeam(team.target.value)}}>
+                        <select name="node-team" defaultValue={node.data.eventData.team} onChange={(team) => {setNodeTeam(team.target.value)}}>
                             <option className="node-white" value="White">White</option>
                             <option className="node-red" value="Red">Red</option>
                             <option className="node-blue" value="Blue">Blue</option>
@@ -125,48 +127,52 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
                     </label>
                     <br></br>
                     <label>
-                        TOA Icon
+                        TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="node-icon" defaultValue={node.icon} onChange={(icon) => {setNodeIcon(icon.target.value)}}>
-                            <option className="node-white" value="White">Default_White.png</option>
-                            <option className="node-red" value="Red">Default_Red.png</option>
-                            <option className="node-blue" value="Blue">Default_Blue.png</option>
+                        <select name="node-icon" required defaultValue={node.data.eventData.icon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
                         </select>
                     </label>
                     <label>
                         Posture
                         <br></br>
-                        <input type="text" name="node-posture" defaultValue={node.posture} onKeyUp={() => {setNodePosture(document.querySelector('input[name="node-posture"]').value)}}/>
+                        <input type="text" name="node-posture" defaultValue={node.data.eventData.posture} onKeyUp={() => {setNodePosture(document.querySelector('input[name="node-posture"]').value)}}/>
                     </label>
                     <label>
                         Location
                         <br></br>
-                        <input type="text" name="node-location" defaultValue={node.location} onKeyUp={() => {setNodeLocation(document.querySelector('input[name="node-location"]').value)}}/>
+                        <input type="text" name="node-location" defaultValue={node.data.eventData.location} onKeyUp={() => {setNodeLocation(document.querySelector('input[name="node-location"]').value)}}/>
                     </label>
                     <label>
                         Vector ID
                         <br></br>
-                        <input type="text" name="node-vector" defaultValue={node.vectorID} onKeyUp={() => {setNodeVector(document.querySelector('input[name="node-vector"]').value)}}/>
+                        <input type="text" name="node-vector" defaultValue={node.data.eventData.vectorID} onKeyUp={() => {setNodeVector(document.querySelector('input[name="node-vector"]').value)}}/>
                     </label>
                     <label>
                         Source Host
                         <br></br>
-                        <input type="text" name="node-source" defaultValue={node.sourceHost} onKeyUp={() => {setNodeSource(document.querySelector('input[name="node-source"]').value)}}  placeholder="0.0.0.0"/>
+                        <input type="text" name="node-source" defaultValue={node.data.eventData.sourceHost} onKeyUp={() => {setNodeSource(document.querySelector('input[name="node-source"]').value)}}  placeholder="0.0.0.0"/>
                     </label>
                     <label>
                         Target Host[s]
                         <br></br>
-                        <input type="text" name="node-host" defaultValue={node.targetHostList} onKeyUp={() => {setNodeHost(document.querySelector('input[name="node-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
+                        <input type="text" name="node-host" defaultValue={node.data.eventData.targetHostList} onKeyUp={() => {setNodeHost(document.querySelector('input[name="node-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
                     </label>
                     <label>
                         Description
                         <br></br>
-                        <input type="text" name="node-description" defaultValue={node.description} onKeyUp={() => {setNodeDescription(document.querySelector('input[name="node-description"]').value)}}/>
+                        <input type="text" name="node-description" defaultValue={node.data.eventData.description} onKeyUp={() => {setNodeDescription(document.querySelector('input[name="node-description"]').value)}}/>
                     </label>
                     <label>
                         Auto Edit Edges
                         <br></br>
-                        <input type="checkbox" name="node-auto" defaultChecked={node.isMalformed} onChange={() => {setNodeAuto(!nodeAuto)}}/>
+                        <input type="checkbox" name="node-auto" defaultChecked={node.data.eventData.isMalformed} onChange={() => {setNodeAuto(!nodeAuto)}}/>
                     </label>
                     <br></br>
                     <button className="cancel-node-button" onClick={onClose}>Cancel</button>

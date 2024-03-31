@@ -29,7 +29,7 @@ export default function ManageGraphPage({ project, eventList, setEventList, fetc
                 const initialEdges = []
                 eventList.forEach((event) => {
                     if (event.AdjList && event.AdjList.length > 0) {
-                        event.AdjList.forEach((target, index) => {
+                        event.AdjList.forEach((target) => {
                             const tempEdge = {
                                 id: `${event.id}-${target.id}`,
                                 source: event.id,
@@ -42,9 +42,10 @@ export default function ManageGraphPage({ project, eventList, setEventList, fetc
                 setInitialEdges(initialEdges)
             }
             populateEdge()
+            setFetchEvents(false)
             temp = false
         }
-    }, []);
+    }, [fetchEvents]);
 
     return (
         <div>

@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 // [TO DO]: Change project to project.projName
-const DeleteProjectPage = ({ open, onClose, project, setProjects }) => {
+const DeleteProjectPage = ({ open, onClose, project, setProjects, setFetchProjectData }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
 
@@ -23,6 +23,7 @@ const DeleteProjectPage = ({ open, onClose, project, setProjects }) => {
             ))
             console.log(project.projName)
             setShowSuccess(true);
+            setFetchProjectData(true)
         } 
         catch (error) {
             console.log("FAIL")

@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const IngestLogsPage = ({ open, onClose, project }) => {
+const IngestLogsPage = ({ open, onClose, project, setFetchProjectData }) => {
     const [logFile, setLogFile] = useState('')
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
@@ -23,6 +23,7 @@ const IngestLogsPage = ({ open, onClose, project }) => {
             await axios.post('http://127.0.0.1:5000/ingestLogs', data)
             console.log(data)
             setShowSuccess(true);
+            setFetchProjectData(true)
         } 
         catch (error) {
             console.log("FAIL")
