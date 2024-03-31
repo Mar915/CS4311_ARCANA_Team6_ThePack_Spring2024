@@ -16,7 +16,7 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
         if (fetchEvents) {
             const populateNode = () => {
                 const newList = eventList.map((event) => ({
-                    id: event.vectorID,
+                    id: event.id,
                     position: { x: event.xCord !== undefined && event.xCord !== null ? event.xCord : 0, y: event.yCord !== undefined && event.yCord !== null ? event.yCord : 0 },
                     data: {
                         label:
@@ -28,6 +28,7 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
                 setList([...initialNodes, ...newList]);
             };
             populateNode();
+            console.log(eventList)
             
             const populateEdge = () => {
                 const newEdgeList = []

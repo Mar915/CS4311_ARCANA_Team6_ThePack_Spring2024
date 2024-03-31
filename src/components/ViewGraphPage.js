@@ -38,6 +38,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
     useEffect(() => {
 
     }, [eventList, nodes, edges, fetchEvents])
+    
 
     const handleSelect = (event, node) => {
         console.log(node)
