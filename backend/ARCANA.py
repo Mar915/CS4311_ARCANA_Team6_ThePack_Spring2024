@@ -23,7 +23,7 @@ def ingestLogs():
         project = data['project']
     
     resp = jsonify({'result' : 'success'})
-    projectRepresenter = ProjectRepresenter( project['name'], project['initials'], project['location'], project['startDate'], project['endDate'])
+    projectRepresenter = ProjectRepresenter( project['projName'], project['initials'], project['location'], project['startDate'], project['endDate'])
 
     # Goind to hardcode the projectname variable here since we don't have a select function yet
     # but I need the project name for functionality

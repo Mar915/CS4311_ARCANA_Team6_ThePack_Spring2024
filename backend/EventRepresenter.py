@@ -15,7 +15,7 @@ class EventRepresenter:
         self.isMalformed = self.checkMalformed()
         self.dataSource = dataSource
 
-        self.icon, self.actionTitle = TOAManager().setTOA(self.team)
+        self.icon = TOAManager().setTOA(self.team)
         if self.isMalformed:
             # if the event is Malrformed then the starting position on graph is (0,0)
             self.xCord = 0

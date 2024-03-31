@@ -140,7 +140,7 @@ function ManageEventPage({ navigateTo, project }) {
                                 <td>{event.targetHostList}</td>
                                 <td>{event.vectorID}</td>
                                 <td>{event.dataSource}</td>
-                                <td><img src={`/Icons/${event.icon}`} height={83} width={87} /></td>
+                                <td><img src={`/Icons/${event.icon}.png`} height={83} width={87} /></td>
                             </tr>
                         ))}
                     </tbody>
