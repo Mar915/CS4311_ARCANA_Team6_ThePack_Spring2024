@@ -4,11 +4,12 @@ import 'reactflow/dist/style.css';
 import ViewGraphPage from "./ViewGraphPage";
 import './ManageGraphPage.css';
 
+const initialEdges = []
 const initialNodes = []
 
 export default function ManageGraphPage({ project, eventList, setEventList }) {
     const [list, setList] = useState([])
-    const [initialEdges, setInitialEdges] = useState(null)
+    const [edgeList, setEdgeList] = useState([])
     const [fetchEvents, setFetchEvents] = useState(true)
 
     useEffect(() => {
@@ -27,7 +28,7 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
             populateNode();
             
             const populateEdge = () => {
-                const initialEdges = []
+                const newEdgeList = []
                 eventList.forEach((event) => {
                     if (event.AdjList && event.AdjList.length > 0) {
                         event.AdjList.forEach((target) => {
@@ -36,16 +37,16 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
                                 source: event.id,
                                 target: target.id
                             }
-                            initialEdges.push(tempEdge)
+                            newEdgeList.push(tempEdge)
                         })
                     }
                 })
-                setInitialEdges(initialEdges)
+                setEdgeList([...initialEdges, ...newEdgeList])
             }
             populateEdge()
             setFetchEvents(false)
         }
-    }, [fetchEvents]);
+    }, [fetchEvents, eventList]);
 
     useEffect(() => {
 
@@ -54,7 +55,7 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
     return (
         <div>
             {list.length > 0 &&
-                <ViewGraphPage initialNodes={list} initialEdges={initialEdges} eventList={eventList} setEventList={setEventList} setList={setList} project={project} setFetchEvents={setFetchEvents} />
+                <ViewGraphPage initialNodes={list} initialEdges={edgeList} eventList={eventList} setEventList={setEventList} setList={setList} project={project} setFetchEvents={setFetchEvents} />
             }
         </div>
     )
