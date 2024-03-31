@@ -114,9 +114,9 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
                         <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
-                            <option className="node-white" value="White">White</option>
-                            <option className="node-red" value="Red">Red</option>
-                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-white" value="default_white">White</option>
+                            <option className="node-red" value="default_red">Red</option>
+                            <option className="node-blue" value="default_blue">Blue</option>
                             <option className="node-detect" value="Detect">Detect</option>
                             <option className="node-protect" value="Protect">Protect</option>
                             <option className="node-react" value="React">React</option>

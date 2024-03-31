@@ -20,7 +20,7 @@ class EventsManager:
         rep['vectorID'] = data['eventVector']
         rep['description'] = data['eventDescription']
         rep['timestamp'] = str(data['eventDate']) + " " + str(data['eventTime'])
-        rep['icon'] = data['icon']
+        rep['icon'] = data['nodeIcon']
         rep['dataSource'] = 'User Created'
         
 
