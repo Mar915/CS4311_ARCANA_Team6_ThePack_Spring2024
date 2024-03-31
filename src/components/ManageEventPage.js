@@ -136,10 +136,10 @@ function ManageEventPage({ navigateTo, project }) {
                                 <td>{event.posture}</td>
                                 <td>{event.description}</td>
                                 <td>{event.location}</td>
-                                <td>{event.source_host}</td>
-                                <td>{event.target_host}</td>
-                                <td>{event.vector_id}</td>
-                                <td>{event.data_source}</td>
+                                <td>{event.sourceHost}</td>
+                                <td>{event.targetHostList}</td>
+                                <td>{event.vectorID}</td>
+                                <td>{event.dataSource}</td>
                                 <td><img src={`/Icons/${event.icon}`} height={83} width={87} /></td>
                             </tr>
                         ))}
