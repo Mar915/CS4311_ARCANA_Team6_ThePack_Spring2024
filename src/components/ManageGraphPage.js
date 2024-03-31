@@ -16,12 +16,14 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
         if (fetchEvents) {
             const populateNode = () => {
                 const newList = eventList.map((event) => ({
-                    id: event.id,
-                    position: { x: event.xCord !== undefined ? event.xCord : 0, y: event.yCord !== undefined ? event.yCord : 0 },
+                    id: event.vectorID,
+                    position: { x: event.xCord !== undefined && event.xCord !== null ? event.xCord : 0, y: event.yCord !== undefined && event.yCord !== null ? event.yCord : 0 },
                     data: {
                         label:
                             `${event.team} Team Activity\nTime: ${event.timestamp}\nLocation: ${event.location}`, eventData: event
-                    }
+                    },
+                    height: 85,
+                    width: 150 
                 }));
                 setList([...initialNodes, ...newList]);
             };
@@ -55,7 +57,7 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
     return (
         <div>
             {list.length > 0 &&
-                <ViewGraphPage initialNodes={list} initialEdges={edgeList} eventList={eventList} setEventList={setEventList} setList={setList} project={project} setFetchEvents={setFetchEvents} />
+                <ViewGraphPage initialNodes={list} initialEdges={edgeList} eventList={eventList} setEventList={setEventList} setList={setList} project={project} setFetchEvents={setFetchEvents} fetchEvents={fetchEvents}/>
             }
         </div>
     )

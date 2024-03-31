@@ -11,7 +11,7 @@ import ExportGraphPage from "./ExportGraphPage"
 import ImportGraphPage from "./ImportGraphPage"
 import FilterGraphPage from "./FilterGraphPage"
 
-export default function ViewGraphPage({ initialNodes, initialEdges, eventList, setEventList, setList, project, setFetchEvents }) {
+export default function ViewGraphPage({ initialNodes, initialEdges, eventList, setEventList, setList, project, setFetchEvents, fetchEvents }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [selectedNode, setSelectedNode] = useState(null);
@@ -37,7 +37,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
 
     useEffect(() => {
 
-    }, [eventList, nodes])
+    }, [eventList, nodes, edges, fetchEvents])
 
     const handleSelect = (event, node) => {
         console.log(node)
