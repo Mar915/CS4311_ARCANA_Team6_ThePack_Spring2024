@@ -90,7 +90,7 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
                 <label>
                         Date
                         <br></br>
-                        <input type="date" name="node-date" defaultValue={node.data.timestamp.split(" ")[0]} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
+                        <input type="date" name="node-date" defaultValue={node.data.eventData.timestamp.split(" ")[0]} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
                     </label>
                     <br></br>
                     <label>
