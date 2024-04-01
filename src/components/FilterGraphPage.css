@@ -1,0 +1,98 @@
+.filter-graph-overlay {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 600px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 14; 
+}
+
+.filter-graph-modal {
+    margin-top: 50px;
+    max-width: 600px;
+    width: 70%;
+    height: auto;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* display: flex; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #fff !important;
+    z-index: 15;
+}
+
+.filter-graph-form {
+    height: 100%;
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+.close-button-filter-graph {
+    position: fixed;
+    top: 8px;
+    right: 16px
+}
+
+.filter-graph-form {
+    height: 100%;
+    display: inline-block;
+}
+
+.asterisk {
+    color: red;
+    font-weight: bold;
+}
+
+.required {
+    color: lightgray;
+}
+
+.start-end-buttons {
+    display: inline-block;
+}
+
+.cancel-filter-button {
+    background-color: #5a5a5a9f;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    margin-bottom: 0;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-graph-confirm-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    margin-bottom: 0;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-filter-button:hover, .filter-graph-confirm-button:hover {
+    background-color: #0056b3;
+  }
+
+  input[name="date"],
+  input[name="time"],
+  input[name="initials"],
+  select[name="team"],
+  input[name="location"],
+  input[name="vector"],
+  input[name="source"],
+  input[name="host"] {
+    padding: 5px 10px;
+    margin: 1px 0;
+    box-sizing: border-box;
+    width: 100%;
+  }

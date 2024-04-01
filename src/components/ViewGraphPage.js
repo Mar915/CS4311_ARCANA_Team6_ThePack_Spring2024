@@ -35,6 +35,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             event.preventDefault()
             // Possible solution to save edges
             // Not sure which post to call
+            const updateEvents = []
             for (let e of eventList) {
                 const tempAdjList = []
                 edges.forEach((edge) => {
@@ -53,11 +54,12 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                 })
                 e.xCord = x
                 e.yCord = y
-                const data = { e, project }
-                // Is this the correct function?
-                await axios.post('http://127.0.0.1:5000/updatePosition', data)
-                setShowSuccess(true);
+                updateEvents.push({id: e.id, eventInfo: e})
             }
+            const data = {updateEvents, project}
+            // Is this the correct function?
+            await axios.post('http://127.0.0.1:5000/updateAllEvents', data)
+            setShowSuccess(true);
         }
         catch (e) {
             console.log("Failure :{")
@@ -124,7 +126,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             <button className="import-graph-button" onClick={() => setOpenImportModal((true))}>Import Graph</button>
             {openModalImport && <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} nodes={nodes} edges={edges} />}
             <button className="filter-graph-button" onClick={() => setOpenFilterModal((true))}>Filter Graph</button>
-            {openModalFilter && <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} nodes={nodes} edges={edges} setFetchEvents={setFetchEvents} />}
+            {openModalFilter && <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} setEventList={setEventList} eventList={eventList} setList={setList} nodes={nodes} setNodes={setNodes} setFetchEvents={setFetchEvents}/>}
         </div>
     );
 }
