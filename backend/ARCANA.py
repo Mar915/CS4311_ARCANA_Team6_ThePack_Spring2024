@@ -117,7 +117,7 @@ def updateEvent():
 
     project = data['project']
     eM = EventsManager(db.getRef(), project['projName'])
-    eM.updateEvent(data)
+    eM.updateEvent(data['eventData'])
 
     response = jsonify({'some': 'data'})
     return response
@@ -135,7 +135,7 @@ def createEvent():
 
     project = data['project']
     eM = EventsManager(db.getRef(), project['projName'])
-    eM.createEvent(data)
+    eM.createEvent(data['eventData'])
 
     response = jsonify({'some' : 'data'})
     return response

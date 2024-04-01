@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
+const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [nodeDate, setNodeDate] = useState("");
@@ -28,32 +28,20 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
 
         const parsedHost = nodeHost.split(",").map((host) => host.trim())
 
-        const icon = `default_${nodeIcon.toLowerCase()}.png`
+        const icon = `default_${nodeIcon.toLowerCase()}`
+
+        const eventData = {
+            id : node.data.eventData.id, timestamp: nodeDate + " " + nodeTime, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
+            location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: parsedHost,
+            description: nodeDescription, icon: icon, auto: nodeAuto, xCord : node.data.eventData.xCord,
+            yCord : node.data.eventData.yCord, adjList: node.data.eventData.adjList
+        }
 
         const data = {
-            nodeDate, nodeTime, nodeInitials, nodeTeam, nodePosture, nodeIcon, nodeLocation, nodeVector,
-            nodeSource, parsedHost, nodeDescription,nodeIcon, nodeAuto, node
+            eventData, project
         }
 
-        // Data source can't be edited so we need to pass it to edited node
-        const ds = node.dataSource
-        // Timestamp is concatenated so we have to ensure that it will stay that way
-        let ts = ""
-        if (nodeDate === "" && nodeTime === "") {
-            ts = node.timestamp
-        }
-        else if (nodeDate === "" && nodeTime !== "") {
-            ts = node.timestamp.split(" ")[0]+ " " + nodeTime
-        }
-        else if (nodeDate !== "" && nodeTime === "") {
-            ts = nodeDate + " " + node.timestamp.split(" ")[1]
-        }
-        const nodeData = {
-            timestamp: ts, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
-            location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, 
-            targetHostList: nodeHost, description: nodeDescription, icon: nodeIcon, 
-            isMalformed: nodeAuto, dataSource: ds
-        }
+        
         try {
             // [TO DO]: Change to how node function is actually set up
             await axios.post('http://127.0.0.1:5000/updateEvent', data)
@@ -102,13 +90,13 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents }) => {
                 <label>
                         Date
                         <br></br>
-                        <input type="date" name="node-date" defaultValue={node.data.eventData.timestamp ? node.data.timestamp.split(" ")[0] : ""} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
+                        <input type="date" name="node-date" defaultValue={node.data.timestamp.split(" ")[0]} onChange={() => {setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
                     </label>
                     <br></br>
                     <label>
                         Time
                         <br></br>
-                        <input type="time" name="node-time" defaultValue={node.data.eventData.timestamp ? node.data.eventData.timestamp.split(" ")[1] : ""} onChange={() => {setNodeTime(document.querySelector('input[name="node-time"]').value)}} placeholder='hh:mm:ss'/>
+                        <input type="time" name="node-time" defaultValue={node.data.eventData.timestamp.split(" ")[1]} onChange={() => {setNodeTime(document.querySelector('input[name="node-time"]').value)}} placeholder='hh:mm:ss'/>
                     </label>
                     <label>
                         Initials

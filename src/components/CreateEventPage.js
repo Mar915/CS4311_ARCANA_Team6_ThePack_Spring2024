@@ -25,18 +25,15 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
         event.preventDefault()
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
-
-        const icon = `default_${nodeIcon.toLowerCase()}.png`
+        const icon = `default_${nodeIcon.toLowerCase()}`
 
         console.log(icon)
 
-        const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, nodeIcon, project
-        }
-
-
         const eventData = {
-            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: nodeIcon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: "NAN"
+            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: nodeIcon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: parsedHost, description: eventDescription, isMalformed: eventAuto, dataSource: "User Created"
+        }
+        const data = {
+             project, eventData
         }
 
         //console.log(data)

@@ -26,14 +26,15 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
 
         const parsedHost = nodeHost.split(",").map((host) =>host.trim())
 
-        const data = {
-            nodeDate, nodeTime, nodeInitials, nodeTeam, nodePosture, nodeLocation, nodeVector,
-            nodeSource, parsedHost, nodeDescription, nodeAuto, nodeIcon, project
-        }
-        const nodeData = {
+        
+        const eventData = {
             timestamp: nodeDate + " " + nodeTime, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
-            location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: nodeHost,
-            description: nodeDescription, icon: nodeIcon, isMalformed: nodeAuto, dataSource: "NAN"
+            location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: parsedHost,
+            description: nodeDescription, icon: nodeIcon, isMalformed: nodeAuto, dataSource: "User Created"
+        }
+
+        const data = {
+            eventData, project
         }
         try {
             console.log(data)

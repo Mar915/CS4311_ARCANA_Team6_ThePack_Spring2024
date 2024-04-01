@@ -17,11 +17,11 @@ class EventRepresenter:
 
         self.icon = TOAManager().setTOA(self.team)
         if self.isMalformed:
-            # if the event is Malrformed then the starting position on graph is (0,0)
+            # if the event is Malformed then the starting position on graph is (0,0)
             self.xCord = 0
             self.yCord = 0
         else:
-            # if the event is normal then the starting position on graph is (200,0)
+            # if the event is normal then the starting position on graph is (0, 200)
             self.xCord = 0
             self.yCord = 200
         

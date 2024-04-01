@@ -13,7 +13,7 @@ class ProjectRepresenter:
         self.endDate = endDate
         self.toaManager = TOAManager()
         self.db = Database().getRef()
-        self.ingestedFiles = self.pullIngested(self.db[name]['ingestedFiles'])
+        self.ingestedFiles = self.pullIngested(self.db['projectRepList'][name]['ingestedFiles'])
         self.eventsManager = EventsManager(self.db, self.name)
         self.eventGraphManager = EventGraphManager(self.db, self.name)
 
@@ -27,7 +27,7 @@ class ProjectRepresenter:
     # Kind of self-explanatory
     # We just need feed the reference to the specific project collection and a directory for this bad boy to work
     def ingestLogs(self, directory):
-        ingestor = LogIngestor(self.db['projectRepList'][self.name])
+        ingestor = LogIngestor(self.db['projectRepList'][self.name], self.ingestedFiles)
         errors, eventRepList = ingestor.traverseFiles(directory)
         #print(errors)
         #print("Events created: ", len(eventRepList))

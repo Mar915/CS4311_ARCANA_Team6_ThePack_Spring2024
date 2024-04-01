@@ -28,27 +28,21 @@ const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => 
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
-        const icon = `default_${nodeIcon.toLowerCase()}.png`
+        const icon = `default_${nodeIcon.toLowerCase()}`
 
-        const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, nodeIcon, eventDescription, eventAuto, project
-        }
 
         // Data source can't be edited so we need to pass it to edited event
         const ds = currEvent.dataSource
         // Timestamp is concatenated so we have to ensure that it will stay that way
-        let ts = ""
-        if (eventDate === "" && eventTime === "") {
-            ts = currEvent.timestamp
-        }
-        else if (eventDate === "" && eventTime !== "") {
-            ts = currEvent.timestamp.split(" ")[0]+ " " + eventTime
-        }
-        else if (eventDate !== "" && eventTime === "") {
-            ts = eventDate + " " + currEvent.timestamp.split(" ")[1]
-        }
         const eventData = {
-            timestamp: ts, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: nodeIcon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: ds
+            id: currEvent.id, timestamp: eventDate + " " + eventTime, initials: eventInitials, 
+            team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, 
+            sourceHost: eventSource, targetHostList: parsedHost, description: eventDescription, auto: eventAuto, 
+            dataSource: ds, xCord : currEvent.xCord , yCord : currEvent.yCord, adjList : currEvent.adjList
+         }
+
+        const data = {
+            eventData, project
         }
         // console.log(data)
         // console.log(eventData)
