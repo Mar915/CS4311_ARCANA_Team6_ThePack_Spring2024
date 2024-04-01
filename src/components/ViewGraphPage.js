@@ -121,7 +121,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                                 onClose={closeMessage}
                             />
                         ))}
-            <button className="save-graph-button" onClick={() => saveGraph()}>Save Graph</button>
+            <button className="save-graph-button" onClick={(event) => saveGraph(event)}>Save Graph</button>
             <button className="export-graph-button" onClick={() => setOpenExportModal((true))}>Export Graph</button>
             {openModalExport && <ExportGraphPage open={openModalExport} onClose={() => setOpenExportModal(false)} nodes={nodes} edges={edges} />}
             <button className="import-graph-button" onClick={() => setOpenImportModal((true))}>Import Graph</button>
