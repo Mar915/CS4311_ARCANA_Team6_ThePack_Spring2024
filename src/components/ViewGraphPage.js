@@ -57,6 +57,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                 updateEvents.push({id: e.id, eventInfo: e})
             }
             const data = {updateEvents, project}
+            console.log(data)
             // Is this the correct function?
             await axios.post('http://127.0.0.1:5000/updateAllEvents', data)
             setShowSuccess(true);

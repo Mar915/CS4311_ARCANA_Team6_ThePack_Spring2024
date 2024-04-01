@@ -140,6 +140,20 @@ def createEvent():
     response = jsonify({'some' : 'data'})
     return response
 
+
+@app.route("/updateAllEvents", methods = ['GET', 'POST'])
+def updateAllEvents():
+    db = Database()
+    if request.method == 'POST':
+        data = request.json # data = {project, updateEvents} updateEvents is a list where each item is {id, eventInfo}
+
+    project = data['project']
+    em = EventsManager(db.getRef(), project['projName'])
+    em.updateAllEvents(data['updateEvents'])
+
+    response = jsonify({'some' : 'data'})
+    return response
+
 @app.route("/updatePosition", methods = ['GET', 'POST'])
 def updatePosition():
     

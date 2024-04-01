@@ -80,6 +80,24 @@ class EventsManager:
     #        eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
     #    }
 
+    def updateAllEvents(self, eventList):
+        eventsDB = self.db['projectRepList'][self.projName]['eventRepList']
+        for e in eventList:
+            info = e['eventInfo']
+            query = {'id' : e['id']}
+            changes = {}
+            if info['xCord'] != '':
+                changes['xCord'] = info['xCord']
+            if info['yCord'] != '':
+                changes['yCord'] = info['yCord']
+            if info['adjList'] != '':
+                changes['adjList'] = info['adjList']
+            newValues = {'$set' : changes}
+            eventsDB.update_one(query, newValues)
+            
+        
+
+
 
     def pullEvents(self):
         events = self.db['projectRepList'][self.projName]['eventRepList'].find()
