@@ -5,13 +5,13 @@ import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
 
-const CreateEventPage = ({ open, onClose, project, setEvents }) => {
+const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [eventInitials, setEventInitials] = useState('');
-    const [eventTeam, setEventTeam] = useState('');
+    const [eventTeam, setEventTeam] = useState('White');
     const [eventPosture, setEventPosture] = useState('');
     const [eventLocation, setEventLocation] = useState('');
     const [eventVector, setEventVector] = useState('');
@@ -19,19 +19,21 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
     const [eventHost, setEventHost] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventAuto, setEventAuto] = useState(false)
+    const [nodeIcon, setNodeTeam] = useState('White')
 
     const createEvent = async (event) => {
         event.preventDefault()
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
+        const icon = `default_${nodeIcon.toLowerCase()}`
 
-        const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
-        }
-
+        console.log(icon)
 
         const eventData = {
-            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: "NAN"
+            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: nodeIcon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: parsedHost, description: eventDescription, isMalformed: eventAuto, dataSource: "User Created"
+        }
+        const data = {
+             project, eventData
         }
 
         //console.log(data)
@@ -40,9 +42,9 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
             // [TO DO]: Change to how event function is actually set up
             console.log(data)
             await axios.post('http://127.0.0.1:5000/createEvent', data)
-            setEvents(prev => (
-                [...prev, eventData]
-            ))
+            // setEvents(prev => (
+            //     [...prev, eventData]
+            // ))
             //console.log(data)
             setEventDate("");
             setEventTime("");
@@ -56,6 +58,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
             setEventDescription("");
             setEventAuto(false);
             setShowSuccess(true);
+            setFetchEvents(true)
         }
         catch (error) {
             console.log("FAIL")
@@ -98,12 +101,26 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
                     <label>
                         Team<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="event-team" required value={eventTeam} onChange={(team) => { setEventTeam(team.target.value) }}>
+                        <select name="event-team" required value={eventTeam} defaultValue={"White"} onChange={(team) => { setEventTeam(team.target.value) }}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
                         </select>
                     </label>
+                    <label>
+                        TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
+                        <br></br>
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                            <option className="node-white" value="default_white">White</option>
+                            <option className="node-red" value="default_red">Red</option>
+                            <option className="node-blue" value="default_blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
+                        </select>
+                    </label>
+                    <br></br>
                     <label>
                         Posture
                         <br></br>
@@ -132,7 +149,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents }) => {
                     <label>
                         Description<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <input type="text" name="event-description" onKeyUp={() => { setEventDescription(document.querySelector('input[name="event-description"]').value) }} />
+                        <input type="text" name="event-description" required onKeyUp={() => { setEventDescription(document.querySelector('input[name="event-description"]').value) }} />
                     </label>
                     {/* [TO DO]: Add Icon Selector */}
                     <label>

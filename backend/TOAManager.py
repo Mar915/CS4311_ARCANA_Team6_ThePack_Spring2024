@@ -1,12 +1,12 @@
 class TOAManager:
     def __init__(self):
-        self.libary = "Some File path we don't have yet"
+        self.libary = "Icons"
     
     def setTOA(self, team):
-        if team == 'blue':
-            return 'blueDefault.png', 'blueDefault'
-        elif team == 'white':
-            return 'whiteDefault.png', 'whiteDefault'
+        if team == 'Blue':
+            return 'default_blue'
+        elif team == 'White':
+            return 'default_white'
         else:
-            return 'redDefault.png', 'redDefault'
+            return 'default_red'
     

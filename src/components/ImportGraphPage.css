@@ -1,4 +1,4 @@
-.create-proj-overlay {
+.import-graph-overlay {
     position: fixed;
     top: 40%; 
     left: 50%; 
@@ -10,7 +10,7 @@
     z-index: 14;
 }
 
-.create-proj-modal {
+.import-graph-modal {
     margin-top: 50px;
     max-width: 600px;
     width: 60%;
@@ -25,20 +25,19 @@
     z-index: 15;
 }
 
-.close-button-create-proj {
+.close-button-import-graph {
     position: fixed;
     top: 8px;
     right: 16px
 }
 
-.close-button-create-proj:hover {
+.close-button-import-graph {
     cursor: pointer;
 }
 
-.create-proj-form {
+.import-graph-form {
     height: 100%;
     display: inline-block;
-    margin-bottom: 50px;
 }
 
 .asterisk {
@@ -54,7 +53,7 @@
     display: inline-block;
 }
 
-.cancel-proj-button, .create-proj-confirm-button {
+.cancel-import-button, .import-graph-confirm-button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -65,11 +64,11 @@
     transition: background-color 0.3s;
 }
 
-.cancel-proj-button:hover, .create-proj-confirm-button:hover {
+.cancel-import-button:hover, .import-graph-confirm-button:hover {
     background-color: #0056b3;
   }
 
-input[name="proj-name"], input[name="proj-location"], input[name="proj-start-date"], input[name="proj-end-date"], input[name="proj-initials"] {
+input[name="log-directory"], input[name="string-log-directory"] {
     padding: 5px 10px;
     margin: 1px 0;
     box-sizing: border-box;

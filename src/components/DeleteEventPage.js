@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 // [TO DO]: Change project to project.eventName
-const DeleteEventPage = ({ open, onClose, project, currEvent, setEvents }) => {
+const DeleteEventPage = ({ open, onClose, project, currEvent, setEvents, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
 
@@ -18,12 +18,13 @@ const DeleteEventPage = ({ open, onClose, project, currEvent, setEvents }) => {
         try {
             event.preventDefault()
             setEvents(prev => (
-                prev.filter(p => p.vectorID !== currEvent.vectorID)
+                prev.filter(p => p.id !== currEvent.id)
             ))
             // Attempting use axios.delete
             await axios.post(`http://127.0.0.1:5000/deleteEvent`, data)
             //console.log(event.eventName)
             setShowSuccess(true);
+            setFetchEvents(true)
         }
         catch (error) {
             console.log("FAIL")

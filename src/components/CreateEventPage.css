@@ -1,6 +1,6 @@
 .create-event-overlay {
     position: fixed;
-    top: 40%; /* Same top position as the modal */
+    top: 45%; /* Same top position as the modal */
     left: 50%; /* Same left position as the modal */
     transform: translate(-50%, -50%);
     width: 80%; /* Matching the modal width */
@@ -16,7 +16,7 @@
     width: 80%;
     height: auto;
     position: fixed;
-    top: 40%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     /* display: flex; */

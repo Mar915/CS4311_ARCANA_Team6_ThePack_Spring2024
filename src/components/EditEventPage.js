@@ -4,14 +4,13 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditEventPage = ({ open, onClose, project }) => {
+const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
     const [eventTime, setEventTime] = useState('');
     const [eventInitials, setEventInitials] = useState('');
     const [eventTeam, setEventTeam] = useState('');
-    const [eventTOA, setEventTOA] = useState('');
     const [eventPosture, setEventPosture] = useState('');
     const [eventLocation, setEventLocation] = useState('');
     const [eventVector, setEventVector] = useState('');
@@ -19,35 +18,31 @@ const EditEventPage = ({ open, onClose, project }) => {
     const [eventHost, setEventHost] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventAuto, setEventAuto] = useState('')
-
+    const [nodeIcon, setNodeTeam] = useState('')
 
     const editEvent = async (event) => {
         event.preventDefault()
         // console.log("Project: ", project)
-        // console.log("Event: ", currEvent)
+        console.log("Event: ", currEvent)
 
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
-        const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, project
-        }
+        const icon = `default_${nodeIcon.toLowerCase()}`
+
 
         // Data source can't be edited so we need to pass it to edited event
         const ds = currEvent.dataSource
         // Timestamp is concatenated so we have to ensure that it will stay that way
-        let ts = ""
-        if (eventDate === "" && eventTime === "") {
-            ts = currEvent.timestamp
-        }
-        else if (eventDate === "" && eventTime !== "") {
-            ts = currEvent.timestamp.split(" ")[0]+ " " + eventTime
-        }
-        else if (eventDate !== "" && eventTime === "") {
-            ts = eventDate + " " + currEvent.timestamp.split(" ")[1]
-        }
         const eventData = {
-            timestamp: ts, initials: eventInitials, team: eventTeam, posture: eventPosture, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: eventHost, description: eventDescription, isMalformed: eventAuto, dataSource: ds
+            id: currEvent.id, timestamp: eventDate + " " + eventTime, initials: eventInitials, 
+            team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, 
+            sourceHost: eventSource, targetHostList: parsedHost, description: eventDescription, auto: eventAuto, 
+            dataSource: ds, xCord : currEvent.xCord , yCord : currEvent.yCord, adjList : currEvent.adjList
+         }
+
+        const data = {
+            eventData, project
         }
         // console.log(data)
         // console.log(eventData)
@@ -56,25 +51,25 @@ const EditEventPage = ({ open, onClose, project }) => {
         try {
             // [TO DO]: Change to how event function is actually set up
             await axios.post('http://127.0.0.1:5000/updateEvent', data)
-            setEvents(prev => (
-                // Iterate through event list
-                prev.map((p) => {
-                    // Only edit event that matches currEvent
-                    if (p.vectorID === currEvent.vectorID) {
-                        // Traverse eventData and track non-null values and updated them in copy of currEvent 
-                        const updatedEvent = Object.keys(eventData).reduce((acc, i) => {
-                            if (eventData[i] !== null && eventData[i] !== undefined && eventData[i] !== "") {
-                                acc[i] = eventData[i]
-                            }
-                            return acc
-                        }, {...currEvent}) 
-                        return updatedEvent
-                    }
-                    return {...p}
-                })
-            ))
+/*                setEvents(prev => (
+                    // Iterate through event list
+                    prev.map((p) => {
+                        // Only edit event that matches currEvent
+                        if (p.id === currEvent.id) {
+                            // Traverse eventData and track non-null values and updated them in copy of currEvent 
+                            const updatedEvent = Object.keys(eventData).reduce((acc, i) => {
+                                if (eventData[i] !== null && eventData[i] !== undefined && eventData[i] !== "") {
+                                    acc[i] = eventData[i]
+                                }
+                                return acc
+                            }, {...currEvent}) 
+                            return updatedEvent
+                        }
+                        return {...p}
+                    })
+                )) */
+            setFetchEvents(true)
             console.log(data)
-            await axios.post('http://127.0.0.1:5000/editEvent', data)
             //console.log(data)
             setShowSuccess(true);
         } 
@@ -125,15 +120,19 @@ const EditEventPage = ({ open, onClose, project }) => {
                             <option className="event-blue" value="Blue">Blue</option>
                         </select>
                     </label>
-                    <div class="dropdownicon">
-                        <label for="icon">TOA Icons<span className="asterisk">* </span><span className="required">(required)</span></label>
+                    <label>
+                        TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <button class="dropbtn">Select Icon</button>
-                        <div class="dropdown-content" id="iconDropdown">
-                            <a href="#"><img src="./Icons/BlueTeam_Activity.png" alt="BlueTeam_Activity"></img></a>
-                            <a href="#"><img src="./Icons/RedTeam_Activity.png" alt="RedTeam_Activity"></img></a>
-                        </div>
-                    </div>
+                        <select name="node-icon" required defaultValue={currEvent.icon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
+                        </select>
+                    </label>
                     <label>
                         Posture
                         <br></br>

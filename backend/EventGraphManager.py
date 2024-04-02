@@ -5,7 +5,6 @@ class EventGraphManager:
     def __init__(self, db, projName):
         self.db = db
         self.projName = projName
-        self.eventList = EventsManager.pullEvents()
 
     
     def updatePosition(self, newData):

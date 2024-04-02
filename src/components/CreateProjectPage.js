@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const CreateProjectPage = ({ open, onClose, setProjects }) => {
+const CreateProjectPage = ({ open, onClose, setProjects, setFetchProjectData }) => {
     const [projName, setProjName] = useState('');
     const [projLocation, setProjLocation] = useState('');
     const [projStartDate, setProjStDate] = useState('');
@@ -32,6 +32,7 @@ const CreateProjectPage = ({ open, onClose, setProjects }) => {
             await axios.post('http://127.0.0.1:5000/createProject', data)
             console.log(data)
             setShowSuccess(true);
+            setFetchProjectData(true)
         } 
         catch (error) {
             console.log("FAIL")

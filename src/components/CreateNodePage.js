@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const CreateNodePage = ({ open, onClose, node }) => {
+const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [nodeDate, setNodeDate] = useState('');
@@ -26,21 +26,22 @@ const CreateNodePage = ({ open, onClose, node }) => {
 
         const parsedHost = nodeHost.split(",").map((host) =>host.trim())
 
-        const data = {
-            nodeDate, nodeTime, nodeInitials, nodeTeam, nodePosture, nodeLocation, nodeVector,
-            nodeSource, parsedHost, nodeDescription,nodeIcon, nodeAuto
-        }
-        const nodeData = {
+        
+        const eventData = {
             timestamp: nodeDate + " " + nodeTime, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
-            location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: nodeHost,
-            description: nodeDescription, icon: nodeIcon, isMalformed: nodeAuto, dataSource: "NAN"
+            location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: parsedHost,
+            description: nodeDescription, icon: nodeIcon, isMalformed: nodeAuto, dataSource: "User Created"
+        }
+
+        const data = {
+            eventData, project
         }
         try {
             console.log(data)
-            const response = await axios.post()
-            setNodeSource(prev => (
-                [...prev,nodeData]
-            ))
+            await axios.post('http://127.0.0.1:5000/createEvent', data)
+            // setNodeSource(prev => (
+            //     [...prev,nodeData]
+            // ))
             setNodeDate("");
             setNodeTime("");
             setNodeInitials("");
@@ -54,6 +55,7 @@ const CreateNodePage = ({ open, onClose, node }) => {
             setNodeIcon("");
             setNodeAuto(false);
             setShowSuccess(true);
+            setFetchEvents(true)
         }
         catch (error) {
             console.log("FAIL")
@@ -110,9 +112,13 @@ const CreateNodePage = ({ open, onClose, node }) => {
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
                         <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
-                            <option className="node-white" value="White">WhiteDefault.png</option>
-                            <option className="node-red" value="Red">RedDefault.png</option>
-                            <option className="node-blue" value="Blue">BlueDefault.png</option>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
                         </select>
                     </label>
                     <br></br>
