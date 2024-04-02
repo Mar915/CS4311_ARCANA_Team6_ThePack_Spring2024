@@ -42,14 +42,16 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                     if (edge.source === e.id) {
                         tempAdjList.push(edge.target)
                     }
+                    
                 })
                 e.AdjList = tempAdjList
                 let x = 0
                 let y = 0
                 nodes.forEach((node) => {
                     if (node.id === e.id) {
-                        x = node.xCord
-                        y = node.yCord
+                        x = node.position.x
+                        y = node.position.y
+                     
                     }
                 })
                 e.xCord = x
