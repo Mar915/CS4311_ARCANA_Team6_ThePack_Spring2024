@@ -44,6 +44,7 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
         
         try {
             // [TO DO]: Change to how node function is actually set up
+            console.log(data)
             await axios.post('http://127.0.0.1:5000/updateEvent', data)
             //  nodes(prev => (
             //      // Iterate through node list
@@ -62,7 +63,7 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
             //          return {...p}
             //      })
             //  ))
-             console.log(data)
+         
              setShowSuccess(true);
              setFetchEvents(true)
         }
