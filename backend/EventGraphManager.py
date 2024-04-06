@@ -42,6 +42,7 @@ class EventGraphManager:
                 return e
 
     def makeEdges(self):
+        x = 200
         eventsDB = self.db['projectRepList'][self.projName]['eventRepList']
       
         # Using the busted commands from MongoDB to get unique occurences in the vectorID attribute
@@ -51,26 +52,43 @@ class EventGraphManager:
         # Using the find command to get a list of the events with a particular vectorID
         # And sort by timestamp
         for v in vectorIDs:
+            y = 0
             groups[v] = []
+            print(v)
             databaseEvents = eventsDB.find({ 'vectorID': v, 'isMalformed' : 'False' })
             for e in databaseEvents:
-               # print(e)
+                #print(e['id'])
                 groups[v].append(self.getEvent(e['id']))
             # The code above SHOULD check each event from the database query and find its matching eventRepresenter
 
-
-            groups[v].sort(key = self.interpretTimeStamp)
-
             # Once all of the vectorID sharing events are in a list, we set up the edges
             if len(groups[v]) != 0:
-                popped = groups[v].pop()
+                groups[v].sort(key = self.interpretTimeStamp)
+                #self.printArrayOrder(groups[v])
+                popped = groups[v].pop(0)
 
-            for event in groups[v]:
+                #In the case there is only one event in the list
                 query = {'id' : popped.eventID}
-                change = {'$set': {'adjList' : event.eventID}}
+                change = {'$set': {'xCord' : x, 'yCord': y }}
                 eventsDB.update_one(query, change)
-                if len(groups[v]) != 0:
-                    popped = groups[v].pop()
+                #print('Updated: ', popped.eventID)
+
+            length = len(groups[v])    
+
+            while len(groups[v]) != 0:
+                #print(popped.eventID)
+                query = {'id' : popped.eventID}
+                change = {'$set': {'adjList' : groups[v][0].eventID, 'xCord' : x, 'yCord': y}}
+                eventsDB.update_one(query, change)
+                #print('Updated: ', popped.eventID)
+                popped = groups[v].pop(0)
+                #print("length of list:" + str(len(groups[v])))
+                y+=100
+            query = {'id' : popped.eventID}
+            change = {'$set': {'adjList' : groups[v][0].eventID, 'xCord' : x, 'yCord': y}}
+            eventsDB.update_one(query, change)
+            x+=200
+            
 
 
 
@@ -81,5 +99,5 @@ class EventGraphManager:
         date = [ int(x) for x in dateTime[0].split("/") ]
         time = [ int(x) for x in dateTime[1].split(":") ]
         sum = np.sum(date) + np.sum(time)
-
+        print("ID: " + str(event.eventID) + ", timestamp: " + str(event.timestamp) + ", value: " + str(sum) )
         return sum
