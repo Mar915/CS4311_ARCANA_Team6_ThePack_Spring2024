@@ -76,17 +76,20 @@ class EventGraphManager:
             length = len(groups[v])    
 
             while len(groups[v]) != 0:
-                #print(popped.eventID)
+                print(popped.eventID)
                 query = {'id' : popped.eventID}
                 change = {'$set': {'adjList' : groups[v][0].eventID, 'xCord' : x, 'yCord': y}}
                 eventsDB.update_one(query, change)
-                #print('Updated: ', popped.eventID)
+                print('Updated: ', popped.eventID)
                 popped = groups[v].pop(0)
-                #print("length of list:" + str(len(groups[v])))
+                print("length of list:" + str(len(groups[v])))
+                print("Current Popped: " + str(popped.eventID))
+                if len(groups[v]) == 0:
+                    query = {'id' : popped.eventID}
+                    change = {'$set': {'xCord' : x, 'yCord': y}}
+                    eventsDB.update_one(query, change)
                 y+=100
-            query = {'id' : popped.eventID}
-            change = {'$set': {'adjList' : groups[v][0].eventID, 'xCord' : x, 'yCord': y}}
-            eventsDB.update_one(query, change)
+            
             x+=200
             
 
@@ -98,6 +101,13 @@ class EventGraphManager:
         dateTime = event.timestamp.split()
         date = [ int(x) for x in dateTime[0].split("/") ]
         time = [ int(x) for x in dateTime[1].split(":") ]
+
+        date[1]*= 0.01
+        x = 1
+        for i in range(0, len(time)):
+            time[i] *= x
+            x *= .1
+
         sum = np.sum(date) + np.sum(time)
         print("ID: " + str(event.eventID) + ", timestamp: " + str(event.timestamp) + ", value: " + str(sum) )
         return sum
