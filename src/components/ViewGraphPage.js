@@ -12,6 +12,9 @@ import ImportGraphPage from "./ImportGraphPage"
 import FilterGraphPage from "./FilterGraphPage"
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
+import DownloadButtonPNG from "./DownloadButtonPNG";
+import DownloadButtonJPEG from "./DownloadButtonJPEG";
+import DownloadButtonCSV from "./DownloadButtonCSV";
 
 export default function ViewGraphPage({ initialNodes, initialEdges, eventList, setEventList, setList, project, setFetchEvents, fetchEvents }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -111,6 +114,9 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                 >
                     <Background />
                     <Controls />
+                    <DownloadButtonCSV eventList={eventList} nodes={nodes} edges={edges}/>
+                    <DownloadButtonPNG />
+                    <DownloadButtonJPEG />
                 </ReactFlow>
             </div>
             {(showSuccess && (
