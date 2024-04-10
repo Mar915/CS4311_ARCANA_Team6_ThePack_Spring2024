@@ -32,14 +32,15 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
             const populateEdge = () => {
                 const newEdgeList = []
                 eventList.forEach((event) => {
-                    if (event.AdjList && event.AdjList.length > 0) {
-                        console.log(event.AdjList)
-                        event.AdjList.forEach((target) => {
+                    if (event.adjList && event.adjList.length > 0) {
+                        console.log("Populating edges", event.adjList)
+                        event.adjList.forEach((target) => {
                             const tempEdge = {
                                 id: `${event.id}-${target.id}`,
                                 source: event.id,
                                 target: target.id
                             }
+                            console.log(tempEdge)
                             newEdgeList.push(tempEdge)
                         })
                     }

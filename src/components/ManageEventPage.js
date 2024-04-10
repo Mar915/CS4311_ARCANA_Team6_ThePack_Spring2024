@@ -24,7 +24,8 @@ function ManageEventPage({ navigateTo, project }) {
             targetHostList: '192.168.2.200',
             vectorID: '12345',
             dataSource: 'Firewall',
-            icon: 'default_red'
+            icon: 'default_red',
+            id: '12345'
         },
         {
             isMalformed: 'No',
@@ -38,7 +39,8 @@ function ManageEventPage({ navigateTo, project }) {
             targetHostList: '192.168.4.220',
             vectorID: '67890',
             dataSource: 'IDS',
-            icon: 'default_blue'
+            icon: 'default_blue',
+            id: '67890'
         },
         {
             isMalformed: 'Yes',
@@ -52,7 +54,8 @@ function ManageEventPage({ navigateTo, project }) {
             targetHostList: '192.168.6.40',
             vectorID: '54321',
             dataSource: 'Server Logs',
-            icon: 'default_white'
+            icon: 'default_white',
+            id: '54321'
         }
     ]);
     const [selectEvent, setSelectEvent] = useState(null)

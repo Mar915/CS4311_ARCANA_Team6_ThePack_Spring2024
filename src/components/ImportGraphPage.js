@@ -48,7 +48,7 @@ const ImportGraphPage = ({ open, onClose, setEventList, setList, setNodes, nodes
                             vectorID: result.vectorID,
                             xCord: x,
                             yCord: y,
-                            AdjList: edgeList.map(item => {
+                            adjList: edgeList.map(item => {
                                 return {
                                     id: item,
                                 }
