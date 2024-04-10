@@ -86,7 +86,7 @@ class EventGraphManager:
                 print("Current Popped: " + str(popped.eventID))
                 if len(groups[v]) == 0:
                     query = {'id' : popped.eventID}
-                    change = {'$set': {'xCord' : x, 'yCord': y}}
+                    change = {'$set': {'adjList': -1,'xCord' : x, 'yCord': y}}
                     eventsDB.update_one(query, change)
                 y+=100
             
