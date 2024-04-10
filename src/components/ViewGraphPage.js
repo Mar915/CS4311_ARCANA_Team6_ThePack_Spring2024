@@ -133,7 +133,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             <button className="export-graph-button" onClick={() => setOpenExportModal((true))}>Export Graph</button>
             {openModalExport && <ExportGraphPage open={openModalExport} onClose={() => setOpenExportModal(false)} nodes={nodes} edges={edges} />}
             <button className="import-graph-button" onClick={() => setOpenImportModal((true))}>Import Graph</button>
-            {openModalImport && <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} nodes={nodes} edges={edges} />}
+            {openModalImport && <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} setEventList={setEventList} setList={setList} setNodes={setNodes} nodes={nodes} edges={edges} setFetchEvents={setFetchEvents} />}
             <button className="filter-graph-button" onClick={() => setOpenFilterModal((true))}>Filter Graph</button>
             {openModalFilter && <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} setEventList={setEventList} eventList={eventList} setList={setList} nodes={nodes} setNodes={setNodes} setFetchEvents={setFetchEvents}/>}
         </div>

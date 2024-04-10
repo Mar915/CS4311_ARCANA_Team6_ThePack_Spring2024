@@ -25,7 +25,7 @@ function ManageEventPage({ navigateTo, project }) {
             vectorID: '12345',
             dataSource: 'Firewall',
             icon: 'default_red',
-            id: '12345',
+            id: '12345'
         },
         {
             isMalformed: 'No',
@@ -40,7 +40,7 @@ function ManageEventPage({ navigateTo, project }) {
             vectorID: '67890',
             dataSource: 'IDS',
             icon: 'default_blue',
-            id: '67890',
+            id: '67890'
         },
         {
             isMalformed: 'Yes',
@@ -55,7 +55,7 @@ function ManageEventPage({ navigateTo, project }) {
             vectorID: '54321',
             dataSource: 'Server Logs',
             icon: 'default_white',
-            id: '54321',
+            id: '54321'
         }
     ]);
     const [selectEvent, setSelectEvent] = useState(null)
