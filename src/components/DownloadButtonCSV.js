@@ -2,19 +2,22 @@ import React from 'react';
 import { Panel } from 'reactflow';
 import "./ExportGraphPage.css"
 
-function DownloadButtonJPEG(eventList, nodes, edges) {
-    console.log(eventList)
+function DownloadButtonCSV(eventList, nodes, edges) {
     const onClick = () => {
-        const header = ["isMalformed", "timestamp", "initials", "team", "posture", "description", "location", "sourceHost", "targetHostList", "vectorID", "dataSource", "icon", "id", "AdjList", "position"]
+        const header = ["isMalformed", "timestamp", "initials", "team", "posture", "description", "location", "sourceHost", "targetHostList", "vectorID", "dataSource", "icon", "id", "adjList", "position"]
         const data = []
         for (let e of eventList.eventList) {
-            const tempAdjList = []
+            let tempAdjList = []
             eventList.edges.forEach((edge) => {
                 if (edge.source === e.id) {
                     tempAdjList.push(edge.target)
                 }
 
             })
+            // If multi edged, format "-"
+            if (tempAdjList.length > 1) {
+                tempAdjList = tempAdjList.join("-")
+            }
             console.log(tempAdjList)
             let x = 0
             let y = 0
@@ -25,7 +28,7 @@ function DownloadButtonJPEG(eventList, nodes, edges) {
                 }
             })
             // Row:
-            // Event: isMalformed, timestamp, initials, team, posture, description, location, sourceHost, targetHostList, vectorID, dataSource, icon, id, AdjList, position
+            // Event: isMalformed, timestamp, initials, team, posture, description, location, sourceHost, targetHostList, vectorID, dataSource, icon, id, adjList, position
             let row = [
                 e.isMalformed,
                 e.timestamp,
@@ -40,7 +43,7 @@ function DownloadButtonJPEG(eventList, nodes, edges) {
                 e.dataSource,
                 e.icon,
                 e.id,
-                `"${tempAdjList.join("-")}"`,
+                tempAdjList,
                 `"${x},${y}"`
             ]
             data.push(row)
@@ -64,4 +67,4 @@ function DownloadButtonJPEG(eventList, nodes, edges) {
     );
 }
 
-export default DownloadButtonJPEG;
+export default DownloadButtonCSV;

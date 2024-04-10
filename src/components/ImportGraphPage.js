@@ -1,5 +1,4 @@
 import "./ImportGraphPage.css"
-import axios from 'axios';
 import React, { useState } from 'react';
 import Papa from "papaparse";
 import SuccessMessage from './SuccessMessage';
@@ -15,17 +14,18 @@ const ImportGraphPage = ({ open, onClose, setEventList, setList, setNodes, nodes
         return null
     }
 
-    // [TO-DO]
     const importGraph = async (event) => {
         event.preventDefault()
-
+        // Make a file reader
         const reader = new FileReader()
+        // Read and parse file
         reader.onload = async ({ target }) => {
             const csv = Papa.parse(target.result, {
                 header: true,
                 complete: (results) => {
                     console.log(results)
                     console.log("Graph ingested")
+                    // Format incoming data
                     const data = results.data.filter(item => !Object.values(item).every(value => value === "")).map(result => {
                         console.log(result.position.split(","))
                         const position = result.position.split(",")
@@ -56,9 +56,19 @@ const ImportGraphPage = ({ open, onClose, setEventList, setList, setNodes, nodes
                         }
                     })
                     console.log(data)
-                    setEventList(prev => [...prev, ...data])
-                    setList(prev => [...prev, ...data])
-                    setNodes(prev => [...prev, ...data])
+                    // Merge current list with imported list
+                    if (merge) {
+                        setEventList(prev => [...prev, ...data])
+                        setList(prev => [...prev, ...data])
+                        setNodes(prev => [...prev, ...data])
+                    }
+                    // Override current list with imported list
+                    // Will not affect database unless saved
+                    else {
+                        setEventList([...data])
+                        setList([...data])
+                        setNodes([...data])
+                    }
                     setShowSuccess(true);
                     setFetchEvents(true)
                 },
