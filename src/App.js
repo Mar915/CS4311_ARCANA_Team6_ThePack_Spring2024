@@ -8,7 +8,7 @@ import ManageProjectPage from './components/ManageProjectPage';
 import ManageEventPage from './components/ManageEventPage';
 import TempProjectPage from './components/TempProjectPage';
 
-import viewLogs from './components/viewLogs';
+import UserActivityLogs from "./components/UserActivityLogs.js"
 import SyncConnectionPage from './components/SyncConnectionPage';
 import SyncMenuPage from './components/SyncMenuPage';
 import ManageGraphPage from './components/ManageGraphPage';
@@ -34,7 +34,7 @@ function App() {
       {currentPage === 'mainMenu' && <MainMenu navigateTo={navigateTo} />}
       {currentPage === 'changeColor' && <ChangeColorPage/>}
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
-      {currentPage === 'viewLogs' && <viewLogs navigateTo={navigateTo} />}
+      {currentPage === 'viewLogs' && <UserActivityLogs navigateTo={navigateTo} />}
       {/* [TO DO]: Switch route to event page */}
       {currentPage === 'syncProjects' && <SyncConnectionPage navigateTo={navigateTo} />}
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
