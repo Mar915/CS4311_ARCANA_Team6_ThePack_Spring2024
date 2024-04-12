@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './UserActivityLogs.css';
 
-function App() {
+function UserActivityLogs() {
   const [logs, setLogs] = useState([]);
   const [error, setError] = useState(false);
 

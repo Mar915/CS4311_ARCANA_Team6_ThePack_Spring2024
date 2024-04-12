@@ -9,6 +9,7 @@ import ManageEventPage from './components/ManageEventPage';
 import TempProjectPage from './components/TempProjectPage';
 import SyncConnectionPage from './components/SyncConnectionPage';
 import SyncMenuPage from './components/SyncMenuPage';
+import UserActivityLogs from './components/UserActivityLogs';
 
 
 function App() {
@@ -27,12 +28,13 @@ function App() {
     <div className="App">
       <NavBar navigateTo={navigateTo} />
       {currentPage === 'mainMenu' && <MainMenu navigateTo={navigateTo} />}
-      {currentPage === 'changeColor' && <ChangeColorPage/>}
+      {currentPage === 'changeColor' && <ChangeColorPage navigateTo={navigateTo}/>}
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
       {currentPage === 'syncProjects' && <SyncConnectionPage navigateTo={navigateTo} />}
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'manageEventPage' && <ManageEventPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'syncMenuPage' && <SyncMenuPage navigateTo={navigateTo} />}
+      {currentPage === 'userActivityLogs' && <UserActivityLogs navigateTo={navigateTo} />}
       
 
       {/* [TO DO]: Switch route to event page */}
