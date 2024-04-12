@@ -30,8 +30,8 @@ class EventGraphManager:
         query = {'id': targetEvent['id']}
         changes = {}
 
-        if newData['AdjList'] != '':
-            changes['AdjList'] = newData['AdjList']
+        if newData['adjList'] != '':
+            changes['adjList'] = newData['adjList']
 
         newValues = {'$set': changes}
         eventsDB.update_one(query, newValues)
