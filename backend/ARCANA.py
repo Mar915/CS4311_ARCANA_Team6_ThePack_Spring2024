@@ -6,6 +6,7 @@ from ProjectsManager import ProjectsManager
 from ProjectRepresenter import ProjectRepresenter
 from EventsManager import EventsManager
 from LocalDatabase import Database
+from EventGraphManager import EventGraphManager
 
 app = Flask(__name__)
 CORS(app)
@@ -22,7 +23,7 @@ def ingestLogs():
         project = data['project']
     
     resp = jsonify({'result' : 'success'})
-    projectRepresenter = ProjectRepresenter( project['name'], project['initials'], project['location'], project['startDate'], project['endDate'])
+    projectRepresenter = ProjectRepresenter( project['projName'], project['initials'], project['location'], project['startDate'], project['endDate'])
 
     # Goind to hardcode the projectname variable here since we don't have a select function yet
     # but I need the project name for functionality
@@ -116,7 +117,7 @@ def updateEvent():
 
     project = data['project']
     eM = EventsManager(db.getRef(), project['projName'])
-    eM.updateEvent(data)
+    eM.updateEvent(data['eventData'])
 
     response = jsonify({'some': 'data'})
     return response
@@ -134,7 +135,49 @@ def createEvent():
 
     project = data['project']
     eM = EventsManager(db.getRef(), project['projName'])
-    eM.createEvent(data)
+    eM.createEvent(data['eventData'])
+
+    response = jsonify({'some' : 'data'})
+    return response
+
+
+@app.route("/updateAllEvents", methods = ['GET', 'POST'])
+def updateAllEvents():
+    db = Database()
+    if request.method == 'POST':
+        data = request.json # data = {project, updateEvents} updateEvents is a list where each item is {id, eventInfo}
+
+    project = data['project']
+    em = EventsManager(db.getRef(), project['projName'])
+    em.updateAllEvents(data['updateEvents'])
+
+    response = jsonify({'some' : 'data'})
+    return response
+
+@app.route("/updatePosition", methods = ['GET', 'POST'])
+def updatePosition():
+    
+    db = Database()
+    if request.method == 'POST':
+        data = request.json
+
+    project = data['project']
+    eGM = EventGraphManager(db.getRef(), project['projName'])
+    eGM.updatePosition(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
+
+@app.route("/updateConnected", methods = ['GET', 'POST'])
+def updateConnected():
+
+    db = Database()
+    if request.method == 'POST':
+        data = request.json
+
+    project = data['project']
+    eGM = EventGraphManager(db.getRef, project['projName'])
+    eGM.updateAdjList(data)
 
     response = jsonify({'some' : 'data'})
     return response

@@ -1,0 +1,83 @@
+.create-node-overlay {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 600px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 14; 
+}
+
+.create-node-modal {
+    margin-top: 50px;
+    max-width: 600px;
+    width: 70%;
+    height: auto;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* display: flex; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #fff !important;
+    z-index: 15;
+}
+
+.close-button-create-node {
+    position: fixed;
+    top: 8px;
+    right: 16px
+}
+
+.create-node-form {
+    height: 100%;
+    display: inline-block;
+}
+
+.asterisk {
+    color: red;
+    font-weight: bold;
+}
+
+.required {
+    color: lightgray;
+}
+
+.start-end-buttons {
+    display: inline-block;
+}
+
+.cancel-node-button, .create-node-confirm-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    margin-bottom: 0;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-node-button:hover, .create-node-confirm-button:hover {
+    background-color: #0056b3;
+  }
+
+  input[name="node-date"],
+  input[name="node-time"],
+  input[name="node-initials"],
+  select[name="node-team"],
+  input[name="node-posture"],
+  input[name="node-location"],
+  input[name="node-vector"],
+  input[name="node-source"],
+  input[name="node-host"],
+  select[name="node-icon"],
+  input[name="node-description"] {
+    padding: 5px 10px;
+    margin: 1px 0;
+    box-sizing: border-box;
+    width: 100%;
+  }

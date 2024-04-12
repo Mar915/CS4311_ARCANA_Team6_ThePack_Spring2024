@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const EditEventPage = ({ open, onClose, project, currEvent }) => {
+const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [eventDate, setEventDate] = useState('');
@@ -18,25 +18,59 @@ const EditEventPage = ({ open, onClose, project, currEvent }) => {
     const [eventHost, setEventHost] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventAuto, setEventAuto] = useState('')
+    const [nodeIcon, setNodeTeam] = useState('')
 
     const editEvent = async (event) => {
         event.preventDefault()
-
-        console.log("Project: ", project)
+        // console.log("Project: ", project)
         console.log("Event: ", currEvent)
+
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
-        const data = {
-            eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
-        }
+        const icon = `default_${nodeIcon.toLowerCase()}`
 
-        console.log(data)
+
+        // Data source can't be edited so we need to pass it to edited event
+        const ds = currEvent.dataSource
+        // Timestamp is concatenated so we have to ensure that it will stay that way
+        const eventData = {
+            id: currEvent.id, timestamp: eventDate + " " + eventTime, initials: eventInitials, 
+            team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, 
+            sourceHost: eventSource, targetHostList: parsedHost, description: eventDescription, auto: eventAuto, 
+            dataSource: ds, xCord : currEvent.xCord , yCord : currEvent.yCord, adjList : currEvent.adjList
+         }
+
+        const data = {
+            eventData, project
+        }
+        // console.log(data)
+        // console.log(eventData)
+        // console.log(eventInitials)
 
         try {
             // [TO DO]: Change to how event function is actually set up
             await axios.post('http://127.0.0.1:5000/updateEvent', data)
+/*                setEvents(prev => (
+                    // Iterate through event list
+                    prev.map((p) => {
+                        // Only edit event that matches currEvent
+                        if (p.id === currEvent.id) {
+                            // Traverse eventData and track non-null values and updated them in copy of currEvent 
+                            const updatedEvent = Object.keys(eventData).reduce((acc, i) => {
+                                if (eventData[i] !== null && eventData[i] !== undefined && eventData[i] !== "") {
+                                    acc[i] = eventData[i]
+                                }
+                                return acc
+                            }, {...currEvent}) 
+                            return updatedEvent
+                        }
+                        return {...p}
+                    })
+                )) */
+            setFetchEvents(true)
             console.log(data)
+            //console.log(data)
             setShowSuccess(true);
         } 
         catch (error) {
@@ -63,71 +97,84 @@ const EditEventPage = ({ open, onClose, project, currEvent }) => {
                     <label>
                         Date
                         <br></br>
-                        <input type="date" name="event-date" onChange={() => {setEventDate(document.querySelector('input[name="event-date"]').value)}} />
+                        <input type="date" name="event-date" defaultValue={currEvent.timestamp.split(" ")[0]} onChange={() => {setEventDate(document.querySelector('input[name="event-date"]').value)}} />
                     </label>
                     <br></br>
                     <label>
                         Time
                         <br></br>
-                        <input type="time" name="event-time" onChange={() => {setEventTime(document.querySelector('input[name="event-time"]').value)}} placeholder='hh:mm:ss'/>
+                        <input type="time" name="event-time" defaultValue={currEvent.timestamp.split(" ")[1]} onChange={() => {setEventTime(document.querySelector('input[name="event-time"]').value)}} placeholder='hh:mm:ss'/>
                     </label>
                     <label>
-                        Initials
+                        Initials<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <input type="text" name="event-initials" onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
+                        <input type="text" name="event-initials" defaultValue={currEvent.initials} onKeyUp={() => {setEventInitials(document.querySelector('input[name="event-initials"]').value)}} placeholder="III"/>
                     </label>
                     <br></br>
                     <label>
-                        Team
+                        Team<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="event-team" value={eventTeam} onChange={(team) => {setEventTeam(team.target.value)}}>
+                        <select name="event-team" defaultValue={currEvent.team} onChange={(team) => {setEventTeam(team.target.value)}}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
                         </select>
                     </label>
                     <label>
+                        TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
+                        <br></br>
+                        <select name="node-icon" required defaultValue={currEvent.icon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
+                        </select>
+                    </label>
+                    <label>
                         Posture
                         <br></br>
-                        <input type="text" name="event-posture" onKeyUp={() => {setEventPosture(document.querySelector('input[name="event-posture"]').value)}}/>
+                        <input type="text" name="event-posture" defaultValue={currEvent.posture} onKeyUp={() => {setEventPosture(document.querySelector('input[name="event-posture"]').value)}}/>
                     </label>
                     <label>
                         Location
                         <br></br>
-                        <input type="text" name="event-location" onKeyUp={() => {setEventLocation(document.querySelector('input[name="event-location"]').value)}}/>
+                        <input type="text" name="event-location" defaultValue={currEvent.location} onKeyUp={() => {setEventLocation(document.querySelector('input[name="event-location"]').value)}}/>
                     </label>
                     <label>
                         Vector ID
                         <br></br>
-                        <input type="text" name="event-vector" onKeyUp={() => {setEventVector(document.querySelector('input[name="event-vector"]').value)}}/>
+                        <input type="text" name="event-vector" defaultValue={currEvent.vectorID} onKeyUp={() => {setEventVector(document.querySelector('input[name="event-vector"]').value)}}/>
                     </label>
                     <label>
                         Source Host
                         <br></br>
-                        <input type="text" name="event-source" onKeyUp={() => {setEventSource(document.querySelector('input[name="event-source"]').value)}}  placeholder="0.0.0.0"/>
+                        <input type="text" name="event-source" defaultValue={currEvent.sourceHost} onKeyUp={() => {setEventSource(document.querySelector('input[name="event-source"]').value)}}  placeholder="0.0.0.0"/>
                     </label>
                     <label>
                         Target Host[s]
                         <br></br>
-                        <input type="text" name="event-host" onKeyUp={() => {setEventHost(document.querySelector('input[name="event-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
+                        <input type="text" name="event-host" defaultValue={currEvent.targetHostList} onKeyUp={() => {setEventHost(document.querySelector('input[name="event-host"]').value)}} placeholder="0.0.0.0, 0.0.0.1"/>
                     </label>
                     <label>
-                        Description
+                        Description<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <input type="text" name="event-description" onKeyUp={() => {setEventDescription(document.querySelector('input[name="event-description"]').value)}}/>
+                        <input type="text" name="event-description" defaultValue={currEvent.description} onKeyUp={() => {setEventDescription(document.querySelector('input[name="event-description"]').value)}}/>
                     </label>
                     {/* [TO DO]: Add Icon Selector */}
                     <label>
                         Auto Edit Edges
                         <br></br>
-                        <input type="checkbox" name="event-auto" checked={eventAuto} onChange={() => {setEventAuto(!eventAuto)}}/>
+                        <input type="checkbox" name="event-auto" defaultChecked={currEvent.isMalformed} onChange={() => {setEventAuto(!eventAuto)}}/>
                     </label>
                     <br></br>
                     <button className="cancel-event-button" onClick={onClose}>Cancel</button>
                     <input type="submit" value="Edit Event" className="edit-event-confirm-button"/>
                     {(showSuccess && (
                 <SuccessMessage
-                  message={'Success: Event was editd'}
+                  message={'Success: Event was edited'}
                   onClose={closeMessage}
                 />)) || (showFail && (
                     <FailMessage

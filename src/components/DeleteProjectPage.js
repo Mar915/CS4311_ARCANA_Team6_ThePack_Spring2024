@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 // [TO DO]: Change project to project.projName
-const DeleteProjectPage = ({ open, onClose, project }) => {
+const DeleteProjectPage = ({ open, onClose, project, setProjects, setFetchProjectData }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
 
@@ -13,12 +13,17 @@ const DeleteProjectPage = ({ open, onClose, project }) => {
     }
 
     const deleteProject = async (event) => {
+        
         try {
             event.preventDefault()
             // Attempting use axios.delete
             await axios.post(`http://127.0.0.1:5000/deleteProject`, project)
+            setProjects(prev => (
+                prev.filter(p => p.projName !== project.projName)
+            ))
             console.log(project.projName)
             setShowSuccess(true);
+            setFetchProjectData(true)
         } 
         catch (error) {
             console.log("FAIL")

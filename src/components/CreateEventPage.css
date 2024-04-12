@@ -1,21 +1,28 @@
 .create-event-overlay {
     position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
+    top: 45%; /* Same top position as the modal */
+    left: 50%; /* Same left position as the modal */
+    transform: translate(-50%, -50%);
+    width: 80%; /* Matching the modal width */
+    height: auto; /* Matching the modal height */
+    max-width: 600px; /* Matching the modal max-width */
+    background-color: rgba(255, 255, 255, 0.4); /* Example semi-transparent background */
+    z-index: 14;
 }
 
 .create-event-modal {
-    max-width: 800px;
-    width: 60%;
-    height: 100%;
+    margin-top: 50px;
+    max-width: 600px;
+    width: 80%;
+    height: auto;
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     /* display: flex; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     background-color: #fff;
+    z-index: 15;
 }
 
 .close-button-create-event {
@@ -23,10 +30,14 @@
     top: 8px;
     right: 16px
 }
+.close-button-create-event:hover {
+    cursor: pointer;
+}
 
 .create-event-form {
     height: 100%;
     display: inline-block;
+    margin-bottom: 50px;
 }
 
 .asterisk {

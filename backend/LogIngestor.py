@@ -14,8 +14,8 @@ import pandas as pd
 #    0            1            2            3        4       5         6         7          8
 #dateCreated, description, sourceHost, targetHost, team, location, initials, vectorId, lastModified
 class LogIngestor:
-    def __init__(self, project):
-        self.ingestedFiles = []    # List of files that have already been ingested
+    def __init__(self, project, ingestedFiles):
+        self.ingestedFiles = ingestedFiles   # List of files that have already been ingested
         self.ingested = project['ingestedFiles']  
         self.eventList = project['eventRepList']
 
@@ -38,7 +38,7 @@ class LogIngestor:
     def uploadEvents(self, log):
         events = []
         for e in log:
-            rep = {'isMalformed' : str(e.isMalformed), 'id': e.eventID, 'initials' : e.initials, 'team' : e.team, 'sourceHost' : e.sourceHost, 'targetHostList' : e.targetHostList, 'location' : e.location, 'posture' : e.posture, 'vectorID' : e.vectorID, 'description' : e.description, 'timestamp' : e.timestamp, 'dataSource' : e.dataSource}
+            rep = {'isMalformed' : str(e.isMalformed), 'id': e.eventID, 'initials' : e.initials, 'team' : e.team, 'sourceHost' : e.sourceHost, 'targetHostList' : e.targetHostList, 'location' : e.location, 'posture' : e.posture, 'vectorID' : e.vectorID, 'description' : e.description, 'timestamp' : e.timestamp, 'icon': e.icon, 'dataSource' : e.dataSource}
             events.append(rep)
 
         self.eventList.insert_many(events)
@@ -49,6 +49,7 @@ class LogIngestor:
         parsed = []                   #list meant to hold EventRepresenters
         logs = os.listdir(filepath)
         for log in logs:
+            print(log)
             if log not in self.ingestedFiles:
                 self.ingestedFiles.append(log)
                 report = pd.read_csv(filepath+"/"+log).values
