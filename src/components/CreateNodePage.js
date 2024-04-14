@@ -4,33 +4,34 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
+const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, setNodes, project, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [nodeDate, setNodeDate] = useState('');
     const [nodeTime, setNodeTime] = useState('');
     const [nodeInitials, setNodeInitials] = useState('');
-    const [nodeTeam, setNodeTeam] = useState('');
+    const [nodeTeam, setNodeTeam] = useState('White');
     const [nodePosture, setNodePosture] = useState('');
     const [nodeLocation, setNodeLocation] = useState('');
     const [nodeVector, setNodeVector] = useState('');
     const [nodeSource, setNodeSource] = useState('');
     const [nodeHost, setNodeHost] = useState('');
     const [nodeDescription, setNodeDescription] = useState('');
-    const [nodeIcon, setNodeIcon] = useState('');
+    const [nodeIcon, setNodeIcon] = useState('White');
     const [nodeAuto, setNodeAuto] = useState(false)
 
     // [TO-DO]
-    const createNode = async (node) => {
-        node.preventDefault()
+    const createNode = async (event) => {
+        event.preventDefault()
 
         const parsedHost = nodeHost.split(",").map((host) =>host.trim())
-
+        console.log(nodeIcon)
+        const icon = `default_${nodeIcon.toLowerCase()}`
         
         const eventData = {
             timestamp: nodeDate + " " + nodeTime, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
             location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: parsedHost,
-            description: nodeDescription, icon: nodeIcon, isMalformed: nodeAuto, dataSource: "User Created"
+            description: nodeDescription, icon: icon, isMalformed: nodeAuto, dataSource: "User Created"
         }
 
         const data = {
@@ -42,6 +43,11 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
             // setNodeSource(prev => (
             //     [...prev,nodeData]
             // ))
+            eventData.id = (eventList.length + 1).toString()
+            console.log(eventData)
+            setEventList(prev => [...prev, ...eventData])
+            setList(prev => [...prev, ...eventData])
+            setNodes(prev => [...prev, ...eventData])
             setNodeDate("");
             setNodeTime("");
             setNodeInitials("");
@@ -111,7 +117,7 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
                             <option className="node-white" value="White">White</option>
                             <option className="node-red" value="Red">Red</option>
                             <option className="node-blue" value="Blue">Blue</option>
