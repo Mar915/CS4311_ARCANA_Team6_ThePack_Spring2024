@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import "./CreateNodePage.css"
 import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
@@ -19,22 +19,35 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
     const [nodeDescription, setNodeDescription] = useState('');
     const [nodeIcon, setNodeIcon] = useState('');
     const [nodeAuto, setNodeAuto] = useState(false);
-    const [iconNames, setIconNames] = useState([]);
+    const [filenames, setFilenames] = useState([]);
 
     useEffect(() => {
-        // Fetch icon filenames or paths from a server-side endpoint
-        axios.get('http://example.com/icons')
-            .then(response => {
-                setIconNames(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching icon filenames:', error);
-            });
+        const fetchFilenames = async () => {
+            try {
+                const response = await axios.get('..\..\..\public\Icons');
+                setFilenames(response.data.filenames);
+                // Optionally, set the first filename as the default nodeIcon
+                if (response.data.filenames.length > 0) {
+                    setNodeIcon(response.data.filenames[0]);
+                }
+            } catch (error) {
+                console.error('Error fetching filenames:', error);
+            }
+        };
+
+        fetchFilenames();
     }, []);
 
-
+    const extractFilename = (path) => {
+        const parts = path.split('/');
+        const filename = parts.pop();
+        const directory = parts.join('/');
+        return [directory, filename];
+    };
     const createNode = async (node) => {
         node.preventDefault()
+
+        const [directory, filename] = extractFilename(nodeIcon);
 
         const parsedHost = nodeHost.split(",").map((host) =>host.trim())
 
@@ -122,10 +135,17 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
                     <br></br>
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
-                        <br />
-                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
-                            {iconNames.map((name, index) => (
-                                <option key={index} value={name}>{name}</option>
+                        <br></br>
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
+                            {filenames.map((filename, index) => (
+                                <option key={index} value={filename}>{filename}</option>
                             ))}
                         </select>
                     </label>
