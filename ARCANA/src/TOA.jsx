@@ -36,7 +36,7 @@ function TOA(){
 
         <section class="team-icons">
             <h2>Blue Team TOA Icons</h2>
-            <hr>
+            
             <div class="icon-row">
                 <div class="icon">
                     <img src="blue-user-icon-hi.png" alt="Icon 1">
@@ -54,7 +54,7 @@ function TOA(){
 
         <section class="team-icons">
             <h2>White Team TOA Icons</h2>
-            <hr>
+            
             <div class="icon-row">
                 <div class="icon">
                     <img src="User-Icon-Grey-300x300.png" alt="Icon 1">
