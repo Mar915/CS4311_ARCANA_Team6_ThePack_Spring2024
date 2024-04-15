@@ -13,9 +13,6 @@ const CreateTOAPage = ({ open, onClose, project}) => {
 
     const CreateTOA = async (TOA) => {
         TOA.preventDefault()
-        if (!open) {
-            return null
-        }
         const TOAData = {
             team: TeamType, title: ActionTitle, icon: IconUpload 
         }
@@ -71,8 +68,8 @@ const CreateTOAPage = ({ open, onClose, project}) => {
                         <input type="text" name="ActionTitle" onKeyUp={() => { setActionTitle(document.querySelector('input[name="ActionTitle"]').value) }} placeholder="My Icon Title"></input>
                     </div>
                     <div>
-                    <label for ="icon">Select icon file to import<span className="asterisk">* </span><span className="required">(required)</span>:</label>
-                        <input type="text" name="icon" placeholder="ex. /icon1.png"></input><button class="create-button">Browse</button>
+                        <label for ="icon">Select icon file to import<span className="asterisk">* </span><span className="required">(required)</span>:</label>
+                        <input type="file" name="png-directory" onChange={() => {setIconUpload(document.querySelector('input[name="png-directory"]').value)}}/>
                     </div>
                     <div class="buttons">
                         <div class="button-container">

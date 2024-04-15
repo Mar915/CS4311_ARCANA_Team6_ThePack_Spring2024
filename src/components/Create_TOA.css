@@ -1,11 +1,11 @@
 header {
-    text-align: left; 
+    text-align: center; 
     padding: 20px 0; 
     margin-left: 10px;
 }
 
 .upload-section {
-    text-align: left; 
+    text-align: center; 
     padding: 20px 0; 
     margin-left: px;
 }
@@ -36,21 +36,22 @@ label {
 .create-toa-overlay {
     position: fixed;
     width: 100%;
-    height: 100%;
+    height: auto;
     background-color: #fff;
 }
 
 .create-toa-modal {
     max-width: 1000px;
     width: 50%;
-    height: 60%;
+    height: auto;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     /* display: flex; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
+    background-color: #fff !important;
+    z-index: 15;
 }
 
 .close-button-create-toa {
@@ -79,7 +80,7 @@ label {
   }
 
 .cancel-button, .confirm-cancel-button {
-    background-color: rgb(156, 156, 156);
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -91,9 +92,9 @@ label {
 
 input[name="TeamType"],
 input[name="ActionTitle"],
-input[name="file"] {
+input[name="png-directory"] {
   padding: 5px 10px;
   margin: 1px 0;
   box-sizing: border-box;
-  width: 30%;
+  width: 50%;
 }
