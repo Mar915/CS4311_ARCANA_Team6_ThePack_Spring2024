@@ -54,6 +54,15 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
             // setNodeSource(prev => (
             //     [...prev,nodeData]
             // ))
+            setEventList(prev => (
+                prev.filter(p => p.id !== node.id)
+            ))
+            setList(prev => (
+                prev.filter(p => p.id !== node.id)
+            ))
+            setNodes(prev => (
+                prev.filter(p => p.id !== node.id)
+            ))
             setNodeDate("");
             setNodeTime("");
             setNodeInitials("");
@@ -123,11 +132,11 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br />
-                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
+                        {/* <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
                             {iconNames.map((name, index) => (
                                 <option key={index} value={name}>{name}</option>
                             ))}
-                        </select>
+                        </select> */}
                     </label>
                     <br></br>
                     <label>
