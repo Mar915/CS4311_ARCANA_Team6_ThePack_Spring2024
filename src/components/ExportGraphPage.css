@@ -78,3 +78,16 @@ input[name="log-directory"], input[name="string-log-directory"] {
 .export-location {
     width: 90% !important;
 }
+
+.download-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #0056b3;
+}

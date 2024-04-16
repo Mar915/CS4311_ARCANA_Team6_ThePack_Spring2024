@@ -28,7 +28,7 @@ class LogIngestor:
         events = []
         for event in log:
             #Can't parse posture
-            rep = EventRepresenter(startID, str(event[6]), str(event[4]), str(event[2]), str(event[3]), str(event[5]), "", str(event[7]), str(event[1]), str(event[0]), dataSource )
+            rep = EventRepresenter(str(startID), str(event[6]), str(event[4]), str(event[2]), str(event[3]), str(event[5]), "", str(event[7]), str(event[1]), str(event[0]), dataSource )
             events.append(rep)
             startID += 1
         self.uploadEvents(events)

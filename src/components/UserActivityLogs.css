@@ -4,11 +4,7 @@ min-height: 100vh;
 display: flex;
 flex-direction: column;
 color: white;
-background-color: #282c34;
-}
-
-.UAL-header{
-/* Style your header as needed */
+background-color: #fff;
 }
 
 .UAL-main{
@@ -23,7 +19,7 @@ width: 50%; /* Adjust the width as needed */
 margin: auto;
 padding: 20px;
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-background-color: white;
+background-color: #eee;
 color: black;
 border-radius: 10px;
 }
