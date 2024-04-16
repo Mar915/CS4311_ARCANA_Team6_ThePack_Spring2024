@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './UserActivityLogs.css';
 import { IoIosRefresh } from "react-icons/io";
 
-
 export default function UserActivityLogs({navigateTo}) {
   const [logs, setLogs] = useState([]);
   const [error, setError] = useState(false);

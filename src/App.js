@@ -11,6 +11,7 @@ import TempProjectPage from './components/TempProjectPage';
 import UserActivityLogs from "./components/UserActivityLogs.js"
 import SyncConnectionPage from './components/SyncConnectionPage';
 import SyncMenuPage from './components/SyncMenuPage';
+import UserActivityLogs from './components/UserActivityLogs';
 import ManageGraphPage from './components/ManageGraphPage';
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
     <div className="App">
       <NavBar navigateTo={navigateTo} />
       {currentPage === 'mainMenu' && <MainMenu navigateTo={navigateTo} />}
-      {currentPage === 'changeColor' && <ChangeColorPage/>}
+      {currentPage === 'changeColor' && <ChangeColorPage navigateTo={navigateTo}/>}
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
       {currentPage === 'viewLogs' && <UserActivityLogs navigateTo={navigateTo} />}
       {/* [TO DO]: Switch route to event page */}
@@ -40,6 +41,7 @@ function App() {
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'manageEventPage' && <ManageEventPage navigateTo={navigateTo} project={selectedProject}/>}
       {currentPage === 'syncMenuPage' && <SyncMenuPage navigateTo={navigateTo} />}
+      {currentPage === 'userActivityLogs' && <UserActivityLogs navigateTo={navigateTo} />}
       {currentPage === "manageGraphPage" && <ManageGraphPage navigateTo={navigateTo} project={selectedProject} eventList={eventList} setEventList={setEventList}/>}
 
       {/* [TO DO]: Switch route to event page */}
