@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import "./CreateNodePage.css"
 import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, setNodes, project, setFetchEvents }) => {
+const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, project, setFetchEvents, setNodes }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [nodeDate, setNodeDate] = useState('');
@@ -43,11 +43,21 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, setNo
             // setNodeSource(prev => (
             //     [...prev,nodeData]
             // ))
-            eventData.id = (eventList.length + 1).toString()
-            console.log(eventData)
-            setEventList(prev => [...prev, ...eventData])
-            setList(prev => [...prev, ...eventData])
-            setNodes(prev => [...prev, ...eventData])
+
+            // needed this for the created node to display the info for 'ReactFlow'
+            const newNode = {
+                id: (eventList.length + 1).toString(),
+                position: { x: 0, y: 0 },
+                data: {
+                    label:
+                        `${eventData.team} Team Activity\nTime: ${eventData.timestamp}\nLocation: ${eventData.location}`, eventData: eventData
+                },
+                height: 85,
+                width: 150 
+            }
+            setEventList(prev => [...prev, newNode])
+            setList(prev => [...prev, newNode])
+            setNodes(prev => [...prev, newNode])
             setNodeDate("");
             setNodeTime("");
             setNodeInitials("");
