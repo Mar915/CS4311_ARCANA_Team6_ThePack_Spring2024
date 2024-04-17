@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './UserActivityLogs.css';
+import { IoIosRefresh } from "react-icons/io";
 
-function UserActivityLogs() {
+export default function UserActivityLogs({navigateTo}) {
   const [logs, setLogs] = useState([]);
   const [error, setError] = useState(false);
 
@@ -28,14 +29,11 @@ function UserActivityLogs() {
 
   return (
     <div className="ActivityLogs">
-      <header className="UAL-header">
-        {/* header content */}
-      </header>
       <main className="UAL-main">
         <div className="user-activity-logs">
           <div className="log-header">
             <h2>User Activity Logs</h2>
-            <button onClick={handleRefresh}>Refresh</button>
+            <button onClick={handleRefresh}><IoIosRefresh /></button>
           </div>
           <div className="log-content">
             {logs.length > 0 ? (
@@ -55,5 +53,3 @@ function UserActivityLogs() {
     </div>
   );
 }
-
-export default UserActivityLogs;

@@ -28,6 +28,9 @@ def ingestLogs():
     # Goind to hardcode the projectname variable here since we don't have a select function yet
     # but I need the project name for functionality
     projectRepresenter.ingestLogs(directory)
+
+    projectRepresenter = ProjectRepresenter( project['projName'], project['initials'], project['location'], project['startDate'], project['endDate'])
+    projectRepresenter.autoCreateEdges()
     return resp
 
 
@@ -187,3 +190,4 @@ def updateConnected():
 # http://127.0.0.1:5000 is the port that backend will run on 
 
 # flask --app ARCANA run (Use this in the environment where you are running Python)
+# flask --app ARCANA --debug run

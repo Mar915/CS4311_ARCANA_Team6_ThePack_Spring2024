@@ -15,7 +15,7 @@ class ProjectRepresenter:
         self.db = Database().getRef()
         self.ingestedFiles = self.pullIngested(self.db['projectRepList'][name]['ingestedFiles'])
         self.eventsManager = EventsManager(self.db, self.name)
-        self.eventGraphManager = EventGraphManager(self.db, self.name)
+        self.eventGraphManager = EventGraphManager(self.db, self.name, self.eventsManager.eventList)
 
     def pullIngested(self, ingestedList):
         files = []
@@ -31,6 +31,9 @@ class ProjectRepresenter:
         errors, eventRepList = ingestor.traverseFiles(directory)
         #print(errors)
         #print("Events created: ", len(eventRepList))
+
+    def autoCreateEdges(self):
+        self.eventGraphManager.makeEdges()
 
     
 

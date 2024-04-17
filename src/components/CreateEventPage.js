@@ -19,7 +19,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
     const [eventHost, setEventHost] = useState('');
     const [eventDescription, setEventDescription] = useState('');
     const [eventAuto, setEventAuto] = useState(false)
-    const [nodeIcon, setNodeTeam] = useState('White')
+    const [nodeIcon, setNodeIcon] = useState('White')
 
     const createEvent = async (event) => {
         event.preventDefault()
@@ -101,7 +101,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
                     <label>
                         Team<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="event-team" required value={eventTeam} defaultValue={"White"} onChange={(team) => { setEventTeam(team.target.value) }}>
+                        <select name="event-team" required value={eventTeam} onChange={(team) => { setEventTeam(team.target.value) }}>
                             <option className="event-white" value="White">White</option>
                             <option className="event-red" value="Red">Red</option>
                             <option className="event-blue" value="Blue">Blue</option>
@@ -110,7 +110,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
                             <option className="node-white" value="default_white">White</option>
                             <option className="node-red" value="default_red">Red</option>
                             <option className="node-blue" value="default_blue">Blue</option>

@@ -90,8 +90,8 @@ class EventsManager:
                 changes['xCord'] = info['xCord']
             if info['yCord'] != '':
                 changes['yCord'] = info['yCord']
-            if info['AdjList'] != '':
-                changes['adjList'] = info['AdjList']
+            if info['adjList'] != '':
+                changes['adjList'] = info['adjList']
             newValues = {'$set' : changes}
             eventsDB.update_one(query, newValues)
             

@@ -12,6 +12,9 @@ import ImportGraphPage from "./ImportGraphPage"
 import FilterGraphPage from "./FilterGraphPage"
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
+import DownloadButtonPNG from "./DownloadButtonPNG";
+import DownloadButtonJPEG from "./DownloadButtonJPEG";
+import DownloadButtonCSV from "./DownloadButtonCSV";
 
 export default function ViewGraphPage({ initialNodes, initialEdges, eventList, setEventList, setList, project, setFetchEvents, fetchEvents }) {
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -42,9 +45,8 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                     if (edge.source === e.id) {
                         tempAdjList.push(edge.target)
                     }
-                    
                 })
-                e.AdjList = tempAdjList
+                e.adjList = tempAdjList
                 if (tempAdjList.length === 1) {
                     e.adjList = tempAdjList[0]
                 }
@@ -102,7 +104,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             <button className="create-node-button" onClick={(event) => {setOpenCreateModal((true)); saveGraph(event);}}>Create Node</button>
             {openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} eventList={eventList} setEventList={setEventList} setList={setList} project={project} setFetchEvents={setFetchEvents} setNodes={setNodes} />}
             <button className="delete-node-button" onClick={() => setOpenDeleteModal((true))}>Delete Node</button>
-            {selectedNode && openModalDelete && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} eventList={eventList} setEventList={setEventList} setList={setList} setSelectedNode={setSelectedNode} setNodes={setNodes} project={project} setFetchEvents={setFetchEvents} />}
+            {selectedNode && openModalDelete && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} eventList={eventList} setEventList={setEventList} setList={setList} setNodes={setNodes} project={project} setFetchEvents={setFetchEvents} />}
             <div className="graph-container">
                 <ReactFlow
                     nodes={nodes}
@@ -114,6 +116,9 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                 >
                     <Background />
                     <Controls />
+                    <DownloadButtonCSV eventList={eventList} nodes={nodes} edges={edges}/>
+                    <DownloadButtonPNG />
+                    <DownloadButtonJPEG />
                 </ReactFlow>
             </div>
             {(showSuccess && (
@@ -127,10 +132,8 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                             />
                         ))}
             <button className="save-graph-button" onClick={(event) => saveGraph(event)}>Save Graph</button>
-            <button className="export-graph-button" onClick={() => setOpenExportModal((true))}>Export Graph</button>
-            {openModalExport && <ExportGraphPage open={openModalExport} onClose={() => setOpenExportModal(false)} nodes={nodes} edges={edges} />}
             <button className="import-graph-button" onClick={() => setOpenImportModal((true))}>Import Graph</button>
-            {openModalImport && <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} nodes={nodes} edges={edges} />}
+            {openModalImport && <ImportGraphPage open={openModalImport} onClose={() => setOpenImportModal(false)} setEventList={setEventList} setList={setList} setNodes={setNodes} nodes={nodes} edges={edges} setFetchEvents={setFetchEvents} />}
             <button className="filter-graph-button" onClick={() => setOpenFilterModal((true))}>Filter Graph</button>
             {openModalFilter && <FilterGraphPage open={openModalFilter} onClose={() => setOpenFilterModal(false)} setEventList={setEventList} eventList={eventList} setList={setList} nodes={nodes} setNodes={setNodes} setFetchEvents={setFetchEvents}/>}
         </div>

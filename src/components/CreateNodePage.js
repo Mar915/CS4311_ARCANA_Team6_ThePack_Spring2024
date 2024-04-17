@@ -10,39 +10,28 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
     const [nodeDate, setNodeDate] = useState('');
     const [nodeTime, setNodeTime] = useState('');
     const [nodeInitials, setNodeInitials] = useState('');
-    const [nodeTeam, setNodeTeam] = useState('');
+    const [nodeTeam, setNodeTeam] = useState('White');
     const [nodePosture, setNodePosture] = useState('');
     const [nodeLocation, setNodeLocation] = useState('');
     const [nodeVector, setNodeVector] = useState('');
     const [nodeSource, setNodeSource] = useState('');
     const [nodeHost, setNodeHost] = useState('');
     const [nodeDescription, setNodeDescription] = useState('');
-    const [nodeIcon, setNodeIcon] = useState('');
-    const [nodeAuto, setNodeAuto] = useState(false);
-    const [iconNames, setIconNames] = useState([]);
+    const [nodeIcon, setNodeIcon] = useState('White');
+    const [nodeAuto, setNodeAuto] = useState(false)
 
-    // useEffect(() => {
-    //     // Fetch icon filenames or paths from a server-side endpoint
-    //     axios.get('http://example.com/icons')
-    //         .then(response => {
-    //             setIconNames(response.data);
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching icon filenames:', error);
-    //         });
-    // }, []);
-
-
-    const createNode = async (node) => {
-        node.preventDefault()
+    // [TO-DO]
+    const createNode = async (event) => {
+        event.preventDefault()
 
         const parsedHost = nodeHost.split(",").map((host) =>host.trim())
-
+        console.log(nodeIcon)
+        const icon = `default_${nodeIcon.toLowerCase()}`
         
         const eventData = {
             timestamp: nodeDate + " " + nodeTime, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
             location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: parsedHost,
-            description: nodeDescription, icon: nodeIcon, isMalformed: nodeAuto, dataSource: "User Created"
+            description: nodeDescription, icon: icon, isMalformed: nodeAuto, dataSource: "User Created"
         }
 
         const data = {
@@ -137,12 +126,16 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
                     <br></br>
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
-                        <br />
-                        {/* <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
-                            {iconNames.map((name, index) => (
-                                <option key={index} value={name}>{name}</option>
-                            ))}
-                        </select> */}
+                        <br></br>
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
+                            <option className="node-white" value="White">White</option>
+                            <option className="node-red" value="Red">Red</option>
+                            <option className="node-blue" value="Blue">Blue</option>
+                            <option className="node-detect" value="Detect">Detect</option>
+                            <option className="node-protect" value="Protect">Protect</option>
+                            <option className="node-react" value="React">React</option>
+                            <option className="node-restore" value="Restore">Restore</option>
+                        </select>
                     </label>
                     <br></br>
                     <label>
