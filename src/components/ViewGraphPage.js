@@ -45,6 +45,9 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
                     
                 })
                 e.AdjList = tempAdjList
+                if (tempAdjList.length === 1) {
+                    e.adjList = tempAdjList[0]
+                }
                 let x = 0
                 let y = 0
                 nodes.forEach((node) => {
@@ -97,7 +100,7 @@ export default function ViewGraphPage({ initialNodes, initialEdges, eventList, s
             <button className="edit-node-button" onClick={() => setOpenEditModal((true))}>Edit Node</button>
             {selectedNode && openModalEdit && <EditNodePage open={openModalEdit} onClose={() => setOpenEditModal(false)} project={project} node={selectedNode} nodes={initialNodes} setFetchEvents={setFetchEvents} />}
             <button className="create-node-button" onClick={(event) => {setOpenCreateModal((true)); saveGraph(event);}}>Create Node</button>
-            {selectedNode && openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} project={project} setFetchEvents={setFetchEvents} setNodes={setNodes}/>}
+            {openModalCreate && <CreateNodePage open={openModalCreate} onClose={() => setOpenCreateModal(false)} eventList={eventList} setEventList={setEventList} setList={setList} project={project} setFetchEvents={setFetchEvents} setNodes={setNodes} />}
             <button className="delete-node-button" onClick={() => setOpenDeleteModal((true))}>Delete Node</button>
             {selectedNode && openModalDelete && <DeleteNodePage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} node={selectedNode} eventList={eventList} setEventList={setEventList} setList={setList} setSelectedNode={setSelectedNode} setNodes={setNodes} project={project} setFetchEvents={setFetchEvents} />}
             <div className="graph-container">

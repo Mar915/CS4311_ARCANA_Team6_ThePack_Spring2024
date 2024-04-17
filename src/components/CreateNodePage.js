@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
+const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, project, setFetchEvents, setNodes }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [nodeDate, setNodeDate] = useState('');
@@ -21,16 +21,16 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
     const [nodeAuto, setNodeAuto] = useState(false);
     const [iconNames, setIconNames] = useState([]);
 
-    useEffect(() => {
-        // Fetch icon filenames or paths from a server-side endpoint
-        axios.get('http://example.com/icons')
-            .then(response => {
-                setIconNames(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching icon filenames:', error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     // Fetch icon filenames or paths from a server-side endpoint
+    //     axios.get('http://example.com/icons')
+    //         .then(response => {
+    //             setIconNames(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching icon filenames:', error);
+    //         });
+    // }, []);
 
 
     const createNode = async (node) => {
@@ -54,15 +54,21 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
             // setNodeSource(prev => (
             //     [...prev,nodeData]
             // ))
-            setEventList(prev => (
-                prev.filter(p => p.id !== node.id)
-            ))
-            setList(prev => (
-                prev.filter(p => p.id !== node.id)
-            ))
-            setNodes(prev => (
-                prev.filter(p => p.id !== node.id)
-            ))
+
+            // needed this for the created node to display the info for 'ReactFlow'
+            const newNode = {
+                id: (eventList.length + 1).toString(),
+                position: { x: 0, y: 0 },
+                data: {
+                    label:
+                        `${eventData.team} Team Activity\nTime: ${eventData.timestamp}\nLocation: ${eventData.location}`, eventData: eventData
+                },
+                height: 85,
+                width: 150 
+            }
+            setEventList(prev => [...prev, newNode])
+            setList(prev => [...prev, newNode])
+            setNodes(prev => [...prev, newNode])
             setNodeDate("");
             setNodeTime("");
             setNodeInitials("");
