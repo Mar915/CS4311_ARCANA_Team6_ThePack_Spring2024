@@ -11,7 +11,6 @@ import TempProjectPage from './components/TempProjectPage';
 import UserActivityLogs from "./components/UserActivityLogs.js"
 import SyncConnectionPage from './components/SyncConnectionPage';
 import SyncMenuPage from './components/SyncMenuPage';
-import UserActivityLogs from './components/UserActivityLogs';
 import ManageGraphPage from './components/ManageGraphPage';
 
 function App() {
