@@ -1,28 +1,40 @@
 from EventRepresenter import EventRepresenter
 from TOAManager import TOAManager
+from UserActivityLogger import UserActivityLogger
+
 class EventsManager:
     def __init__(self, db, projName):
         self.db = db
         self.projName = projName
         self.eventList = self.pullEvents()
 
-    def createEvent(self, data):
+    def createEvent(self, event):
         rep = {}
         rep['isMalformed'] = 'False'
         storedEvents = list(self.db['projectRepList'][self.projName]['eventRepList'].find())
         rep['id'] = str(len(storedEvents) + 1)
-        rep['initials'] = data['eventInitials']
-        rep['team'] = data['eventTeam']
-        rep['sourceHost'] = data['eventSource']
-        rep['targetHostList'] = data['parsedHost']
-        rep['location'] = data['eventLocation']
-        rep['posture'] = data['eventPosture']
-        rep['vectorID'] = data['eventVector']
-        rep['description'] = data['eventDescription']
-        rep['timestamp'] = str(data['eventDate']) + " " + str(data['eventTime'])
+        rep['initials'] = event['initials']
+        rep['team'] = event['team']
+        rep['sourceHost'] = event['sourceHost']
+        rep['targetHostList'] = event['targetHostList']
+        rep['location'] = event['location']
+        rep['posture'] = event['posture']
+        rep['vectorID'] = event['vectorID']
+        rep['description'] = event['description']
+        rep['timestamp'] = event['timestamp']
+        rep['icon'] = event['icon']
         rep['dataSource'] = 'User Created'
+        
+
+        # Just added while updating EventRepresenter, will change names when issue with local DB is fixed - Omar
+        rep['xCord'] = "0"
+        rep['yCord'] = "200"
+        # Add logic for auto creating edges algorithm
+        rep['adjList'] = ""
 
         self.db['projectRepList'][self.projName]['eventRepList'].insert_one(rep)
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "created an event in " + self.projName)
         
 
 
@@ -35,38 +47,68 @@ class EventsManager:
     def updateEvent(self, newData):
         # Assuming newData is an EventRepresenter obj
         eventsDB = self.db['projectRepList'][self.projName]['eventRepList']
-        targetEvent = newData['currEvent']
+        targetEvent = newData
         query = {'id' : targetEvent['id']}
         changes = {}
-        if newData['eventInitials'] != '':
-            changes['initals'] = newData['eventInitials']
-        if newData['eventTeam'] != targetEvent['team']:
-            changes['team'] = newData['eventTeam']
-        if newData['eventSource'] != '':
-            changes['sourceHost'] = newData['eventSource']
-        if newData['parsedHost'] != ['']:
-            changes['targetHostList'] = newData['parsedHost']
-        if newData['eventLocation'] != '':
-            changes['location'] = newData['eventLocation']
-        if newData['eventPosture'] != '':
-            changes['posture'] = newData['eventPosture']
-        if newData['eventDescription'] != '':
-            changes['description'] = newData['eventDescription']
-        if newData['eventVector'] != '':
-            changes['vectorID'] = newData['eventVector']
-        if newData['eventDate'] + newData['eventTime'] != '':
-            changes['timestamp'] = newData['eventDate'] + newData['eventTime']
-
+        if newData['initials'] != '':
+            changes['initals'] = newData['initials']
+        if newData['team'] != targetEvent['team']:
+            changes['team'] = newData['team']
+        if newData['sourceHost'] != '':
+            changes['sourceHost'] = newData['sourceHost']
+        if newData['targetHostList'] != ['']:
+            changes['targetHostList'] = newData['targetHostList']
+        if newData['location'] != '':
+            changes['location'] = newData['location']
+        if newData['posture'] != '':
+            changes['posture'] = newData['posture']
+        if newData['description'] != '':
+            changes['description'] = newData['description']
+        if newData['vectorID'] != '':
+            changes['vectorID'] = newData['vectorID']
+        if newData['timestamp'] != '':
+            changes['timestamp'] = newData['timestamp']
+        if newData['icon'] != '':
+            changes['icon'] = newData['icon']
+        if newData['xCord'] != '':
+            changes['xCord'] = newData['xCord']
+        if newData['yCord'] != '':
+            changes['yCord'] = newData['yCord']
+        if newData['adjList'] != '':
+            changes['adjList'] = newData['adjList']
+            
         newValues = {'$set' : changes}
         eventsDB.update_one(query, newValues)
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "updated event in " + self.projName)
 
     #const data = {
     #        eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
     #    }
 
+    def updateAllEvents(self, eventList):
+        eventsDB = self.db['projectRepList'][self.projName]['eventRepList']
+        for e in eventList:
+            info = e['eventInfo']
+            query = {'id' : e['id']}
+            changes = {}
+            if info['xCord'] != '':
+                changes['xCord'] = info['xCord']
+            if info['yCord'] != '':
+                changes['yCord'] = info['yCord']
+            if info['adjList'] != '':
+                changes['adjList'] = info['adjList']
+            newValues = {'$set' : changes}
+            eventsDB.update_one(query, newValues)
+            initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+            UserActivityLogger().addToUserLogs(initials, "updated all events in " + self.projName)
+            
+        
+
+
 
     def pullEvents(self):
-        events = self.db[self.projName]['eventRepList'].find()
+        events = self.db['projectRepList'][self.projName]['eventRepList'].find()
         tempList = []
         for e in events:
             temp = EventRepresenter(e['id'], e['initials'], e['team'], e['sourceHost'], e['targetHostList'], e['location'], e['posture'], e['vectorID'], e['description'], e['timestamp'], e['dataSource'])
@@ -78,8 +120,10 @@ class EventsManager:
 
         # SRS data containers to update: events (updates event list), user activity logs (event deleted log),
         # archived events (deleted events), undo activity information (event deletion information)
-
-        self.db[self.projName]['eventRepList'].delete_one({'id' : eventID})
+        # print('Target Event ID: ', eventID)
+        self.db['projectRepList'][self.projName]['eventRepList'].delete_one({'id' : eventID})
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "deleted event in " + self.projName)
 
 
     

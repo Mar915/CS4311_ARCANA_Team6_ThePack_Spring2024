@@ -1,0 +1,68 @@
+.delete-node-overlay {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 600px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 14; 
+}
+
+.delete-node-modal {
+    margin-top: 50px;
+    max-width: 600px;
+    width: 70%;
+    height: auto;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* display: flex; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #fff !important;
+    z-index: 15;
+}
+
+.delete-node-text {
+    margin-top: 50px;
+}
+
+.close-button-delete-node {
+    position: fixed;
+    top: 0px;
+    right: 16px
+}
+
+.close-button-delete-node {
+    cursor: pointer;
+}
+
+.asterisk {
+    color: red;
+    font-weight: bold;
+}
+
+.required {
+    color: lightgray;
+}
+
+.start-end-buttons {
+    display: inline-block;
+}
+
+.cancel-delete-node-button, .confirm-delete-node-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-delete-node-button:hover, .confirm-delete-node-button:hover {
+    background-color: #0056b3;
+  }

@@ -1,0 +1,63 @@
+.ActivityLogs{
+text-align: center;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+color: white;
+background-color: #fff;
+}
+
+.UAL-main{
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.user-activity-logs {
+width: 50%; /* Adjust the width as needed */
+margin: auto;
+padding: 20px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+background-color: #eee;
+color: black;
+border-radius: 10px;
+}
+
+.log-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.log-content {
+height: 300px; /* Adjust height as needed */
+overflow-y: auto;
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 10px;
+}
+
+.empty-logs {
+color: #777;
+text-align: center;
+padding: 50px;
+}
+
+.error-message {
+position: absolute;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+background-color: #ffdddd;
+border-left: 6px solid #f44336;
+padding: 10px 20px;
+border-radius: 5px;
+}
+
+.close-button {
+float: right;
+cursor: pointer;
+}
+  

@@ -6,6 +6,8 @@ from ProjectsManager import ProjectsManager
 from ProjectRepresenter import ProjectRepresenter
 from EventsManager import EventsManager
 from LocalDatabase import Database
+from EventGraphManager import EventGraphManager
+from UserActivityLogger import UserActivityLogger
 
 app = Flask(__name__)
 CORS(app)
@@ -22,11 +24,14 @@ def ingestLogs():
         project = data['project']
     
     resp = jsonify({'result' : 'success'})
-    projectRepresenter = ProjectRepresenter( project['name'], project['initials'], project['location'], project['startDate'], project['endDate'])
+    projectRepresenter = ProjectRepresenter( project['projName'], project['initials'], project['location'], project['startDate'], project['endDate'])
 
     # Goind to hardcode the projectname variable here since we don't have a select function yet
     # but I need the project name for functionality
     projectRepresenter.ingestLogs(directory)
+
+    projectRepresenter = ProjectRepresenter( project['projName'], project['initials'], project['location'], project['startDate'], project['endDate'])
+    projectRepresenter.autoCreateEdges()
     return resp
 
 
@@ -86,34 +91,21 @@ def openProject():
     print(jevents)
     return jevents
 
-@app.route("/showEvents", methods = ['GET', 'POST'])
-def showEvents():
-    # This function should return a list of events
-    # I think openProject already does this so don't work on this method unless
-    # we get hard confirmation it is needed
-
-    # No worries, going to do it anyway, just in case
-
-    if request.method == 'POST':
-        data = request.json
-
-    eM = EventsManager()
-    temp = eM.pullEvents()
-
-    return temp
-
 
 @app.route("/deleteEvent", methods = ['GET', 'POST'])
 def deleteEvent():
     # This function is expecting to receive a json object
     # that contains some unique identifier for events (stil TBD)
     # It needs to find that event in the database and delete it
+    db = Database()
     if request.method == 'POST':
         data = request.json
 
     # event to delete should be accessed by eventID (srs: pg107 under #3, pg115 under 'Event'in data dictionary)
-    em = EventsManager()
-    em.deleteEvent(data['id'])
+    project = data['project']
+    event = data['currEvent']
+    em = EventsManager(db.getRef(), project['projName'])
+    em.deleteEvent(event['id'])
     resp = jsonify({'result' : 'success'})
     return resp
 
@@ -129,7 +121,7 @@ def updateEvent():
 
     project = data['project']
     eM = EventsManager(db.getRef(), project['projName'])
-    eM.updateEvent(data)
+    eM.updateEvent(data['eventData'])
 
     response = jsonify({'some': 'data'})
     return response
@@ -147,13 +139,66 @@ def createEvent():
 
     project = data['project']
     eM = EventsManager(db.getRef(), project['projName'])
-    eM.createEvent(data)
+    eM.createEvent(data['eventData'])
 
     response = jsonify({'some' : 'data'})
     return response
 
 
+@app.route("/updateAllEvents", methods = ['GET', 'POST'])
+def updateAllEvents():
+    db = Database()
+    if request.method == 'POST':
+        data = request.json # data = {project, updateEvents} updateEvents is a list where each item is {id, eventInfo}
+
+    project = data['project']
+    em = EventsManager(db.getRef(), project['projName'])
+    em.updateAllEvents(data['updateEvents'])
+
+    response = jsonify({'some' : 'data'})
+    return response
+
+@app.route("/updatePosition", methods = ['GET', 'POST'])
+def updatePosition():
+    
+    db = Database()
+    if request.method == 'POST':
+        data = request.json
+
+    project = data['project']
+    eGM = EventGraphManager(db.getRef(), project['projName'])
+    eGM.updatePosition(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
+
+@app.route("/updateConnected", methods = ['GET', 'POST'])
+def updateConnected():
+
+    db = Database()
+    if request.method == 'POST':
+        data = request.json
+
+    project = data['project']
+    eGM = EventGraphManager(db.getRef, project['projName'])
+    eGM.updateAdjList(data)
+
+    response = jsonify({'some' : 'data'})
+    return response
+
+@app.route("/userLogs", methods = ['GET'])
+def userLogs():
+    
+    ual = UserActivityLogger()
+    logs = ual.getLogList()
+
+    jLogs = jsonify(logs)    
+
+    print(jLogs)
+    return jLogs
+
 
 # http://127.0.0.1:5000 is the port that backend will run on 
 
 # flask --app ARCANA run (Use this in the environment where you are running Python)
+# flask --app ARCANA --debug run

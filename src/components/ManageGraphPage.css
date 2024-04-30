@@ -1,0 +1,73 @@
+.save-graph-button,
+.export-graph-button,
+.import-graph-button,
+.view-node-button,
+.edit-node-button,
+.create-node-button,
+.delete-node-button,
+.filter-graph-button  {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-graph-button:hover,
+.export-graph-button:hover,
+.import-graph-button:hover,
+.view-node-button:hover,
+.edit-node-button:hover,
+.create-node-button:hover,
+.delete-node-button:hover,
+.filter-graph-button:hover {
+    background-color: #0056b3;
+  }
+
+.graph-container {
+    width: 85vw;
+    height: 80vh;
+    margin-left: 10rem;
+    margin-right: 10rem;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.view-node-overlay, .create-node-overlay, .edit-node-overlay, .delete-node-overlay, .export-graph-overlay, .import-graph-overlay, .filter-graph-overlay {
+    position: fixed;
+    top: 40%; /* Same top position as the modal */
+    left: 50%; /* Same left position as the modal */
+    transform: translate(-50%, -50%);
+    width: 70%; /* Matching the modal width */
+    height: auto; /* Matching the modal height */
+    max-width: 600px; /* Matching the modal max-width */
+    background-color: rgba(255, 255, 255, 0.4); /* Example semi-transparent background */
+    z-index: 14;
+}
+
+.view-node-modal, .create-node-modal, .edit-node-modal, .delete-node-modal, .export-graph-modal, .import-graph-modal, .filter-graph-modal  {
+    margin-top: 50px;
+    max-width: 600px;
+    width: 70%;
+    height: auto;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* display: flex; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    z-index: 15;
+}
+
+.close-button-view-node, .close-button-create-node, .close-button-edit-node, .close-button-delete-node, .close-button-export-node, .close-button-import-node, .close-button-filter-node {
+    position: absolute; 
+    top: 0;
+    right: 16px;
+    cursor: pointer;
+    font-size: 24px; 
+    z-index: 12;
+}
