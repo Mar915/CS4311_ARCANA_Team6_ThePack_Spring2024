@@ -9,9 +9,9 @@ export default function UserActivityLogs({navigateTo}) {
   const loadLogs = async () => {
     try {
       setError(false);
-      // const response = await fetch('/api/logs');
-      // const data = await response.json();
-      // setLogs(data);
+      const response = await fetch('http://127.0.0.1:5000/userLogs');
+      const data = await response.json();
+      setLogs(data);
       console.log("Logs loaded.");
     } catch (e) {
       console.error('Failed to load logs:', e);
@@ -37,7 +37,11 @@ export default function UserActivityLogs({navigateTo}) {
           </div>
           <div className="log-content">
             {logs.length > 0 ? (
-              logs.map((log, index) => <div key={index}>{log}</div>)
+              logs.map((log, index) => (
+                <div key={index}>
+                  <p>[{log.initials}] [{log.timestamp}] {log.statement}</p>
+                </div>
+              ))
             ) : (
               <div className="empty-logs">No logs to display</div>
             )}
