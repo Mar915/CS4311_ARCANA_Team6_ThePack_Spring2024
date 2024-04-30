@@ -1,5 +1,7 @@
 from EventRepresenter import EventRepresenter
 from TOAManager import TOAManager
+from UserActivityLogger import UserActivityLogger
+
 class EventsManager:
     def __init__(self, db, projName):
         self.db = db
@@ -31,6 +33,8 @@ class EventsManager:
         rep['adjList'] = ""
 
         self.db['projectRepList'][self.projName]['eventRepList'].insert_one(rep)
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "created an event in " + self.projName)
         
 
 
@@ -75,6 +79,8 @@ class EventsManager:
             
         newValues = {'$set' : changes}
         eventsDB.update_one(query, newValues)
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "updated event in " + self.projName)
 
     #const data = {
     #        eventDate, eventTime, eventInitials, eventTeam, eventPosture, eventLocation, eventVector, eventSource, parsedHost, eventDescription, eventAuto, currEvent, project
@@ -94,6 +100,8 @@ class EventsManager:
                 changes['adjList'] = info['adjList']
             newValues = {'$set' : changes}
             eventsDB.update_one(query, newValues)
+            initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+            UserActivityLogger().addToUserLogs(initials, "updated all events in " + self.projName)
             
         
 
@@ -114,6 +122,8 @@ class EventsManager:
         # archived events (deleted events), undo activity information (event deletion information)
         # print('Target Event ID: ', eventID)
         self.db['projectRepList'][self.projName]['eventRepList'].delete_one({'id' : eventID})
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "deleted event in " + self.projName)
 
 
     

@@ -1,4 +1,5 @@
 from EventsManager import EventsManager
+from UserActivityLogger import UserActivityLogger
 import numpy as np
 
 class EventGraphManager:
@@ -22,6 +23,8 @@ class EventGraphManager:
         
         newValues = {'$set' : changes}
         eventsDB.update_one(query, newValues)
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "updated node position in " + self.projName + ", event " + targetEvent)
 
 
     def updateAdjList(self, newData):
@@ -91,6 +94,8 @@ class EventGraphManager:
                 y+=100
             
             x+=200
+        initials = self.db['projectRepList'].find_one({'name' : self.projName}).get('initials')
+        UserActivityLogger().addToUserLogs(initials, "edges made for " + self.projName)
             
 
 

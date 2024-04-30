@@ -3,6 +3,7 @@ from EventGraphManager import EventGraphManager
 from TOAManager import TOAManager
 from LogIngestor import LogIngestor
 from LocalDatabase import Database
+from UserActivityLogger import UserActivityLogger
 
 class ProjectRepresenter:
     def __init__(self, name, initials, location, startDate, endDate):
@@ -29,6 +30,7 @@ class ProjectRepresenter:
     def ingestLogs(self, directory):
         ingestor = LogIngestor(self.db['projectRepList'][self.name], self.ingestedFiles)
         errors, eventRepList = ingestor.traverseFiles(directory)
+        UserActivityLogger().addToUserLogs(self.initials, "ingested in " + self.name)
         #print(errors)
         #print("Events created: ", len(eventRepList))
 
