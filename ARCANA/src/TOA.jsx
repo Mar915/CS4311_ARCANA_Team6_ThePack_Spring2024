@@ -1,6 +1,7 @@
 import React from 'react';
 
 function TOA(){
+    return(
     <body>
         <header>
         <h1>
@@ -17,19 +18,18 @@ function TOA(){
         </header>
         <section class="team-icons">
             <h2>Red Team TOA Icons</h2>
-            <hr>
             <div class="icon-row">
                 <div class="icon">
-                    <img src="red-user-icon-hi.png" alt="Icon 1">
+                    <img src="red-user-icon-hi.png" alt="Icon 1"/>
                     <p>Red Team Activity</p>
                     <p>[Default]</p>
                 </div>
                 <div class="icon">
-                    <img src="redshield.jfif" alt="Icon 2">
+                    <img src="redshield.jfif" alt="Icon 2"/>
                     <p>Protection</p>
                 </div>
                 <div class="icon">
-                    <img src="icon3.png" alt="Icon 3">
+                    <img src= "..\public\Icons\default_blue.png"  alt="default_blue"/>
                 </div>
             </div>
         </section>
@@ -39,15 +39,15 @@ function TOA(){
             
             <div class="icon-row">
                 <div class="icon">
-                    <img src="blue-user-icon-hi.png" alt="Icon 1">
+                    <img src="blue-user-icon-hi.png" alt="Icon 1"/>
                     <p>Blue Team Activity</p>
                     <p>[Default]</p>
                 </div>
                 <div class="icon">
-                    <img src="icon2.png" alt="Icon 2">
+                    <img src="icon2.png" alt="Icon 2"/>
                 </div>
                 <div class="icon">
-                    <img src="icon3.png" alt="Icon 3">
+                    <img src="icon3.png" alt="Icon 3"/>
                 </div>
             </div>
         </section>
@@ -57,19 +57,20 @@ function TOA(){
             
             <div class="icon-row">
                 <div class="icon">
-                    <img src="User-Icon-Grey-300x300.png" alt="Icon 1">
+                    <img src="User-Icon-Grey-300x300.png" alt="Icon 1"/>
                     <p>White Team Activity</p>
                     <p>[Default]</p>
                 </div>
                 <div class="icon">
-                    <img src="icon2.png" alt="Icon 2">
+                    <img src="icon2.png" alt="Icon 2"/>
                 </div>
                 <div class="icon">
-                    <img src="icon3.png" alt="Icon 3">
+                    <img src="icon3.png" alt="Icon 3"/>
                 </div>
             </div>
         </section>
 
     </body>
+    );
 }
-export default TOA
+export default TOA;
