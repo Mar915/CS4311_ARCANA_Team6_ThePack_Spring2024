@@ -22,15 +22,40 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
     const [iconNames, setIconNames] = useState([]);
 
     useEffect(() => {
-        // Fetch icon filenames or paths from a server-side endpoint
-        axios.get('http://example.com/icons')
-            .then(response => {
-                setIconNames(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching icon filenames:', error);
-            });
+        const fetchIconNames = async () => {
+            try {
+                const response = await axios.get('..\..\..\public\Icons');
+                setIconNames(response.data.iconNames);
+                // Optionally, set the first filename as the default nodeIcon
+                if (response.data.iconNames.length > 0) {
+                    setNodeIcon(response.data.iconNames[0]);
+                }
+            } catch (error) {
+                console.error('Error fetching filenames:', error);
+            }
+        };
+
+        fetchIconNames();
     }, []);
+
+    const extractIconName = (path) => {
+        const parts = path.split('/');
+        const iconName = parts.pop();
+        const directory = parts.join('/');
+        return [directory, iconName];
+    };
+        
+    //     // Fetch icon filenames or paths from a server-side endpoint
+    //     axios.get('http://example.com/icons')
+    //         .then(response => {
+    //             setIconNames(response.data);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching icon filenames:', error);
+    //         });
+    // }, []);
+
+    
 
     const editNode = async (event) => {
 
@@ -131,7 +156,9 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setIconNames(icon.target.value) }}>
+
                             <option className="node-white" value="White">White</option>
                             <option className="node-red" value="Red">Red</option>
                             <option className="node-blue" value="Blue">Blue</option>
@@ -139,8 +166,9 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
                             <option className="node-protect" value="Protect">Protect</option>
                             <option className="node-react" value="React">React</option>
                             <option className="node-restore" value="Restore">Restore</option>
-                            {filenames.map((filename, index) => (
-                                <option key={index} value={filename}>{filename}</option>
+
+                            {iconNames.map((iconName, index) => (
+                                <option key={index} value={iconName}>{iconName}</option>
                             ))}
                         </select>
                     </label>
