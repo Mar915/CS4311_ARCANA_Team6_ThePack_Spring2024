@@ -24,7 +24,7 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
     useEffect(() => {
         const fetchIconNames = async () => {
             try {
-                const response = await axios.get('..\..\..\public\Icons');
+                const response = await axios.get('../../public/Icons');
                 setIconNames(response.data.iconNames);
                 // Optionally, set the first filename as the default nodeIcon
                 if (response.data.iconNames.length > 0) {
