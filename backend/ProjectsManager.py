@@ -1,4 +1,5 @@
 from ProjectRepresenter import ProjectRepresenter
+from UserActivityLogger import UserActivityLogger
 from LocalDatabase import Database
 
 class ProjectsManager:
@@ -45,15 +46,18 @@ class ProjectsManager:
             self.db['projectRepList'].insert_one({'name': name, 'initials': initials, 'location' : location, 'startDate' : startDate, 'endDate' : endDate})
 
         #No need to create the object here, as the next time ProjectsManager is initialized, it will make the objects
+        UserActivityLogger().addToUserLogs(initials, "created project" + name)
 
     def deleteProject(self, projName):
         # All we need is to call this function to get rid of the specified project in the database
         # It deletes the project document in the projectRepList, and its two collections 
         # Should probably ask for confirmation since we can't bring this bad boy back
+        initials = self.db['projectRepList'].find_one({'name' : projName}).get('initials')
         self.db['projectRepList'].delete_one({'name' : projName})  # Deletes the document based on projName
         target = self.db['projectRepList'][projName] #
         target['ingestedFiles'].drop()
         target['eventRepList'].drop()
+        UserActivityLogger().addToUserLogs(initials, "deleted project" + projName)
 
     def openProject(self, projName):
         # Basic idea is to return a list of dictionaries 

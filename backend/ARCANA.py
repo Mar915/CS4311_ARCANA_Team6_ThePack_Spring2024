@@ -7,6 +7,7 @@ from ProjectRepresenter import ProjectRepresenter
 from EventsManager import EventsManager
 from LocalDatabase import Database
 from EventGraphManager import EventGraphManager
+from UserActivityLogger import UserActivityLogger
 
 app = Flask(__name__)
 CORS(app)
@@ -28,6 +29,9 @@ def ingestLogs():
     # Goind to hardcode the projectname variable here since we don't have a select function yet
     # but I need the project name for functionality
     projectRepresenter.ingestLogs(directory)
+
+    projectRepresenter = ProjectRepresenter( project['projName'], project['initials'], project['location'], project['startDate'], project['endDate'])
+    projectRepresenter.autoCreateEdges()
     return resp
 
 
@@ -182,8 +186,19 @@ def updateConnected():
     response = jsonify({'some' : 'data'})
     return response
 
+@app.route("/userLogs", methods = ['GET'])
+def userLogs():
+    
+    ual = UserActivityLogger()
+    logs = ual.getLogList()
+
+    jLogs = jsonify(logs)    
+
+    print(jLogs)
+    return jLogs
 
 
 # http://127.0.0.1:5000 is the port that backend will run on 
 
 # flask --app ARCANA run (Use this in the environment where you are running Python)
+# flask --app ARCANA --debug run

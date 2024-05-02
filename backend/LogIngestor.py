@@ -28,7 +28,7 @@ class LogIngestor:
         events = []
         for event in log:
             #Can't parse posture
-            rep = EventRepresenter(startID, str(event[6]), str(event[4]), str(event[2]), str(event[3]), str(event[5]), "", str(event[7]), str(event[1]), str(event[0]), dataSource )
+            rep = EventRepresenter(str(startID), str(event[6]), str(event[4]), str(event[2]), str(event[3]), str(event[5]), "", str(event[7]), str(event[1]), str(event[0]), dataSource )
             events.append(rep)
             startID += 1
         self.uploadEvents(events)
@@ -38,7 +38,7 @@ class LogIngestor:
     def uploadEvents(self, log):
         events = []
         for e in log:
-            rep = {'isMalformed' : str(e.isMalformed), 'id': e.eventID, 'initials' : e.initials, 'team' : e.team, 'sourceHost' : e.sourceHost, 'targetHostList' : e.targetHostList, 'location' : e.location, 'posture' : e.posture, 'vectorID' : e.vectorID, 'description' : e.description, 'timestamp' : e.timestamp, 'icon': e.icon, 'dataSource' : e.dataSource}
+            rep = {'isMalformed' : str(e.isMalformed), 'id': e.eventID, 'initials' : e.initials, 'team' : e.team, 'sourceHost' : e.sourceHost, 'targetHostList' : e.targetHostList, 'location' : e.location, 'posture' : e.posture, 'vectorID' : e.vectorID, 'description' : e.description, 'timestamp' : e.timestamp, 'icon': e.icon, 'dataSource' : e.dataSource, 'adjList' : e.adjList, 'xCord': e.xCord, 'yCord' : e.yCord}
             events.append(rep)
 
         self.eventList.insert_many(events)

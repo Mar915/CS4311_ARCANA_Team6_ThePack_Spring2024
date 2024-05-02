@@ -4,7 +4,7 @@ import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList, setSelectedNode, setNodes, project, setFetchEvents }) => {
+const DeleteNodePage = ({ open, onClose, node, eventList, setEventList, setList, setNodes, project, setFetchEvents }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
 

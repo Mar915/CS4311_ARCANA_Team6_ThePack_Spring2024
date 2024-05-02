@@ -1,61 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import "./CreateNodePage.css"
 import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
 import FailMessage from './FailMessage';
 
-const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
+const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, project, setFetchEvents, setNodes }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showFail, setShowFail] = useState(false);
     const [nodeDate, setNodeDate] = useState('');
     const [nodeTime, setNodeTime] = useState('');
     const [nodeInitials, setNodeInitials] = useState('');
-    const [nodeTeam, setNodeTeam] = useState('');
+    const [nodeTeam, setNodeTeam] = useState('White');
     const [nodePosture, setNodePosture] = useState('');
     const [nodeLocation, setNodeLocation] = useState('');
     const [nodeVector, setNodeVector] = useState('');
     const [nodeSource, setNodeSource] = useState('');
     const [nodeHost, setNodeHost] = useState('');
     const [nodeDescription, setNodeDescription] = useState('');
-    const [nodeIcon, setNodeIcon] = useState('');
-    const [nodeAuto, setNodeAuto] = useState(false);
-    const [filenames, setFilenames] = useState([]);
+    const [nodeIcon, setNodeIcon] = useState('White');
+    const [nodeAuto, setNodeAuto] = useState(false)
 
-    useEffect(() => {
-        const fetchFilenames = async () => {
-            try {
-                const response = await axios.get('..\..\..\public\Icons');
-                setFilenames(response.data.filenames);
-                // Optionally, set the first filename as the default nodeIcon
-                if (response.data.filenames.length > 0) {
-                    setNodeIcon(response.data.filenames[0]);
-                }
-            } catch (error) {
-                console.error('Error fetching filenames:', error);
-            }
-        };
-
-        fetchFilenames();
-    }, []);
-
-    const extractFilename = (path) => {
-        const parts = path.split('/');
-        const filename = parts.pop();
-        const directory = parts.join('/');
-        return [directory, filename];
-    };
-    const createNode = async (node) => {
-        node.preventDefault()
-
-        const [directory, filename] = extractFilename(nodeIcon);
+    // [TO-DO]
+    const createNode = async (event) => {
+        event.preventDefault()
 
         const parsedHost = nodeHost.split(",").map((host) =>host.trim())
-
+        console.log(nodeIcon)
+        const icon = `default_${nodeIcon.toLowerCase()}`
         
         const eventData = {
             timestamp: nodeDate + " " + nodeTime, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
             location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: parsedHost,
-            description: nodeDescription, icon: nodeIcon, isMalformed: nodeAuto, dataSource: "User Created"
+            description: nodeDescription, icon: icon, isMalformed: nodeAuto, dataSource: "User Created"
         }
 
         const data = {
@@ -67,6 +43,21 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
             // setNodeSource(prev => (
             //     [...prev,nodeData]
             // ))
+
+            // needed this for the created node to display the info for 'ReactFlow'
+            const newNode = {
+                id: (eventList.length + 1).toString(),
+                position: { x: 0, y: 0 },
+                data: {
+                    label:
+                        `${eventData.team} Team Activity\nTime: ${eventData.timestamp}\nLocation: ${eventData.location}`, eventData: eventData
+                },
+                height: 85,
+                width: 150 
+            }
+            setEventList(prev => [...prev, newNode])
+            setList(prev => [...prev, newNode])
+            setNodes(prev => [...prev, newNode])
             setNodeDate("");
             setNodeTime("");
             setNodeInitials("");
@@ -136,7 +127,7 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
-                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeTeam(icon.target.value) }}>
+                        <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setNodeIcon(icon.target.value) }}>
                             <option className="node-white" value="White">White</option>
                             <option className="node-red" value="Red">Red</option>
                             <option className="node-blue" value="Blue">Blue</option>
@@ -144,9 +135,6 @@ const CreateNodePage = ({ open, onClose, project, setFetchEvents }) => {
                             <option className="node-protect" value="Protect">Protect</option>
                             <option className="node-react" value="React">React</option>
                             <option className="node-restore" value="Restore">Restore</option>
-                            {filenames.map((filename, index) => (
-                                <option key={index} value={filename}>{filename}</option>
-                            ))}
                         </select>
                     </label>
                     <br></br>

@@ -156,7 +156,9 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
                     <label>
                         TOA Icon<span className="asterisk">* </span><span className="required">(required)</span>
                         <br></br>
+
                         <select name="node-icon" required value={nodeIcon} onChange={(icon) => { setIconNames(icon.target.value) }}>
+
                             <option className="node-white" value="White">White</option>
                             <option className="node-red" value="Red">Red</option>
                             <option className="node-blue" value="Blue">Blue</option>
@@ -164,11 +166,13 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
                             <option className="node-protect" value="Protect">Protect</option>
                             <option className="node-react" value="React">React</option>
                             <option className="node-restore" value="Restore">Restore</option>
+
                             {iconNames.map((iconName, index) => (
                                 <option key={index} value={iconName}>{iconName}</option>
                             ))}
                         </select>
                     </label>
+                    <br></br>
                     <label>
                         Posture
                         <br></br>

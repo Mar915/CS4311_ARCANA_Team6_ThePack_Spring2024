@@ -27,25 +27,41 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
                 setList([...initialNodes, ...newList]);
             };
             populateNode();
-            console.log(eventList)
+            console.log("Event List (MGP)", eventList)
             
             const populateEdge = () => {
                 const newEdgeList = []
                 eventList.forEach((event) => {
-                    if (event.AdjList && event.AdjList.length > 0) {
-                        event.AdjList.forEach((target) => {
+                    if (event.adjList && event.adjList !== -1) {
+                        console.log("Populating edges", event.adjList)
+                        // Save single-edged event
+                        if (!Array.isArray(event.adjList)) {
                             const tempEdge = {
-                                id: `${event.id}-${target.id}`,
+                                id: `${event.id}-${event.adjList}`,
                                 source: event.id,
-                                target: target.id
+                                target: event.adjList
                             }
+                            console.log(tempEdge)
                             newEdgeList.push(tempEdge)
-                        })
+                        }
+                        // Iterate and save multi-edged event
+                        else {
+                            event.adjList.forEach((target) => {
+                                const tempEdge = {
+                                    id: `${event.id}-${target.id}`,
+                                    source: event.id,
+                                    target: target.id
+                                }
+                                console.log(tempEdge)
+                                newEdgeList.push(tempEdge)
+                            })
+                        }
                     }
                 })
                 setEdgeList([...initialEdges, ...newEdgeList])
             }
             populateEdge()
+            console.log("Edge List (MGP)", edgeList)
             setFetchEvents(false)
         }
     }, [fetchEvents, eventList]);
@@ -56,7 +72,7 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
 
     return (
         <div>
-            {list.length > 0 &&
+            {list.length > 0 && !fetchEvents &&
                 <ViewGraphPage initialNodes={list} initialEdges={edgeList} eventList={eventList} setEventList={setEventList} setList={setList} project={project} setFetchEvents={setFetchEvents} fetchEvents={fetchEvents}/>
             }
         </div>
