@@ -38,7 +38,7 @@ class LogIngestor:
     def uploadEvents(self, log):
         events = []
         for e in log:
-            rep = {'isMalformed' : str(e.isMalformed), 'id': e.eventID, 'initials' : e.initials, 'team' : e.team, 'sourceHost' : e.sourceHost, 'targetHostList' : e.targetHostList, 'location' : e.location, 'posture' : e.posture, 'vectorID' : e.vectorID, 'description' : e.description, 'timestamp' : e.timestamp, 'icon': e.icon, 'dataSource' : e.dataSource}
+            rep = {'isMalformed' : str(e.isMalformed), 'id': e.eventID, 'initials' : e.initials, 'team' : e.team, 'sourceHost' : e.sourceHost, 'targetHostList' : e.targetHostList, 'location' : e.location, 'posture' : e.posture, 'vectorID' : e.vectorID, 'description' : e.description, 'timestamp' : e.timestamp, 'icon': e.icon, 'dataSource' : e.dataSource, 'adjList' : e.adjList, 'xCord': e.xCord, 'yCord' : e.yCord}
             events.append(rep)
 
         self.eventList.insert_many(events)
