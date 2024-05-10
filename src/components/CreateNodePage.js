@@ -43,7 +43,6 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
             // setNodeSource(prev => (
             //     [...prev,nodeData]
             // ))
-
             // needed this for the created node to display the info for 'ReactFlow'
             const newNode = {
                 id: (eventList.length + 1).toString(),
