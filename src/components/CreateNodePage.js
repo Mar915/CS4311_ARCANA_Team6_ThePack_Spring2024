@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import "./CreateNodePage.css"
 import axios from 'axios';
 import SuccessMessage from './SuccessMessage';
@@ -24,10 +24,13 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
     const createNode = async (event) => {
         event.preventDefault()
 
-        const parsedHost = nodeHost.split(",").map((host) =>host.trim())
+        const parsedHost = nodeHost.split(",").map((host) => host.trim())
         console.log(nodeIcon)
-        const icon = `default_${nodeIcon.toLowerCase()}`
-        
+        let icon;
+        if (nodeIcon) {
+            icon = `default_${nodeIcon.toLowerCase()}`
+        }
+
         const eventData = {
             timestamp: nodeDate + " " + nodeTime, initials: nodeInitials, team: nodeTeam, posture: nodePosture,
             location: nodeLocation, vectorID: nodeVector, sourceHost: nodeSource, targetHostList: parsedHost,
@@ -49,12 +52,18 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
                 position: { x: 0, y: 0 },
                 data: {
                     label:
-                        `${eventData.team} Team Activity\nTime: ${eventData.timestamp}\nLocation: ${eventData.location}`, eventData: eventData
+                        (<div>
+                            <img src={(eventData.icon ? `/Icons/${eventData.icon.toLowerCase()}.png` : "")} height={50} width={50} alt="Team Image" />
+                            <p>
+                                Time: {eventData.timestamp}<br />
+                                Location: {eventData.location}
+                            </p>
+                        </div>), eventData: eventData
                 },
                 height: 85,
-                width: 150 
+                width: 150
             }
-            setEventList(prev => [...prev, newNode])
+            setEventList(prev => [...prev, { ...eventData, id: (eventList.length + 1).toString()}])
             setList(prev => [...prev, newNode])
             setNodes(prev => [...prev, newNode])
             setNodeDate("");
@@ -83,7 +92,7 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
         return null
     }
 
-    const closeMessage = () =>{
+    const closeMessage = () => {
         setShowFail(false)
         setShowSuccess(false)
     }
@@ -94,11 +103,11 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
             <div className="create-node-modal">
                 <h1>Create Node</h1>
                 <p className="close-button-create-node" onClick={onClose}>X</p>
-                <form className= "create-node-form" onSubmit= {(node) => { createNode(node)}}>
+                <form className="create-node-form" onSubmit={(node) => { createNode(node) }}>
                     <label>
                         Date
                         <br></br>
-                        <input type="date" name="node-date" onChange={() => { setNodeDate(document.querySelector('input[name="node-date"]').value)}} />
+                        <input type="date" name="node-date" onChange={() => { setNodeDate(document.querySelector('input[name="node-date"]').value) }} />
                     </label>
                     <br></br>
                     <label>
@@ -179,7 +188,7 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
                         <input type="checkbox" name="node-auto" checked={nodeAuto} onChange={() => { setNodeAuto(!nodeAuto) }} />
                     </label>
                     <br></br>
-                    <button className= "cancel-node-button" onClick={onClose}>Cancel</button>
+                    <button className="cancel-node-button" onClick={onClose}>Cancel</button>
                     <input type="submit" value="Create Node" className="create-node-confirm-button" />
                     <br></br>
                     <br></br>
@@ -192,7 +201,7 @@ const CreateNodePage = ({ open, onClose, eventList, setEventList, setList, proje
                                 message={'Error: Unable to create node'}
                                 onClose={closeMessage}
                             />
-                            
+
                         ))}
                 </form>
             </div>

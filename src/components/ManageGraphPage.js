@@ -18,11 +18,16 @@ export default function ManageGraphPage({ project, eventList, setEventList }) {
                     id: event.id,
                     position: { x: event.xCord !== undefined && event.xCord !== null ? event.xCord : 0, y: event.yCord !== undefined && event.yCord !== null ? event.yCord : 0 },
                     data: {
-                        label:
-                            `${event.team} Team Activity\nTime: ${event.timestamp}\nLocation: ${event.location}`, eventData: event
+                        label: (  <div>
+                            <img src={(event.icon ? `/Icons/${event.icon.toLowerCase()}.png` : "")} height={20} width={20} alt="Team Image" />
+                            <p style={{fontSize: '10px'}}>
+                                {event.timestamp}, {event.location}
+                            </p>
+                        </div> ),
+                        eventData: event
                     },
-                    height: 85,
-                    width: 150 
+                    height: 50,
+                    width: 100 
                 }));
                 setList([...initialNodes, ...newList]);
             };

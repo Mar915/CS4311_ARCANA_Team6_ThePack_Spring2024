@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserActivityLogs.css';
 import { IoIosRefresh } from "react-icons/io";
 
@@ -26,6 +26,10 @@ export default function UserActivityLogs({navigateTo}) {
   const handleCloseError = () => {
     setError(false);
   };
+
+  useEffect(() => {
+    loadLogs()
+  }, [])
 
   return (
     <div className="ActivityLogs">

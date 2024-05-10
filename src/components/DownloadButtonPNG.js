@@ -16,7 +16,8 @@ const imageHeight = 768;
 
 function DownloadButtonPNG() {
   const { getNodes } = useReactFlow();
-  const onClick = () => {
+  const onClick = (event) => {
+    event.preventDefault()
     // we calculate a transform for the nodes so that all nodes are visible
     // we then overwrite the transform of the `.react-flow__viewport` element
     // with the style option of the html-to-image library
@@ -32,7 +33,9 @@ function DownloadButtonPNG() {
         height: imageHeight,
         transform: `translate(${transform[0]}px, ${transform[1]}px) scale(${transform[2]})`,
       },
-    }).then(downloadImage);
+    }).then(downloadImage).catch((e) => {
+      console.log(e)
+    })
   };
 
   return (

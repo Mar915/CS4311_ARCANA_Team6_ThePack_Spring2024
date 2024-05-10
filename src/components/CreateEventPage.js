@@ -30,7 +30,7 @@ const CreateEventPage = ({ open, onClose, project, setEvents, setFetchEvents }) 
         console.log(icon)
 
         const eventData = {
-            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: nodeIcon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: parsedHost, description: eventDescription, isMalformed: eventAuto, dataSource: "User Created"
+            timestamp: eventDate + " " + eventTime, initials: eventInitials, team: eventTeam, posture: eventPosture, icon: icon, location: eventLocation, vectorID: eventVector, sourceHost: eventSource, targetHostList: parsedHost, description: eventDescription, isMalformed: eventAuto, dataSource: "User Created"
         }
         const data = {
              project, eventData

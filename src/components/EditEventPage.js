@@ -28,7 +28,7 @@ const EditEventPage = ({ open, onClose, project, currEvent, setFetchEvents}) => 
 
         const parsedHost = eventHost.split(",").map((host) => host.trim())
 
-        const icon = `default_${nodeIcon.toLowerCase()}`
+        const icon = `default_${(nodeIcon.toLowerCase() || currEvent.team)}`
 
 
         // Data source can't be edited so we need to pass it to edited event
