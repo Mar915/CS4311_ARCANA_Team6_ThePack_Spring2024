@@ -1,10 +1,10 @@
-body {
+#toa-main-body {
     display: flex;
     flex-direction: column;
     margin: 10;
   }
 
-  header {
+  #toa-main-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -20,17 +20,12 @@ body {
 .required {
     color: red;
 }
-div{
+.toa-main-div {
     width: 100%;
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
     padding: 10px; /* Adjust padding as needed */
 }
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-    font-weight: bold;
-}
+
 .location-info input[type="text"]{
     width: 100%;
     box-sizing: border-box;
@@ -131,10 +126,7 @@ label {
 .success-message button:hover{
     text-decoration: underline;
 }
-body {
-    display: flex;
-    flex-direction: column;
-}
+
 
 .team-icons {
     margin-bottom: 20px;
