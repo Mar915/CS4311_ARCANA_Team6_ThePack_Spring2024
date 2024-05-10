@@ -26,7 +26,7 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
             try {
                 const response = await axios.get('../../public/Icons');
                 setIconNames(response.data.iconNames);
-                // Optionally, set the first filename as the default nodeIcon
+                // Optionally, set the first filename as the default nodeIcon 
                 if (response.data.iconNames.length > 0) {
                     setNodeIcon(response.data.iconNames[0]);
                 }
@@ -38,12 +38,12 @@ const EditNodePage = ({ open, onClose, node, nodes, setFetchEvents, project }) =
         fetchIconNames();
     }, []);
 
-    const extractIconName = (path) => {
-        const parts = path.split('/');
-        const iconName = parts.pop();
-        const directory = parts.join('/');
-        return [directory, iconName];
-    };
+    // const extractIconName = (path) => {
+    //     const parts = path.split('/');
+    //     const iconName = parts.pop();
+    //     const directory = parts.join('/');
+    //     return [directory, iconName];
+    // };
         
     //     // Fetch icon filenames or paths from a server-side endpoint
     //     axios.get('http://example.com/icons')

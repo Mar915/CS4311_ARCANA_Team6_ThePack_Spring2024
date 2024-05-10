@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import NavBar from './components/NavBar';
 import MainMenu from './components/MainMenu';
+import TOA from './components/TOA';
 import ChangeColorPage from './components/ChangeColorPage'; // Import the new component
 import './App.css';
 import ManageProjectPage from './components/ManageProjectPage';
@@ -35,6 +36,7 @@ function App() {
       {currentPage === 'changeColor' && <ChangeColorPage navigateTo={navigateTo}/>}
       {currentPage === 'manageProjects' && <ManageProjectPage navigateTo={navigateTo} />}
       {currentPage === 'viewLogs' && <UserActivityLogs navigateTo={navigateTo} />}
+      {currentPage == 'TOA' && <TOA navigateTo={navigateTo} />}
       {/* [TO DO]: Switch route to event page */}
       {currentPage === 'syncProjects' && <SyncConnectionPage navigateTo={navigateTo} />}
       {currentPage === 'tempProjectPage' && <TempProjectPage navigateTo={navigateTo} project={selectedProject}/>}
