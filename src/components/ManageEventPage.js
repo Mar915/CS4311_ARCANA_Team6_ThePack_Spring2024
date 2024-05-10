@@ -109,8 +109,16 @@ function ManageEventPage({ navigateTo, project }) {
             <div className="event-header-container">
                 <h1 className="event-header">Manage Events</h1>
             </div>
+            
+            <div className="event-option-buttons">
             <button className="create-event-button" onClick={() => setOpenCreateModal((true))}>+ Create Event</button>
             <CreateEventPage open={openModalCreate} onClose={() => setOpenCreateModal(false)} project={project} setEvents={setEvents} setFetchEvents={setFetchEvents}></CreateEventPage>
+                <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
+                {selectEvent !== null && <EditEventPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent} setEvents={setEvents} setFetchEvents={setFetchEvents}></EditEventPage>}
+                <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
+                {selectEvent !== null && <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent} setEvents={setEvents} setFetchEvents={setFetchEvents}></DeleteEventPage>}
+                <button className="graph-event-button" onClick={() => navigateTo('manageGraphPage', project, events)}>Event Graph</button>
+            </div>
             <div className="event-list-container">
                 <table className="event-list">
                     <thead>
@@ -155,13 +163,7 @@ function ManageEventPage({ navigateTo, project }) {
                     />
                 )}
             </div>
-            <div className="event-option-buttons">
-                <button className="inject-event-button" onClick={() => setOpenIngestModal((true))}>Update Events</button>
-                {selectEvent !== null && <EditEventPage open={openModalIngest} onClose={() => setOpenIngestModal(false)} project={project} currEvent={selectEvent} setEvents={setEvents} setFetchEvents={setFetchEvents}></EditEventPage>}
-                <button className="delete-event-button" onClick={() => setOpenDeleteModal((true))}>Delete Event</button>
-                {selectEvent !== null && <DeleteEventPage open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={project} currEvent={selectEvent} setEvents={setEvents} setFetchEvents={setFetchEvents}></DeleteEventPage>}
-                <button className="graph-event-button" onClick={() => navigateTo('manageGraphPage', project, events)}>Event Graph</button>
-            </div>
+           
         </div>
     );
 }
