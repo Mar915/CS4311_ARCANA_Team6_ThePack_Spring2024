@@ -1,7 +1,16 @@
-import React from 'react';
 import './TOA.css';
+import CreateToa from "./CreateTOA"
+import React, { useState } from 'react';
+import EditTOA from './EditTOA';
+// import DeleteTOA from './DeleteTOA';
+
+
 
 function TOA(){
+    const [openModalCreate, setOpenCreateModal] = useState(false)
+    const [openModalDelete, setOpenDeleteModal] = useState(false)
+    const [openModalEdit, setOpenEditModal] = useState(false)
+
     return(
     <body id='toa-main-body'>
         <header id='toa-main-header'>
@@ -11,9 +20,13 @@ function TOA(){
         </header>
         <div class="buttons toa-main-div">
             <div class="button-container">
-                <button class="createTOA-button">+ Create TOA</button>
-                <button class="edit-button">Edit TOA</button>
+                <button class="createTOA-button" onClick={() => setOpenCreateModal(true)}>+ Create TOA</button>
+                {<CreateToa open={openModalCreate} onClose={() => setOpenCreateModal(false)} project={null}></CreateToa>}
+                <button class="edit-button"  onClick={() => setOpenEditModal(true)}>Edit TOA</button>
+                {<EditTOA open={openModalEdit} onClose={() => setOpenEditModal(false)} project={null} TOA={null}></EditTOA>}
                 <button class="delete-button">Delete TOA</button>
+                {/* {<DeleteTOA open={openModalDelete} onClose={() => setOpenDeleteModal(false)} project={null} TOA={null}></DeleteTOA>} */}
+
             </div>
         </div>
         
